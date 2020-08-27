@@ -1,0 +1,24 @@
+fx[1] =
+{
+    {
+        bFadeout = 1
+        bDepthBuffer = 1
+        bWeaponView = 1
+        translation = { 0.000000 1.000000 0.000000 }
+        scale = 25.500000
+        scaleDest = 1.000000
+        shader = "progs/worldcolorfx"
+        sprite = "sprites/fx006"
+        instances = 1
+        lifeTime = 8
+        animSpeed = 20
+        whiteColor = { 1.000000 0.000000 0.000000 }
+        blackColor = { 1.000000 0.000000 0.000000 }
+        hueRandom = 0.000000
+        saturationRandom = 0.000000
+        brightnessRandom = 0.000000
+        onCollideWall = 1
+        onCollideFloor = 1
+        priority = 50
+    }
+}

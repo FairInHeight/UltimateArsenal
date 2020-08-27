@@ -4,7 +4,7 @@ Ultimate Overhaul's weapon expansion
 	Binding Keys
 ================================================================================
 
-Turok+ adds the following optional functions to bind:
+Ultimate Arsenal adds the following optional functions to bind:
 
 	"call AmmoToggle" - Swaps primary/alt ammo
 	"call SpAtk"  - Perform special action

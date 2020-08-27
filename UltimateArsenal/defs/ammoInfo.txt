@@ -42,8 +42,8 @@ Ammo_Pulse
 //Flamehrower ammo
 Ammo_Fuel
 {
-	max		50
-	maxBackpack	100
+	max		100
+	maxBackpack	150
 	icon		"gfx/hud/h_a_fuel.tga"
 	offset          11.0
   	icon_width    	28.0

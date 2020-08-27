@@ -516,6 +516,7 @@ final class TurokPistol : TurokWeapon
 		if(bIncendiary)
 		{
 		self.FireProjectile("fx/incendiary.kfx", 13.107f, 25.6f, -10.24f);
+		self.FireProjectile("fx/trail_incendiary.kfx", 13.107f, 25.6f, -10.24f);
 		}
 		else
 		{

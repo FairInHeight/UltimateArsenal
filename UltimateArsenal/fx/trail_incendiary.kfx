@@ -7,6 +7,7 @@ fx[1] =
         translation = { 0.000000 1.000000 0.000000 }
         scale = 25.500000
         scaleDest = 1.000000
+        forwardSpeed = 3600.000000
         shader = "progs/worldcolorfx"
         sprite = "sprites/fx006"
         instances = 1

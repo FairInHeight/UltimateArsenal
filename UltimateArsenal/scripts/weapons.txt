@@ -935,10 +935,24 @@ final class TurokRifle : TurokWeapon
     ==============================================================
     */
 
-    void OnBeginFire(void)
+    void OnBeginFire(void) // DM23 We have to use OnBeginFire for semi shot, and OnFire for burst fire. 5005 is anim_weaponAltFire ID for animation
     {
-        self.AnimState().Set(anim_weaponFire, 4.0f, 0);
-        rifleShotsFired = 0;
+
+		if(bSemiAuto)
+			{
+				self.AnimState().Set(5005, 4.0f, 0);
+				self.PlaySound("sounds/shaders/rifle_shot.ksnd");
+				self.FireProjectile("fx/bullet_shell.kfx", 11.26f, 27.64f, -8.192f, true);
+				self.FireProjectile("fx/weffect_assaultrifle.kfx", 5.12f+0.35f, 29.69f, -3.584f-0.5f);
+				self.FireProjectile("fx/bullet.kfx", 10.24f, 25.6f, -10.24f);
+				self.RunFxEvent("GunFire");
+				self.Owner().Actor().LoudNoiseAlert();
+				self.Owner().Actor().RecoilPitch() = -0.02416609786450863f;
+				UseAmmo(1);	
+				rifleShotsFired = 0;
+			}
+		else
+		{self.AnimState().Set(anim_weaponFire, 4.0f, 0); rifleShotsFired = 0;}
     }
 
     /*
@@ -949,8 +963,9 @@ final class TurokRifle : TurokWeapon
 
     void OnFire(void)
     {
-	
-		if(!bSemiAuto)
+		if(bSemiAuto)
+		{return;}
+		else
 		{
         switch(rifleShotsFired)
 			{
@@ -1000,19 +1015,7 @@ final class TurokRifle : TurokWeapon
 				break;
 			}
 		}
-		else
-		{
-			self.PlaySound("sounds/shaders/rifle_shot.ksnd");
-			self.FireProjectile("fx/bullet_shell.kfx", 11.26f, 27.64f, -8.192f, true);
-			self.FireProjectile("fx/weffect_assaultrifle.kfx", 5.12f+0.35f, 29.69f, -3.584f-0.5f);
-			self.FireProjectile("fx/bullet.kfx", 10.24f, 25.6f, -10.24f);
-			self.RunFxEvent("GunFire");
-			self.Owner().Actor().LoudNoiseAlert();
-			self.Owner().Actor().RecoilPitch() = -0.02416609786450863f;
-			UseAmmo(1);
-		
-		}
-    }
+	}
 }
 
 //-----------------------------------------------------------------------------

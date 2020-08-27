@@ -206,23 +206,20 @@ Trail_Rocket
 //
 //-----------------------------------------------------------------------------
 
-Vertex_IncendiaryTrail_Start_1 { pos " 2.0  0.0  0.0" color "255.0 100.0 100.0" alpha 63.75 }
-Vertex_IncendiaryTrail_Start_2 { pos " 2.5  0.0  0.0" color "255.0 50.0 70.0" alpha 63.75 }
-Vertex_IncendiaryTrail_Start_3 { pos " 3.0  0.0  0.0" color "255.0 100.0 100.0" alpha 63.75 }
+Vertex_IncendiaryTrail_Start_1 { pos " 3.0  -15.0  0.0" color "255.0 100.0 100.0" alpha 63.75 }
+Vertex_IncendiaryTrail_Start_2 { pos " 2.2  -15.0  0.0" color "255.0 50.0 70.0" alpha 63.75 }
 
 Edge_Incendiary_1 { vertex_start "Vertex_IncendiaryTrail_Start_1" vertex_end "Vertex_Projectile_Weapon_Null" }
 Edge_Incendiary_2 { vertex_start "Vertex_IncendiaryTrail_Start_2" vertex_end "Vertex_Projectile_Weapon_Null" }
-Edge_Incendiary_3 { vertex_start "Vertex_IncendiaryTrail_Start_3" vertex_end "Vertex_Projectile_Weapon_Null" }
 
 Trail_Incendiary
 {
     lifeTime        4.0
     fadeOutTime     3.0
-    edgeLifeTime    1.0
+    edgeLifeTime    2.0
     scale           0.2
     
     edge_1          "Edge_Incendiary_1"
     edge_2          "Edge_Incendiary_2"
-	edge_3			"Edge_Incendiary_3"
 }
 

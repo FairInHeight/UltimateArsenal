@@ -1,0 +1,84 @@
+fx[1] =
+{
+    {
+		bDepthBuffer = 1
+		bDestroyOnWaterSurface = 1
+		bPerPolyCollision = 1
+		mass = 0.500000
+        translationRandomGlobal = 0.019897
+        translation = { 0.000000 1.000000 0.000000 }
+		gravity = -768.000000
+		friction = 0.398438
+        scale = 15.750000
+        scaleRandom = 30.625000
+        scaleDest = 1.000000
+        forwardSpeed = 1224.000000
+        offset = { -0.511719 20.000000 2.146876 }
+        rotationOffsetRandom = 6.281250
+        shader = "progs/worldcolorfx"
+        sprite = "sprites/fx015"
+        instances = 1
+        lifeTime = 8
+        animSpeed = 20
+        whiteColor = { 1.000000 1.000000 0.635294 }
+        blackColor = { 0.996078 0.745098 0.078431 }
+        hueRandom = 0.000000
+        saturationRandom = 0.000000
+        brightnessRandom = 0.000000
+        onCollideActor = 2
+        onCollideWall = 1
+        onCollideFloor = 1
+        visibilityType = 2
+        animType = 2
+        priority = 100
+		onImpact
+        {
+        [0]
+        {
+            fx = "fx/foliage.kfx"
+        }
+        [2]
+        {
+            fx = "fx/generic_251.kfx"
+            damageClass = "S_Damage_Target_damage_6"
+        }
+        [3]
+        {
+            fx = "fx/spark.kfx"
+        }
+        [4]
+        {
+            fx = "fx/blood.kfx"
+            damageClass = "S_Damage_Target_damage_4"
+        }
+        [5]
+        {
+            fx = "fx/greenblood.kfx"
+            damageClass = "S_Damage_Target_damage_5"
+        }
+        [6]
+        {
+            fx = "fx/generic_149.kfx"
+            damageClass = "S_Damage_Target_damage_5"
+        }
+        [7]
+        {
+            fx = "fx/generic_62.kfx"
+        }
+        [8]
+        {
+            fx = "fx/generic_64.kfx"
+        }
+        [9]
+        {
+            fx = "fx/generic_187.kfx"
+            sound = "sounds/shaders/generic_219.ksnd"
+        }
+        }
+        onWaterImpact
+        {
+            fx = "fx/water_steam.kfx"
+            sound = "sounds/shaders/water_steam.ksnd"
+        }
+    }
+}

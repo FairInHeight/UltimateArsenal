@@ -1,0 +1,1960 @@
+//
+// Copyright(C) 2014-2015 Samuel Villarreal
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// DESCRIPTION:
+//      Weapon Actions
+//
+
+#include "scripts/animations.txt"
+
+/*
+==============================================================
+TurokWeapon
+==============================================================
+*/
+
+class TurokWeapon : ScriptObjectWeapon
+{
+    kWeapon @self;
+
+    TurokWeapon(kWeapon @actor)
+    {
+        @self = actor;
+    }
+
+    ~TurokWeapon()
+    {
+    }
+
+    bool HasAmmo()
+	{
+		return self.Owner().HasAmmo( self.Owner().CurrentWeapon() );
+	}
+
+    /*
+    ==============================================================
+    OnTick
+    ==============================================================
+    */
+
+    void OnTick(void)
+    {
+		HandleAmmoToggle();
+		if ( bSpAtk )
+		{
+			bSpAtk = false;
+			OnSpAtk();
+		}
+    }
+
+    void OnSpAtk()
+    {
+    }
+
+	void UseAmmo( int amt )
+	{
+		if ( self.Owner().HasAltAmmo() )
+		{
+			self.Owner().ConsumeAmmo(amt);
+			return;
+		}
+
+		self.Owner().ConsumeAmmo(amt);
+		if ( !HasAmmo() )
+		{
+			int ammo;
+			if ( GameVariables.GetInt(AltAmmoType().GVK,ammo) && ammo>0 )
+				AmmoToggle();
+		}
+	}
+
+    AmmoType@ AltAmmoType()
+    {
+		AmmoType@ a;
+		return a;
+    }
+
+    void HandleAmmoToggle()
+    {
+		// check if mode toggle was pressed
+		if ( !bAmmoToggle )
+			return;
+		bAmmoToggle = false;
+
+		// get alt ammo type
+		AmmoType@ type = AltAmmoType();
+		if ( type is null )
+			return;
+
+		kPuppet@ Owner = self.Owner().Actor();
+		int slot = self.Owner().CurrentWeapon();
+		int ammo;
+		kActor@ a;
+
+		// alt ammo is loaded
+		if ( self.Owner().HasAltAmmo() )
+		{
+			// we have some primary ammo to load
+			if ( self.Owner().GetAmmo(slot) > 0 )
+			{
+				ammo = self.Owner().GetAltAmmo( slot );
+				GameVariables.SetValue( type.GVK, ""+ammo );
+				self.Owner().ConsumeAmmo( ammo );
+				@a = ActorFactory.Spawn( type.Unloader, Owner.Origin().x, Owner.Origin().y, Owner.Origin().z, 0, Owner.GetSectorIndexAtLocation(Owner.Origin()) );
+				Game.PrintLine( type.BaseName + type.LoadStr, 0 );
+			}
+			else
+				Game.PrintLine( NoAmmoStr + type.BaseName, 0 );
+		}
+		// primary is loaded
+		else
+		{
+			// we have some alt ammo to load
+			if ( GameVariables.GetInt(type.GVK,ammo) && ammo>0 )
+			{
+				@a = ActorFactory.Spawn( type.Loader, Owner.Origin().x, Owner.Origin().y, Owner.Origin().z, 0, Owner.GetSectorIndexAtLocation(Owner.Origin()) );
+				Game.PrintLine( type.Name + type.LoadStr, 0 );
+			}
+			else
+				Game.PrintLine( NoAmmoStr + type.Name, 0 );
+		}
+
+		// nudge the player a tiny bit to trigger the touch
+		if ( a !is null )
+			Owner.MoveToPosition( Owner.Origin().x+0.1, Owner.Origin().y );
+    }
+
+    /*
+    ==============================================================
+    OnSpawn
+    ==============================================================
+    */
+
+    void OnSpawn(void)
+    {
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+    }
+
+    /*
+    ==============================================================
+    OnFire
+    ==============================================================
+    */
+
+    void OnFire(void)
+    {
+    }
+
+    /*
+    ==============================================================
+    OnEndFire
+    ==============================================================
+    */
+
+    void OnEndFire(void)
+    {
+    }
+
+    /*
+    ==============================================================
+    OnLower
+    ==============================================================
+    */
+
+    void OnLower(void)
+    {
+    }
+
+    /*
+    ==============================================================
+    OnRaise
+    ==============================================================
+    */
+
+    void OnRaise(void)
+    {
+    }
+
+    /*
+    ==============================================================
+    OnHoldster
+    ==============================================================
+    */
+
+    void OnHoldster(void)
+    {
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Knife
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokKnife
+==============================================================
+*/
+
+final class TurokKnife : TurokWeapon
+{
+    TurokKnife(kWeapon @actor)
+    {
+        super(actor);
+    }
+
+    void OnSpAtk()
+    {
+		// can't throw boomerangs underwater
+		if ( self.Owner().Actor().InWater() )
+			return;
+
+		// only throw boomerangs when not already attacking/swapping weapons
+		switch ( self.AnimState().PlayingID() )
+		{
+			case anim_weaponIdle:
+			case anim_weaponWalk:
+			case anim_weaponRun:
+				Swipe( true );
+		}
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        if ( self.Owner().Actor().InWater() )
+        {
+            self.AnimState().Blend(anim_weaponAttackUnderwater, 4.0f, 4.0f, 0);
+            self.PlaySound("sounds/shaders/underwater_swim_2.ksnd");
+        }
+		else
+			Swipe();
+    }
+
+    void Swipe( bool bBoomerang = false )
+    {
+		// boomerang needs ANF_NOINTERRUPT to prevent idle/run anim from overriding swip anim
+		// but normal attacks shouldn't use this, because it prevents swapout anim from playing
+		// (in other words, this is a hack with side-effects, so we use it only when we MUST)
+		int flags = bBoomerang? int(ANF_NOINTERRUPT) : 0;
+
+		int rnd = Math::RandMax(100);
+		if(rnd <= 32)
+		{
+			self.AnimState().Blend(anim_weaponAttack1, 4.0f, 4.0f, flags);
+			self.PlaySound("sounds/shaders/knife_swish_2.ksnd");
+		}
+		else if(rnd <= 64)
+		{
+			self.AnimState().Blend(anim_weaponAttack2, 4.0f, 4.0f, flags);
+			self.PlaySound("sounds/shaders/knife_swish_1.ksnd");
+		}
+		else
+		{
+			self.AnimState().Blend(anim_weaponAttack3, 4.0f, 4.0f, flags);
+			self.PlaySound("sounds/shaders/knife_swish_3.ksnd");
+		}
+    }
+
+    void KnifeAttack( kActor@ instigator, float w, float x, float y, float z, int type )
+    {
+		// normal slash
+        if ( self.AnimState().flags & ANF_NOINTERRUPT == 0 )
+        {
+			kPuppet @src = self.Owner().Actor();
+
+			TurokPlayer @p = cast<TurokPlayer@>(src.ScriptObject().obj);
+			p.m_vBloodVector = kVec3(0, (w * GAME_SCALE), 0);
+			p.m_vBloodVector.z += (GAME_SCALE * 3);
+
+			p.m_vStabVector = (kVec3(0, (w * GAME_SCALE), 0) * src.Rotation());
+			p.m_vStabVector += src.Origin();
+			p.m_vStabVector.z += (GAME_SCALE * 3);
+
+			src.InteractActorsAtPosition(p.m_vStabVector, "KnifeAttack", type, w);
+		}
+		// boomerang
+		else
+        {
+			self.PlaySound( "sounds/shaders/campaingers_scatter_blast.ksnd" );
+			switch ( type )
+			{
+				case 0:
+					self.FireProjectile( "fx/knifeProj1.kfx", 4.096f, 25.696f, -14.336f );
+					break;
+				case 1:
+					self.FireProjectile( "fx/knifeProj2.kfx", 4.096f, 25.696f, -14.336f );
+					break;
+				case 2:
+					self.FireProjectile( "fx/knifeProj3.kfx", 4.096f, 25.696f, -14.336f );
+					break;
+			}
+		}
+    }
+
+    /*
+    ==============================================================
+    KnifeAttack1
+    ==============================================================
+    */
+
+    void KnifeAttack1(kActor @instigator, const float w, const float x, const float y, const float z)
+    {
+       KnifeAttack( instigator, w, x, y, z, 0 );
+    }
+
+    /*
+    ==============================================================
+    KnifeAttack2
+    ==============================================================
+    */
+
+    void KnifeAttack2(kActor @instigator, const float w, const float x, const float y, const float z)
+    {
+        KnifeAttack( instigator, w, x, y, z, 1 );
+    }
+
+    /*
+    ==============================================================
+    KnifeAttack3
+    ==============================================================
+    */
+
+    void KnifeAttack3(kActor @instigator, const float w, const float x, const float y, const float z)
+    {
+        KnifeAttack( instigator, w, x, y, z, 2 );
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Tek Bow
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokBow
+==============================================================
+*/
+
+
+final class TurokBow : TurokWeapon
+{
+    AmmoType@ AltAmmoType()
+    {
+        return TekArrows;
+    }
+
+    bool m_bArrowFlashed;
+
+    TurokBow(kWeapon @actor)
+    {
+        super(actor);
+        m_bArrowFlashed = false;
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.PlaySound("sounds/shaders/bow_stretch.ksnd");
+        self.AnimState().Blend(anim_weaponFire, 4.0f, 20.0f, ANF_LOOP);
+        m_bArrowFlashed = false;
+    }
+
+    /*
+    ==============================================================
+    OnFire
+    ==============================================================
+    */
+
+    void OnFire(void)
+    {
+        float time = self.AnimState().PlayTime();
+
+        // firing super arrow?
+        if(time >= 1.4f && time <= 2.15f)
+        {
+            if(!m_bArrowFlashed)
+            {
+                m_bArrowFlashed = true;
+
+                // turok has enabled the super arrow, add special flash to arrow to indicate this
+                self.FireProjectile(
+                    "fx/super_arrow_flash.kfx",
+                    0.07f*GAME_SCALE,
+                     2.9f*GAME_SCALE,
+                    -0.6f*GAME_SCALE,
+                    true);
+            }
+        }
+    }
+
+    /*
+    ==============================================================
+    OnEndFire
+    ==============================================================
+    */
+
+    void OnEndFire(void)
+    {
+        float time = self.AnimState().PlayTime();
+        kPuppet @src = self.Owner().Actor();
+        kVec3 origin = src.Origin();
+        kQuat rotation = src.Rotation();
+        kVec3 velocity;
+
+        origin.z += (5*GAME_SCALE);
+        origin += (kVec3(0.07f*GAME_SCALE, 2.9f*GAME_SCALE, -0.6f*GAME_SCALE) * rotation);
+
+        m_bArrowFlashed = false;
+
+        // fired super arrow?
+        if(time >= 1.4f && time <= 2.15f)
+        {
+            velocity = kVec3(0, 512 * 15, 0) * rotation;
+        }
+        else
+        {
+            if(time > 0.7f)
+            {
+                time = 0.7f;
+            }
+
+            velocity = kVec3(0, (512 * time / 1.4f) * 15, 0) * rotation;
+        }
+
+        velocity *= GAME_DELTA_TIME;
+
+        if(self.Owner().HasAltAmmo())
+        {
+            Game.SpawnFx("fx/arrow_explosive.kfx", src, velocity, origin, rotation);
+            self.PlaySound("sounds/shaders/arrow_fly_tek.ksnd");
+        }
+        else
+        {
+            Game.SpawnFx("fx/arrow.kfx", src, velocity, origin, rotation);
+            self.PlaySound("sounds/shaders/arrow_fly_normal.ksnd");
+        }
+
+        self.PlaySound("sounds/shaders/bow_twang.ksnd");
+        self.AnimState().Set(anim_weaponFireCharged, 4.0f, ANF_NOINTERRUPT);
+
+        UseAmmo(1);
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Pistol
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokPistol
+==============================================================
+*/
+
+final class TurokPistol : TurokWeapon
+{
+	 AmmoType@ AltAmmoType()
+    {
+        return IncendiaryRounds;
+    }
+
+	bool bIncendiary;
+
+    TurokPistol(kWeapon @actor)
+    {
+		bIncendiary = false;
+
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+		bIncendiary = Player.HasAltAmmo();
+
+		if(bIncendiary)
+		{
+		self.FireProjectile("fx/incendiary.kfx", 13.107f, 25.6f, -10.24f);
+		}
+		else
+		{
+		self.FireProjectile("fx/bullet.kfx", 13.107f, 25.6f, -10.24f);
+		}
+
+		self.FireProjectile("fx/bullet_shell.kfx", 10.24f, 27.64f, -10.24f, true);
+        self.FireProjectile("fx/weffect_pistol.kfx", 6.656f-0.5f, 29.69f, -3.58f-0.5f, true);
+        self.PlaySound("sounds/shaders/pistol_shot.ksnd");
+        self.AnimState().Set(anim_weaponFire, 4.0f, 0);
+
+        self.RunFxEvent("GunFire");
+
+        self.Owner().Actor().LoudNoiseAlert();
+        self.Owner().Actor().RecoilPitch() = -0.02094395086169243f;
+        self.Owner().ConsumeAmmo(1);
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Shotgun
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokShotgun
+==============================================================
+*/
+
+
+final class TurokShotgun : TurokWeapon
+{
+    bool bShotgunReload;
+    bool bEjectShotgunShell;
+    bool bFiredExpslosiveShells;
+    bool bAutoPump;
+    bool bLastPump;
+	bool bIsPumping;
+    int multiPump;
+    int pump;
+    int epump;
+
+    TurokShotgun(kWeapon @actor)
+    {
+    bShotgunReload = false;
+    bEjectShotgunShell = false;
+    bFiredExpslosiveShells = false;
+	bAutoPump = true;
+	bLastPump = false;
+	bIsPumping = false;
+
+	epump = 0;
+	pump = 0;
+	multiPump = 0;
+
+        super(actor);
+    }
+
+    AmmoType@ AltAmmoType()
+    {
+        return ExpShells;
+    }
+
+	void OnSpAtk()
+	{
+		if(bIsPumping)
+		{
+		return;
+		}
+		
+		if(multiPump >= 4)
+		{
+			Game.PrintLine("Barrel Full", 0);
+			return;
+		}
+		else
+		{
+			if(self.Owner().HasAltAmmo())
+			{
+				epump++;
+				GameVariables.SetValue("epump", ""+(epump+1));
+			}
+			else
+			{
+				pump++;
+				GameVariables.SetValue("pump", ""+(pump+1));
+			}
+			
+			GameVariables.SetValue("multiPump", ""+(multiPump+1));
+
+			multiPump++;
+			self.AnimState().Set(anim_weaponFire, 4.0f, ANF_NOINTERRUPT);
+			bIsPumping = true;
+			bShotgunReload = true;
+			
+			if(multiPump == 0)
+			{
+				bEjectShotgunShell = true;
+			}
+			
+		}
+	}
+	
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+		GameVariables.GetBool("bAutoPump", bAutoPump);
+
+        if(multiPump > 0)
+		{
+			bFiredExpslosiveShells = Player.HasAltAmmo();
+
+			self.FireProjectile("fx/weffect_riotshotgun.kfx", 6.656f-1.0f, 29.69f, -2.7648f+0.85f);
+
+			for( int e=0; e<epump; e++ )
+			{
+				self.FireProjectile("fx/shotgun_explosive.kfx", 12.28f, 25.6f, -7.168f);
+			}
+
+			for( int i=0; i<pump; i++ )
+			{
+				self.FireProjectile("fx/shotgun.kfx", 12.28f, 25.6f, -7.168f);
+			}
+
+			if(bAutoPump)
+				bShotgunReload = true;
+			
+			self.PlaySound("sounds/shaders/riot_shotgun_shot.ksnd");
+			self.RunFxEvent("GunFire");
+			self.AnimState().Set( anim_weaponFire, 4.0f, 0 );
+
+			GameVariables.SetValue("multiPump", "0");
+			GameVariables.SetValue("pump", "0");
+			GameVariables.SetValue("epump", "0");
+			
+			multiPump = 0;
+			pump = 0;
+			epump = 0;
+
+			self.Owner().Actor().LoudNoiseAlert();
+			self.Owner().Actor().RecoilPitch() = -0.03926990926265717f;
+
+			if(bLastPump)
+			{
+				UseAmmo(1);
+				bLastPump = false;
+			}
+		}
+    }
+
+    /*
+    ==============================================================
+    OnFire
+    ==============================================================
+    */
+
+    void OnFire(void)
+    {
+		if ( !bAutoPump && self.AnimState().PlayTime() >= 0.3f )
+		{
+			self.AnimState().Blend( anim_weaponIdle, 4.0f, 4.0f, 0 );
+			return;
+		}
+
+        if(bEjectShotgunShell && self.AnimState().PlayTime() >= 0.6f)
+        {
+            if(bFiredExpslosiveShells)
+            {
+				for( int e=0; e<epump; e++ )
+				self.FireProjectile("fx/shotgun_shell_explosive.kfx", 11.26f, 27.648f, -8.192f, true);
+            }
+            else
+            {
+				for( int i=0; i<pump; i++ )
+				self.FireProjectile("fx/shotgun_shell.kfx", 11.26f, 27.648f, -8.192f, true);
+            }
+
+            bFiredExpslosiveShells = false;
+            bEjectShotgunShell = false;
+        }
+    }
+
+	/*
+    ==============================================================
+    OnTick
+    ==============================================================
+    */
+
+	void OnTick(void)
+	{
+		TurokWeapon::OnTick();
+		
+		if(bLastPump)
+			multiPump = 4;
+
+		if(bShotgunReload && self.AnimState().PlayTime() >= 0.5f)
+        {
+			if(bAutoPump && multiPump == 0)
+			{
+				if(self.Owner().HasAltAmmo())
+				{
+					epump++;
+					GameVariables.SetValue("epump", ""+(epump+1));
+				}
+				else
+				{
+					pump++;
+					GameVariables.SetValue("pump", ""+(pump+1));
+				}
+				
+				GameVariables.SetValue("multiPump", ""+(multiPump+1));
+				multiPump++;
+			}
+			
+            self.PlaySound("sounds/shaders/ready_shotgun.ksnd");
+			bEjectShotgunShell = true;
+            bShotgunReload = false;
+			
+			if(self.AnimState().PlayTime() >= 0.4)
+			{
+				bIsPumping = false;
+			}
+
+			if ( Player.GetAmmo(TW_WEAPON_SHOTGUN) + Player.GetAltAmmo(TW_WEAPON_SHOTGUN) > 1 )
+				UseAmmo(1);
+			else
+				bLastPump = true;
+        }
+	}
+	
+	/*
+    ==============================================================
+    OnSpawn
+    ==============================================================
+    */
+	
+	void OnSpawn(void)
+	{
+		GameVariables.GetInt("multiPump", multiPump);
+		GameVariables.GetInt("pump", pump);
+		GameVariables.GetInt("epump", epump);
+	
+		if(multiPump == 0)
+		{
+			self.AnimState().Set(anim_weaponFire, 4.0f, ANF_NOINTERRUPT);
+			bIsPumping = true;
+			bShotgunReload = true;
+		}
+	}
+	
+}
+
+//-----------------------------------------------------------------------------
+//
+// Auto Shotgun
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokAutoShotgun
+==============================================================
+*/
+
+
+
+final class TurokAutoShotgun : TurokWeapon
+{
+    AmmoType@ AltAmmoType()
+    {
+        return ExpShells;
+    }
+
+    bool bShotgunReload;
+    bool bEjectShotgunShell;
+    bool bFiredExpslosiveShells;
+    bool bCycleBarrel;
+    float spinBarrelAngle;
+
+    TurokAutoShotgun(kWeapon @actor)
+    {
+        bShotgunReload = false;
+        bEjectShotgunShell = false;
+        bFiredExpslosiveShells = false;
+        bCycleBarrel = false;
+        spinBarrelAngle = 0;
+
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.FireProjectile("fx/weffect_riotshotgun.kfx", 6.656f-0.5f, 29.69f, -1.9456f-0.75f);
+
+        if(self.Owner().HasAltAmmo())
+        {
+            self.FireProjectile("fx/shotgun_explosive.kfx", 12.28f, 25.6f, -7.168f);
+            self.FireProjectile("fx/shotgun_shell_explosive.kfx", 14.336f, 27.648f, -12.288f, true);
+        }
+        else
+        {
+            self.FireProjectile("fx/shotgun.kfx", 12.28f, 25.6f, -7.168f);
+            self.FireProjectile("fx/shotgun_shell.kfx", 14.336f, 27.648f, -12.288f, true);
+        }
+
+        self.PlaySound("sounds/shaders/riot_shotgun_shot.ksnd");
+        self.RunFxEvent("GunFire");
+        self.AnimState().Set(anim_weaponFire, 4.0f, 0);
+
+        bShotgunReload = true;
+        bCycleBarrel = true;
+        spinBarrelAngle = Math::Deg2Rad(36.0f);
+
+        self.Owner().Actor().LoudNoiseAlert();
+        self.Owner().Actor().RecoilPitch() = -0.02617993950843811f;
+        UseAmmo(1);
+    }
+
+    /*
+    ==============================================================
+    OnFire
+    ==============================================================
+    */
+
+    void OnFire(void)
+    {
+        if(bShotgunReload && self.AnimState().PlayTime() >= 0.0125f)
+        {
+            self.PlaySound("sounds/shaders/reload_auto_shotgun.ksnd");
+            bShotgunReload = false;
+        }
+    }
+
+    /*
+    ==============================================================
+    OnTick
+    ==============================================================
+    */
+
+    void OnTick(void)
+    {
+		 TurokWeapon::OnTick();
+
+        if(bCycleBarrel)
+        {
+            if(spinBarrelAngle > 0)
+            {
+                spinBarrelAngle -= (0.1f*GAME_FRAME_TIME);
+            }
+            else
+            {
+                spinBarrelAngle = 0;
+                bCycleBarrel = true;
+            }
+
+            self.RenderModel().SetRotationOffset(1, spinBarrelAngle, 1, 0, 0);
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Assault Rifle
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokRifle
+==============================================================
+*/
+
+
+final class TurokRifle : TurokWeapon
+{
+    int rifleShotsFired;
+    bool bSemiAuto = false;
+
+    AmmoType@ AltAmmoType()
+    {
+        return ARBullets;
+    }
+
+    TurokRifle(kWeapon @actor)
+    {
+        rifleShotsFired = 0;
+        super(actor);
+    }
+
+    void OnSpAtk()
+    {
+	self.PlaySound("sounds/shaders/ready_pistol.ksnd");
+	bSemiAuto = !bSemiAuto;
+	if(bSemiAuto)
+		Game.PrintLine("Semi-Auto Enabled", 0);
+	else
+		Game.PrintLine("Burst Enabled", 0);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.AnimState().Set(anim_weaponFire, 4.0f, 0);
+        rifleShotsFired = 0;
+    }
+
+    /*
+    ==============================================================
+    OnFire
+    ==============================================================
+    */
+
+    void OnFire(void)
+    {
+	
+		if(!bSemiAuto)
+		{
+        switch(rifleShotsFired)
+			{
+			case 0:
+				if(self.AnimState().PlayTime() >= 0.0f)
+				{
+					self.PlaySound("sounds/shaders/rifle_shot.ksnd");
+					self.FireProjectile("fx/bullet_shell.kfx", 11.26f, 27.64f, -8.192f, true);
+					self.FireProjectile("fx/weffect_assaultrifle.kfx", 5.12f+0.35f, 29.69f, -3.584f-0.5f);
+					self.FireProjectile("fx/bullet.kfx", 10.24f, 25.6f, -10.24f);
+					self.RunFxEvent("GunFire");
+					self.Owner().Actor().LoudNoiseAlert();
+					self.Owner().Actor().RecoilPitch() = -0.02416609786450863f;
+					UseAmmo(1);
+					rifleShotsFired++;
+				}
+				break;
+
+			case 1:
+				if(self.AnimState().PlayTime() >= 0.1f)
+				{
+					self.PlaySound("sounds/shaders/rifle_shot.ksnd");
+					self.FireProjectile("fx/bullet_shell.kfx", 11.26f, 27.64f, -8.192f, true);
+					self.FireProjectile("fx/weffect_assaultrifle.kfx", 5.12f+0.35f, 29.69f, -3.584f-0.35f);
+					self.FireProjectile("fx/bullet.kfx", 10.24f, 25.6f, -10.24f);
+					self.RunFxEvent("GunFire");
+					self.Owner().Actor().LoudNoiseAlert();
+					self.Owner().Actor().RecoilPitch() = -0.02416609786450863f;
+					UseAmmo(1);
+					rifleShotsFired++;
+				}
+				break;
+
+			case 2:
+				if(self.AnimState().PlayTime() >= 0.2f)
+				{
+					self.PlaySound("sounds/shaders/rifle_shot.ksnd");
+					self.FireProjectile("fx/bullet_shell.kfx", 11.26f, 27.64f, -8.192f, true);
+					self.FireProjectile("fx/weffect_assaultrifle.kfx", 5.12f+0.35f, 29.69f, -3.584f-0.5f);
+					self.FireProjectile("fx/bullet.kfx", 10.24f, 25.6f, -10.24f);
+					self.RunFxEvent("GunFire");
+					self.Owner().Actor().LoudNoiseAlert();
+					self.Owner().Actor().RecoilPitch() = -0.02416609786450863f;
+					UseAmmo(1);
+					rifleShotsFired++;
+				}
+				break;
+			}
+		}
+		else
+		{
+			self.PlaySound("sounds/shaders/rifle_shot.ksnd");
+			self.FireProjectile("fx/bullet_shell.kfx", 11.26f, 27.64f, -8.192f, true);
+			self.FireProjectile("fx/weffect_assaultrifle.kfx", 5.12f+0.35f, 29.69f, -3.584f-0.5f);
+			self.FireProjectile("fx/bullet.kfx", 10.24f, 25.6f, -10.24f);
+			self.RunFxEvent("GunFire");
+			self.Owner().Actor().LoudNoiseAlert();
+			self.Owner().Actor().RecoilPitch() = -0.02416609786450863f;
+			UseAmmo(1);
+		
+		}
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Pulse Rifle
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokPulseRifle
+==============================================================
+*/
+
+final class TurokPulseRifle : TurokWeapon
+{
+    float pulseRifleFireTime;
+
+    TurokPulseRifle(kWeapon @actor)
+    {
+        pulseRifleFireTime = 0;
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.AnimState().Blend(anim_weaponFireLoop, 4.0f, 4.0f, ANF_LOOP);
+        pulseRifleFireTime = -0.08f;
+    }
+
+    /*
+    ==============================================================
+    OnFire
+    ==============================================================
+    */
+
+    void OnFire(void)
+    {
+        float playTime = self.AnimState().PlayTime();
+
+        if((playTime - pulseRifleFireTime) >= 0.16f)
+        {
+            self.PlaySound("sounds/shaders/machine_gun_shot_2.ksnd");
+            self.FireProjectile("fx/longhunter_gun_pulse.kfx", 10.24f, -40.96f, -9.216f);
+            self.Owner().Actor().LoudNoiseAlert();
+            self.Owner().Actor().RecoilPitch() = -0.01963495463132858f;
+            self.Owner().ConsumeAmmo(1);
+
+            pulseRifleFireTime = playTime;
+        }
+    }
+
+    /*
+    ==============================================================
+    OnEndFire
+    ==============================================================
+    */
+
+    void OnEndFire(void)
+    {
+        self.AnimState().Blend(anim_weaponIdle, 4.0f, 4.0f, ANF_LOOP);
+        pulseRifleFireTime = 0;
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Flamethrower
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokFlamethrower
+==============================================================
+*/
+
+final class TurokFlamethrower : TurokWeapon
+{
+    float FlamethrowerFireTime;
+
+    TurokFlamethrower(kWeapon @actor)
+    {
+        FlamethrowerFireTime = 0;
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.AnimState().Blend(anim_weaponFireLoop, 4.0f, 4.0f, ANF_LOOP);
+        FlamethrowerFireTime = -0.08f;
+    }
+
+    /*
+    ==============================================================
+    OnFire
+    ==============================================================
+    */
+
+    void OnFire(void)
+    {
+		float playTime = self.AnimState().PlayTime();
+
+		if((playTime - FlamethrowerFireTime) >= 0.02f)
+        {
+			self.PlaySound("sounds/shaders/fire_spark_5.ksnd");
+            self.FireProjectile("fx/flamethrower.kfx", 4.608f, 25.696f, -3.1744f);
+            self.Owner().ConsumeAmmo(1);
+
+            FlamethrowerFireTime = playTime;
+        }
+    }
+
+    /*
+    ==============================================================
+    OnEndFire
+    ==============================================================
+    */
+
+    void OnEndFire(void)
+    {
+        self.AnimState().Blend(anim_weaponIdle, 4.0f, 4.0f, ANF_LOOP);
+        FlamethrowerFireTime = 0;
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Flechette Gun
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokFlechetteGun
+==============================================================
+*/
+
+final class TurokFlechetteGun : TurokWeapon
+{
+	AmmoType@ AltAmmoType()
+    {
+        return Harpoons;
+    }
+
+	bool bHarpoon;
+    float FlechetteGunFireTime;
+
+    TurokFlechetteGun(kWeapon @actor)
+    {
+		bHarpoon = false;
+        FlechetteGunFireTime = 0;
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        bHarpoon = Player.HasAltAmmo();
+        if ( bHarpoon )
+        {
+			self.AnimState().Blend( anim_weaponFireLoop, 4.0f, 4.0f, 0 );
+			self.FireProjectile("fx/harpoon.kfx", 10.24f, -40.96f, -9.216f);
+			self.PlaySound("sounds/shaders/harpoon.ksnd");
+			self.Owner().ConsumeAmmo(1);
+        }
+        else
+        {
+			self.AnimState().Blend(anim_weaponFireLoop, 4.0f, 4.0f, ANF_LOOP);
+			FlechetteGunFireTime = -0.2f;
+		}
+    }
+
+    /*
+    ==============================================================
+    OnFire
+    ==============================================================
+    */
+
+    void OnFire(void)
+    {
+		if ( bHarpoon )
+			return;
+
+		float playTime = self.AnimState().PlayTime();
+
+		if((playTime - FlechetteGunFireTime) >= 0.20f)
+		{
+			// player changed ammo types; bail out to let OnBeginFire() happen
+			if ( Player.HasAltAmmo() )
+			{
+				self.AnimState().Stop();
+				return;
+			}
+
+			self.FireProjectile("fx/flechette.kfx", 10.24f, -40.96f, -9.216f);
+			self.PlaySound("sounds/shaders/machine_gun_shot_2.ksnd");
+
+			self.Owner().ConsumeAmmo(1);
+
+			FlechetteGunFireTime = playTime;
+		}
+    }
+
+    /*
+    ==============================================================
+    OnEndFire
+    ==============================================================
+    */
+
+    void OnEndFire(void)
+    {
+		if ( !bHarpoon )
+		{
+			self.AnimState().Blend(anim_weaponIdle, 4.0f, 4.0f, ANF_LOOP);
+			FlechetteGunFireTime = 0;
+		}
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Minigun
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokMinigun
+==============================================================
+*/
+
+final class TurokMinigun : TurokWeapon
+{
+    bool bCycleMiniBarrel;
+    bool bMiniGunRampUp;
+    float miniGunFireTime;
+    float miniGunCycleSpeed;
+    float miniGunBarrelAngle;
+
+    TurokMinigun(kWeapon @actor)
+    {
+        bCycleMiniBarrel = false;
+        bMiniGunRampUp = false;
+        miniGunFireTime = 0;
+        miniGunCycleSpeed = 0;
+        miniGunBarrelAngle = 0;
+
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.PlaySound("sounds/shaders/mini_gun_whir.ksnd");
+        self.AnimState().Blend(anim_weaponFireLoop, 4.0f, 4.0f, ANF_LOOP);
+
+        bCycleMiniBarrel = true;
+        bMiniGunRampUp = true;
+        miniGunFireTime = 0;
+    }
+
+    /*
+    ==============================================================
+    OnFire
+    ==============================================================
+    */
+
+    void OnFire(void)
+    {
+        float playTime = self.AnimState().PlayTime();
+
+        if((playTime - miniGunFireTime) >= 0.11f)
+        {
+            self.FireProjectile("fx/weffect_minigun.kfx", 4.608f, 25.696f, -3.1744f);
+            self.FireProjectile("fx/minigun_bullet.kfx", 8.192f, 25.6f, -10.24f);
+            self.FireProjectile("fx/minigun_bullet.kfx", 8.192f, 25.6f, -10.24f);
+            self.FireProjectile("fx/bullet_shell.kfx", 11.26f, 27.648f, -8.192f, true);
+
+            self.Owner().ConsumeAmmo(4);
+
+            self.PlaySound("sounds/shaders/mini_gun_shot.ksnd");
+            self.Owner().Actor().LoudNoiseAlert();
+            self.Owner().Actor().RecoilPitch() = -0.02094395086169243f;
+
+            miniGunFireTime = playTime;
+        }
+    }
+
+    /*
+    ==============================================================
+    OnEndFire
+    ==============================================================
+    */
+
+    void OnEndFire(void)
+    {
+        self.PlaySound("sounds/shaders/minigun_stop.ksnd");
+        self.StopLoopingSounds();
+        self.AnimState().Blend(anim_weaponIdle, 4.0f, 4.0f, ANF_LOOP);
+
+        miniGunFireTime = 0;
+        bMiniGunRampUp = false;
+    }
+
+    /*
+    ==============================================================
+    OnTick
+    ==============================================================
+    */
+
+    void OnTick(void)
+    {
+        if(bCycleMiniBarrel)
+        {
+            float time = (0.05f * GAME_FRAME_TIME);
+
+            if(bMiniGunRampUp)
+            {
+                miniGunCycleSpeed = (40.0f - miniGunCycleSpeed) * time + miniGunCycleSpeed;
+            }
+            else
+            {
+                miniGunCycleSpeed = (0 - miniGunCycleSpeed) * time + miniGunCycleSpeed;
+            }
+
+            if(miniGunCycleSpeed < 0.01f)
+            {
+                miniGunCycleSpeed = 0;
+                bCycleMiniBarrel = false;
+            }
+
+            miniGunBarrelAngle += miniGunCycleSpeed * (1.0f / 60.0f);
+            self.RenderModel().SetRotationOffset(1, miniGunBarrelAngle, 0, 1, 0);
+        }
+    }
+
+    /*
+    ==============================================================
+    OnLower
+    ==============================================================
+    */
+
+    void OnLower(void)
+    {
+        miniGunCycleSpeed = 0;
+        bCycleMiniBarrel = false;
+        self.RenderModel().SetRotationOffset(1, 0, 0, 1, 0);
+    }
+
+    /*
+    ==============================================================
+    OnHoldster
+    ==============================================================
+    */
+
+    void OnHoldster(void)
+    {
+        miniGunCycleSpeed = 0;
+        bCycleMiniBarrel = false;
+        bMiniGunRampUp = false;
+        self.RenderModel().SetRotationOffset(1, 0, 0, 1, 0);
+        self.StopLoopingSounds();
+        self.PlaySound("sounds/shaders/minigun_stop.ksnd");
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Grenade Launcher
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokGrenadeLauncher
+==============================================================
+*/
+
+final class TurokGrenadeLauncher : TurokWeapon
+{
+    TurokGrenadeLauncher(kWeapon @actor)
+    {
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.AnimState().Set(anim_weaponFire, 4.0f, 0);
+        self.PlaySound("sounds/shaders/grenade_launch.ksnd");
+
+        self.FireProjectile("fx/grenade.kfx", 18.432f, 25.696f, -5.12f);
+        self.FireProjectile("fx/weffect_grenadelauncher.kfx", 10.3424f, 25.696f, -0.512f);
+
+        self.Owner().Actor().LoudNoiseAlert();
+        self.Owner().Actor().RecoilPitch() = -0.03490658476948738f;
+        self.Owner().ConsumeAmmo(1);
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Alien Rifle
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokAlienRifle
+==============================================================
+*/
+
+final class TurokAlienRifle : TurokWeapon
+{
+    TurokAlienRifle(kWeapon @actor)
+    {
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.AnimState().Set(anim_weaponFire, 4.0f, 0);
+        self.PlaySound("sounds/shaders/tek_weapon_1.ksnd");
+
+        self.FireProjectile("fx/plasma1.kfx", 4.096f, 25.696f, -14.336f);
+        self.Owner().ConsumeAmmo(5);
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Rocket Launcher
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokRocketLauncher
+==============================================================
+*/
+
+final class TurokRocketLauncher : TurokWeapon
+{
+    TurokRocketLauncher(kWeapon @actor)
+    {
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.AnimState().Set(anim_weaponFire, 4.0f, 0);
+        self.PlaySound("sounds/shaders/missile_launch.ksnd");
+        self.PlaySound("sounds/shaders/reload_missile_launcher.ksnd");
+
+        self.FireProjectile("fx/rocket.kfx", 4.096f, 25.696f, -14.336f);
+
+        self.Owner().Actor().LoudNoiseAlert();
+        self.Owner().ConsumeAmmo(1);
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Particle Accelerator
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokAccelerator
+==============================================================
+*/
+
+final class TurokAccelerator : TurokWeapon
+{
+    float acceleratorCycleSpeed;
+    float acceleratorSpinAngle;
+    int chargeStep;
+
+    TurokAccelerator(kWeapon @actor)
+    {
+        acceleratorCycleSpeed = 2.0f;
+        acceleratorSpinAngle = 0;
+        chargeStep = 0;
+
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.AnimState().Blend(anim_weaponFire, 4.0f, 40.0f, ANF_LOOP);
+        chargeStep = 0;
+    }
+
+    /*
+    ==============================================================
+    OnEndFire
+    ==============================================================
+    */
+
+    void OnEndFire(void)
+    {
+        float t = self.AnimState().PlayTime();
+
+        if(t >= 4.0f)
+        {
+            self.PlaySound("sounds/shaders/generic_194.ksnd");
+            self.FireProjectile("fx/shockwave_pulse_5_strongest.kfx", 4.096f, 25.696f, -14.336f);
+            self.Owner().ConsumeAmmo(10);
+        }
+        else if(t >= 3.0f)
+        {
+            self.PlaySound("sounds/shaders/generic_193.ksnd");
+            self.FireProjectile("fx/shockwave_pulse_4.kfx", 4.096f, 25.696f, -14.336f);
+            self.Owner().ConsumeAmmo(8);
+        }
+        else if(t >= 2.0f)
+        {
+            self.PlaySound("sounds/shaders/generic_192.ksnd");
+            self.FireProjectile("fx/shockwave_pulse_3.kfx", 4.096f, 25.696f, -14.336f);
+            self.Owner().ConsumeAmmo(6);
+        }
+        else if(t >= 1.0f)
+        {
+            self.PlaySound("sounds/shaders/generic_191.ksnd");
+            self.FireProjectile("fx/shockwave_pulse_2.kfx", 4.096f, 25.696f, -14.336f);
+            self.Owner().ConsumeAmmo(4);
+        }
+        else
+        {
+            self.PlaySound("sounds/shaders/generic_190.ksnd");
+            self.FireProjectile("fx/shockwave_pulse_1_weakest.kfx", 4.096f, 25.696f, -14.336f);
+            self.Owner().ConsumeAmmo(2);
+        }
+
+        chargeStep = 0;
+
+        self.StopLoopingSounds();
+        self.Owner().Actor().LoudNoiseAlert();
+        self.AnimState().Blend(anim_weaponFireCharged, 4.0f, 4.0f, ANF_NOINTERRUPT);
+    }
+
+    /*
+    ==============================================================
+    OnTick
+    ==============================================================
+    */
+
+    void OnTick(void)
+    {
+        if(self.AnimState().PlayingID() == anim_weaponFire)
+        {
+            switch(chargeStep)
+            {
+            case 0:
+                if(self.AnimState().PlayTime() >= 0.0f)
+                {
+                    self.PlaySound("sounds/shaders/generic_160.ksnd");
+                    chargeStep++;
+                }
+                break;
+            case 1:
+                if(self.AnimState().PlayTime() >= 1.0f)
+                {
+                    self.PlaySound("sounds/shaders/generic_161.ksnd");
+                    chargeStep++;
+                }
+                break;
+            case 2:
+                if(self.AnimState().PlayTime() >= 2.0f)
+                {
+                    self.PlaySound("sounds/shaders/generic_162.ksnd");
+                    chargeStep++;
+                }
+                break;
+            case 3:
+                if(self.AnimState().PlayTime() >= 3.0f)
+                {
+                    self.PlaySound("sounds/shaders/generic_163.ksnd");
+                    chargeStep++;
+                }
+                break;
+            case 4:
+                if(self.AnimState().PlayTime() >= 4.0f)
+                {
+                    self.PlaySound("sounds/shaders/generic_164.ksnd");
+                    chargeStep++;
+                }
+                break;
+            }
+        }
+
+        switch(self.AnimState().PlayingID())
+        {
+        case anim_weaponSwapOut:
+            acceleratorCycleSpeed = 2;
+            self.RenderModel().SetRotationOffset(1, 0, 0, 1, 0);
+            break;
+
+        case anim_weaponIdle:
+        case anim_weaponWalk:
+        case anim_weaponRun:
+        case anim_weaponFireCharged:
+            acceleratorCycleSpeed = (2 - acceleratorCycleSpeed) * 0.025f + acceleratorCycleSpeed;
+            acceleratorSpinAngle += acceleratorCycleSpeed * (1.0f / 120.0f);
+            self.RenderModel().SetRotationOffset(1, acceleratorSpinAngle, 0, 1, 0);
+            break;
+
+        case anim_weaponFire:
+            acceleratorCycleSpeed = (20 - acceleratorCycleSpeed) * (0.01f*GAME_FRAME_TIME) + acceleratorCycleSpeed;
+            acceleratorSpinAngle += acceleratorCycleSpeed * (1.0f / 120.0f);
+            self.RenderModel().SetRotationOffset(1, acceleratorSpinAngle, 0, 1, 0);
+            break;
+        }
+    }
+
+    /*
+    ==============================================================
+    OnLower
+    ==============================================================
+    */
+
+    void OnLower(void)
+    {
+        acceleratorCycleSpeed = 2;
+        acceleratorSpinAngle = 0;
+        self.RenderModel().SetRotationOffset(1, 0, 0, 1, 0);
+    }
+
+    /*
+    ==============================================================
+    OnHoldster
+    ==============================================================
+    */
+
+    void OnHoldster(void)
+    {
+        acceleratorCycleSpeed = 2;
+        acceleratorSpinAngle = 0;
+        self.RenderModel().SetRotationOffset(1, 0, 0, 1, 0);
+        self.StopSound();
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// Fusion Cannon
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokFusionCannon
+==============================================================
+*/
+
+final class TurokFusionCannon : TurokWeapon
+{
+    bool bFiredFusion;
+
+    TurokFusionCannon(kWeapon @actor)
+    {
+        bFiredFusion = false;
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnRaise
+    ==============================================================
+    */
+
+    void OnRaise(void)
+    {
+        self.RenderModel().HideSection(3, 1, false);
+    }
+
+    /*
+    ==============================================================
+    OnLower
+    ==============================================================
+    */
+
+    void OnLower(void)
+    {
+        self.RenderModel().HideSection(3, 1, true);
+    }
+
+    /*
+    ==============================================================
+    OnPostBeginLevel
+    ==============================================================
+    */
+
+    void OnPostBeginLevel(void)
+    {
+        self.RenderModel().HideSection(3, 1, true);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.AnimState().Set(anim_weaponFire, 4.0f, 0);
+        self.PlaySound("sounds/shaders/tek_weapon_2.ksnd");
+
+        bFiredFusion = false;
+    }
+
+    /*
+    ==============================================================
+    OnTick
+    ==============================================================
+    */
+
+    void OnTick(void)
+    {
+        int animID = self.AnimState().PlayingID();
+
+        if(animID == anim_weaponFire)
+        {
+            if(!bFiredFusion && self.AnimState().PlayTime() >= 1.1333f)
+            {
+                bFiredFusion = true;
+
+                if(Game.GetCurrentMapID() == 0)
+                {
+                    self.FireProjectile("fx/projectile_fusionshot_defect.kfx", 4.096f, 25.6f, -14.336f);
+                }
+                else
+                {
+                    self.FireProjectile("fx/plasma2.kfx", 4.096f, 25.6f, -14.336f);
+                }
+
+                self.Owner().Actor().LoudNoiseAlert();
+                self.Owner().ConsumeAmmo(1);
+            }
+        }
+        else if(animID == anim_weaponSwapOut)
+        {
+            if(self.AnimState().TrackTime() >= 0.3f)
+            {
+                self.RenderModel().HideSection(3, 1, true);
+            }
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+//
+// ChronoScepter
+//
+//-----------------------------------------------------------------------------
+
+/*
+==============================================================
+TurokChrono
+==============================================================
+*/
+
+final class TurokChrono : TurokWeapon
+{
+    float chronoChargeTime;
+
+    TurokChrono(kWeapon @actor)
+    {
+        chronoChargeTime = 0.0f;
+        super(actor);
+    }
+
+    /*
+    ==============================================================
+    OnBeginFire
+    ==============================================================
+    */
+
+    void OnBeginFire(void)
+    {
+        self.AnimState().Blend(anim_weaponFire, 4.0f, 60.0f, ANF_LOOP);
+        chronoChargeTime = 0;
+    }
+
+    /*
+    ==============================================================
+    OnEndFire
+    ==============================================================
+    */
+
+    void OnEndFire(void)
+    {
+        float t = self.AnimState().PlayTime() + chronoChargeTime;
+
+        if(t >= 1.0f)
+        {
+            self.FireProjectile("fx/chronscepter.kfx", 4.096f, 25.6f, -14.336f);
+            self.PlaySound("sounds/shaders/shockwave_weapon_fire.ksnd");
+            self.AnimState().Blend(anim_weaponFireCharged, 4.0f, 4.0f, 0);
+
+            self.Owner().Actor().LoudNoiseAlert();
+            self.Owner().ConsumeAmmo(1);
+            chronoChargeTime = 0;
+        }
+        else
+        {
+            self.AnimState().Blend(anim_weaponIdle, 4.0f, 8.0f, 0);
+        }
+    }
+
+    /*
+    ==============================================================
+    OnTick
+    ==============================================================
+    */
+
+    void OnTick(void)
+    {
+        switch(self.AnimState().PlayingID())
+        {
+        case anim_weaponFireCharged:
+            if((self.AnimState().flags & ANF_STOPPED) != 0)
+            {
+                self.AnimState().Blend(anim_weaponIdle, 4.0f, 8.0f, 0);
+            }
+            break;
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// AMMO TOGGLE
+
+//Ammo toggle global setup.
+bool bAmmoToggle = false;
+
+// ammo toggle key function
+// "if ( Player.HasAltAmmo() )" crashed the game here for some reason
+// so the real handling is done in TurokWeapon
+void AmmoToggle()
+{
+	// disallow during cutscenes
+	if ( Camera.CinematicState() == 0 )
+		bAmmoToggle = true;
+}
+
+// lower-case version to reduce chance of incorrect keybinds
+void ammotoggle()
+{
+	AmmoToggle();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// SPECIAL ATTACK
+
+bool bSpAtk = false;
+
+// key function
+void SpAtk()
+{
+	if ( Camera.CinematicState() == 0 )
+		bSpAtk = true;
+}
+void spatk()
+{
+	SpAtk();
+}
+
+/////////////////////////////////////////////////////////////////////////////////Not Working
+// ZOOM
+
+void Zoom()
+{
+    if ( Camera.CinematicState() != 0 )
+    //{
+    //    Camera.origin = self.Owner().Actor().Origin();
+    //    Camera.origin.z += self.Owner().Actor().ViewHeight();
+    //    Camera.yaw = self.Owner().Actor().Yaw();
+    //    Camera.pitch = self.Owner().Actor().Pitch();
+    //    Camera.roll = self.Owner().Actor().Roll();
+    //}
+
+    // check if mode toggle was pressed
+    //if ( !bSpAtk )
+    //    return;
+    bSpAtk = false;
+
+    if ( Camera.CinematicState() == 0 )
+    {
+        Camera.StartCinematic( CMF_NO_LETTERBOX );
+        kStr s;
+        if ( Sys.GetCvarValue("r_fov",s) )
+            Camera.fov = s.Atof() / 2;
+    }
+    else
+        Camera.StopCinematic();
+}

@@ -1,0 +1,174 @@
+//New ammo for the pistol
+Ammo_IncendiaryRound
+{
+   	max		30
+   	maxBackpack	50
+   	icon            "gfx/hud/h_a_incendiary.tga"
+   	offset          10.0
+   	icon_width      28.0
+   	icon_height     42.0
+}
+//New ammo for flechette gun. 
+Ammo_Flechette
+{
+	max		50
+	maxBackpack	100
+	icon		"gfx/hud/h_a_harpoon.tga"
+	offset          0.0
+    	icon_width      38.0
+  	icon_height     44.0
+}
+//New ammo concept by DoomMarine. Secondary ammo for the flechette gun. 
+Ammo_Harpoon
+{
+	max		4
+	maxBackpack	5
+	icon            "gfx/hud/h_a_harpoon.tga"
+   	offset          14.0
+    	icon_width      24.0
+    	icon_height     44.0
+}
+//New ammo for the pulse rifle.
+Ammo_Pulse
+{
+	max		100
+	maxBackpack	200
+	icon		"gfx/hud/h_a_pulse.tga"
+	offset          0.0
+	icon_width      38.0
+    	icon_height     44.0
+}
+
+//Flamehrower ammo
+Ammo_Fuel
+{
+	max		50
+	maxBackpack	100
+	icon		"gfx/hud/h_a_fuel.tga"
+	offset          11.0
+  	icon_width    	28.0
+ 	icon_height     43.7
+}
+
+//New ammo for mod to differentiate the rifle a little more. 
+Ammo_ARBullet 
+{
+    	max             120
+   	maxBackpack     300
+   	icon            "gfx/hud/h_a_clip.tga"
+    	offset          24.0
+    	icon_width      16.0
+    	icon_height     44.0
+}
+Ammo_Arrow
+{
+    	max             30
+    	maxBackpack     50 // 30
+    	icon            "gfx/hud/h_a_arrow1.tga"
+    	offset          0.0
+    	icon_width      38.0
+    	icon_height     44.0
+}
+
+Ammo_TekArrow
+{
+    	max             15
+    	maxBackpack     25 // 15
+    	icon            "gfx/hud/h_a_arrow2.tga"
+    	offset          2.0
+    	icon_width      36.0
+    	icon_height     44.0
+}
+
+Ammo_Bullet
+{
+    	max             90 // 100
+    	maxBackpack     150 // 200
+    	icon            "gfx/hud/h_a_clip.tga"
+    	offset          10.0
+    	icon_width      28.0
+    	icon_height     42.0
+}
+
+Ammo_Shell
+{
+    	max             20
+    	maxBackpack     40
+    	icon            "gfx/hud/h_a_shells1.tga"
+    	offset          -4.0
+    	icon_width      42.0
+    	icon_height     44.0
+}
+
+Ammo_ExpShell
+{
+    	max             10
+    	maxBackpack     20
+    	icon            "gfx/hud/h_a_shells2.tga"
+    	offset          -4.0
+    	icon_width      42.0
+    	icon_height     44.0
+}	
+
+Ammo_Cell
+{
+    	max             100
+    	maxBackpack     140 // 100
+    	icon            "gfx/hud/h_a_cell.tga"
+    	offset          0.0
+    	yoffset         1.5
+    	icon_width      38.0
+    	icon_height     40.0
+}
+
+Ammo_Grenade
+{
+    	max             20
+    	maxBackpack     30
+    	icon            "gfx/hud/h_a_grenades.tga"
+    	offset          -4.0
+    	icon_width      42.0
+    	icon_height     40.0
+}
+
+Ammo_Mags
+{
+    	max             500
+    	maxBackpack     800 // 500
+    	icon            "gfx/hud/h_a_mags.tga"
+    	offset          10.0
+    	icon_width      28.0
+    	icon_height     44.0
+}
+
+Ammo_Rocket
+{
+    	max             4 // 6
+    	maxBackpack     8 // 12
+    	icon            "gfx/hud/h_a_missiles.tga"
+    	offset          2.0
+    	icon_width      36.0
+    	icon_height     46.0
+}
+
+Ammo_Fuse
+{
+    	max             2
+    	maxBackpack     3
+    	icon            "gfx/hud/h_a_power.tga"
+    	offset          10.0
+    	yoffset         2.5
+    	icon_width      28.0
+    	icon_height     40.0
+}
+
+Ammo_Chrono
+{
+    	max             3
+    	maxBackpack     4 // 3
+    	icon            "gfx/hud/h_chronoicon.tga"
+    	offset          0.0
+    	yoffset         2.0
+    	icon_width      38.0
+    	icon_height     40.0
+}

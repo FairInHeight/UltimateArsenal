@@ -1,0 +1,87 @@
+fx[1] =
+{
+    {
+        bDepthBuffer = 1
+        bRetainVelocity = 1
+        bNoHitSource = 1
+        bPerPolyCollision = 1
+        translationRandomGlobal = 0.014954
+        translation = { -0.009949 1.000000 -0.009949 }
+        waterFriction = 0.099609
+        scale = 5.046875
+        scaleDest = 1.000000
+        forwardSpeed = 2680.000000
+        offset = { 0.000000 -51.000000 -0.000002 }
+        shader = "progs/worldfx"
+        sprite = "sprites/fx013"
+        instances = 1
+        lifeTime = 56
+        animSpeed = 35
+        whiteColor = { 0.874510 1.000000 0.996078 }
+        blackColor = { 0.470588 0.972549 0.972549 }
+        hueRandom = 0.000000
+        saturationRandom = 0.000000
+        brightnessRandom = 0.000000
+        onCollideActor = 1
+        onCollideWall = 1
+        onCollideFloor = 1
+        animType = 2
+        priority = 100
+        onImpact
+        {
+        [0]
+        {
+            fx = "fx/foliage.kfx"
+            sound = "sounds/shaders/bullet_impact_3.ksnd"
+        }
+        [2]
+        {
+            fx = "fx/generic_251.kfx"
+            sound = "sounds/shaders/bullet_impact_5.ksnd"
+            damageClass = "S_Damage_Target_damage_20"
+        }
+        [3]
+        {
+            fx = "fx/spark.kfx"
+            sound = "sounds/shaders/bullet_impact_1.ksnd"
+        }
+        [4]
+        {
+            fx = "fx/blood.kfx"
+            sound = "sounds/shaders/bullet_impact_13.ksnd"
+            damageClass = "S_Damage_Target_damage_50"
+        }
+        [5]
+        {
+            fx = "fx/greenblood.kfx"
+            sound = "sounds/shaders/bullet_impact_14.ksnd"
+            damageClass = "S_Damage_Target_damage_50"
+        }
+        [6]
+        {
+            fx = "fx/generic_149.kfx"
+            damageClass = "S_Damage_Target_damage_20"
+        }
+        [7]
+        {
+            fx = "fx/generic_62.kfx"
+            sound = "sounds/shaders/bullet_impact_7.ksnd"
+        }
+        [8]
+        {
+            fx = "fx/generic_64.kfx"
+            sound = "sounds/shaders/bullet_impact_8.ksnd"
+        }
+        [9]
+        {
+            fx = "fx/generic_187.kfx"
+            sound = "sounds/shaders/generic_219.ksnd"
+        }
+        }
+        onWaterImpact
+        {
+            fx = "fx/watersplash.kfx"
+            sound = "sounds/shaders/water_splash_4.ksnd"
+        }
+    }
+}

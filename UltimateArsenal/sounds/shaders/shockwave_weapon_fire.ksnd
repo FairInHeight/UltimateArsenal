@@ -1,0 +1,100 @@
+sounds[3] =
+{
+    {
+        wavefile = "sounds/waves/explo10p.wav"
+        bOneInstancePerSource = 0
+        bLoop = 0
+        bEnableVolumeEnvelope = 1
+        bEnablePitchEnvelope = 1
+        bFadeIfObstructed = 0
+        bUpdateNoEnvelope = 1
+        bLinkToEnvelope = 0
+        bFullVolume = 1
+        delay = 0
+        priority = 60
+        random = 1.000000
+        radioVolume = 1
+        volume_envelope =
+        {
+            max = 1.453125
+            start = 0.000000
+            end = 1.000000
+            duration = 3
+            envStartTime = 0
+        }
+
+        pitch_envelope =
+        {
+            max = 1.582000
+            start = 0.682000
+            end = 1.110000
+            duration = 36
+            envStartTime = 0
+        }
+    }
+    {
+        wavefile = "sounds/waves/explo1p.wav"
+        bOneInstancePerSource = 0
+        bLoop = 0
+        bEnableVolumeEnvelope = 1
+        bEnablePitchEnvelope = 1
+        bFadeIfObstructed = 0
+        bUpdateNoEnvelope = 1
+        bLinkToEnvelope = 0
+        bFullVolume = 0
+        delay = 0
+        priority = 60
+        random = 1.000000
+        radioVolume = 1
+        volume_envelope =
+        {
+            max = 0.453125
+            start = 0.000000
+            end = 1.000000
+            duration = 3
+            envStartTime = 0
+        }
+
+        pitch_envelope =
+        {
+            max = 1.624000
+            start = 1.624000
+            end = 1.110000
+            duration = 36
+            envStartTime = 0
+        }
+    }
+    {
+        wavefile = "sounds/waves/rexsitep.wav"
+        bOneInstancePerSource = 0
+        bLoop = 0
+        bEnableVolumeEnvelope = 1
+        bEnablePitchEnvelope = 1
+        bFadeIfObstructed = 0
+        bUpdateNoEnvelope = 0
+        bLinkToEnvelope = 0
+        bFullVolume = 0
+        delay = 0
+        priority = 60
+        random = 1.000000
+        radioVolume = 1
+        volume_envelope =
+        {
+            max = 0.320313
+            start = 1.000000
+            end = 0.000000
+            duration = 30
+            envStartTime = 6
+        }
+
+        pitch_envelope =
+        {
+            max = 3.360000
+            start = 4.000000
+            end = 1.682000
+            duration = 27
+            envStartTime = 3
+        }
+    }
+}
+

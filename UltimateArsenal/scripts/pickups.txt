@@ -1,0 +1,198 @@
+// Smoke39 - scripts for advanced pickups with custom pickup conditions
+
+
+class SmartPickup : ScriptObject
+{
+    void OnRestore()
+    {
+    self.Remove();
+    }
+
+	kActor@ self;
+
+	SmartPickup( kActor@ A )
+	{
+		@self = A;
+	}
+
+	void OnSpawn()
+	{
+	}
+
+	void OnTick()
+	{
+		self.Yaw() += Math::pi/3 * GAME_DELTA_TIME;
+	}
+
+	void OnTouch( kActor@ Other )
+	{
+		if ( Other is Player.Actor().CastToActor() )
+			Pickup( Other );
+	}
+
+	void Pickup( kActor@ Other )
+	{
+	}
+};
+
+class AmmoPickup : SmartPickup
+{
+	
+	AmmoType@ Type;
+	int PickupAmount;
+	bool bBig;
+
+	AmmoPickup( kActor@ A )
+	{
+		super(A);
+	}
+
+	void Pickup( kActor@ Other )
+	{
+		int stored=0;
+			GameVariables.GetInt( Type.GVK, stored );
+
+		int max = PlayerHasBackpack()? Type.BackpackMax : Type.Max;
+
+		// alt ammo is loaded, or player has no ammo - pick up normally
+		// also make sure no ammo is in storage (should never be the case, but just to be safe)
+//		if ( !Opt::bAmmoToggle || Player.HasAltAmmo(Type.Slot) || (!Player.HasAmmo(Type.Slot) && stored==0) )
+		// out of alt ammo, or alt ammo is loaded
+		if ( stored == 0 )
+		{
+			if ( Player.GetAltAmmo(Type.Slot) < max )
+			{
+				ActorFactory.Spawn( bBig? Type.RealPickupBig : Type.RealPickupSmall, Other.Origin().x, Other.Origin().y, Other.Origin().z, 0, Player.Actor().GetSectorIndexAtLocation(Other.Origin()) );
+				self.MarkPersistentBit(false);
+				self.Remove();
+			}
+		}
+		// primary ammo is loaded - put into storage
+		else if ( stored < max )
+		{
+			stored += PickupAmount;
+			if ( stored > max )
+			stored = max;
+			GameVariables.SetValue( Type.GVK, ""+ stored );
+
+			ActorFactory.Spawn( bBig? Type.DummyPickupBig : Type.DummyPickupSmall, Other.Origin().x, Other.Origin().y, Other.Origin().z, 0, Player.Actor().GetSectorIndexAtLocation(Other.Origin()) );
+			self.MarkPersistentBit(false);
+			self.Remove();
+		}
+	}
+};
+
+
+class AmmoPickupTek : AmmoPickup
+{
+	AmmoPickupTek( kActor@ A )
+	{
+		super(A);
+		@Type = TekArrows;
+		PickupAmount = 5;
+		bBig = false;
+	}
+};
+class AmmoPickupTekQuiver : AmmoPickupTek
+{
+	AmmoPickupTekQuiver( kActor@ A )
+	{
+		super(A);
+		PickupAmount = 15;
+		bBig = true;
+	}
+};
+
+class AmmoPickupExpShells : AmmoPickup
+{
+	AmmoPickupExpShells( kActor@ A )
+	{
+		super(A);
+		@Type = ExpShells;
+		PickupAmount = 3;
+		bBig = false;
+	}
+};
+class AmmoPickupExpShellBox : AmmoPickupExpShells
+{
+	AmmoPickupExpShellBox( kActor@ A )
+	{
+		super(A);
+		PickupAmount = 20;
+		bBig = true;
+	}
+};
+class AmmoPickupARBullets : AmmoPickup
+{  
+	AmmoPickupARBullets( kActor@ A )
+	{
+		super(A);
+		@Type = ARBullets;
+		PickupAmount = 30;
+		bBig = false;
+	}
+};
+class AmmoPickupRifle : AmmoPickup
+{
+	void Pickup( kActor@ Other )
+	{
+    AmmoPickup::Pickup(Other);
+
+    // if parent didn't pick us up
+    if ( !self.IsStale() )
+		{
+			// If we don't have the rifle
+			if (!Player.HasWeapon(TW_WEAPON_RIFLE))
+				{
+				//Spawn the dummy pickup
+				ActorFactory.Spawn ( Type.DummyPickupBig, Other.Origin().x, Other.Origin().y, Other.Origin().z, 0, Player.Actor().GetSectorIndexAtLocation(Other.Origin()) );
+				//Make it not respawn
+				self.MarkPersistentBit(false);
+				//Remove the rifle
+				self.Remove();
+				}
+		}
+
+    // if this was picked up, either by parent or our code above, make sure the player has the gun
+    if ( self.IsStale() )
+        Player.GiveWeapon( TW_WEAPON_RIFLE, 0 );
+	}
+
+	AmmoPickupRifle( kActor@ A )
+	{
+		super(A);
+		@Type = ARBullets;
+		PickupAmount = 60;
+		bBig = true;
+	}
+}	
+class AmmoPickupHarpoons : AmmoPickup
+{
+	AmmoPickupHarpoons( kActor@ A )
+	{
+		super(A);
+		@Type = Harpoons;
+		PickupAmount = 1;
+		bBig = false;
+	}
+};
+class AmmoPickupHarpoonBundle : AmmoPickupHarpoons
+{
+	AmmoPickupHarpoonBundle( kActor@ A )
+	{
+		super(A);
+		@Type = Harpoons;
+		PickupAmount = 4;
+		bBig = true;
+	}
+};
+class AmmoPickupIncendiaryRounds : AmmoPickup
+{
+	AmmoPickupIncendiaryRounds( kActor@ A )
+	{
+		super(A);
+		@Type = IncendiaryRounds;
+		PickupAmount = 15;
+		bBig = false;
+	}
+};

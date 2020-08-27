@@ -1,0 +1,255 @@
+// === native/built-in text ===
+
+"llaves por encontrar"
+"en este nivel"
+
+"1 llave por encontrar"
+"en este nivel"
+
+"has encontrado"
+"todas las llaves del nivel"
+
+"nivel "
+" llave"
+
+"Turok Son of Stone TM & @ 2015 de Random House, Inc."
+"Con licencia para Classic Media, LLC. Todos los derechos reservados."
+
+// === menu strings ===
+"salir del juego"
+"reiniciar el juego"
+
+"¿seguro?"
+
+"no válido"
+"código"
+
+"introducir el código de truco"
+
+" activado"
+
+"suavizado de contorno"
+"brillo"
+"usar consultas de oclusión"
+"refracción del agua"
+"reflejo del agua"
+"sombras simples"
+"sincronización de gpu"
+"apaisado"
+"opciones de saturación"
+
+"volver"
+
+"gráficos"
+"saturación"
+"potencia de saturación"
+"saturación de rojo"
+"saturación de verde"
+"saturación de azul"
+
+"teclas"
+"ratón"
+"joystick"
+"acciones"
+"armas"
+"mapeo automático"
+"menús"
+
+"no asignado"
+"set bind for "
+"espera 5 segundos para cancelar"
+"al pulsar la tecla asignada dejará de estarlo"
+
+"sensibilidad horizontal"
+"sensibilidad vertical"
+"invertir"
+"suavidad"
+
+"sensibilidad de vista del eje x"
+"sensibilidad de vista del eje y"
+"sensibilidad de movimiento"
+"aceleración al girar"
+
+"controles"
+"juego"
+"gráficos"
+"sonido"
+"vídeo"
+"introducir truco"
+"menú de trucos"
+"volver"
+
+"volumen de sonido"
+"volumen de música"
+"efectos de reverberación"
+
+"extender línea de horizonte"
+"mostrar la animación de inicio"
+"mostrar la cinemática de introducción"
+"mostrar la cinemática de muerte"
+"mostrar la mira"
+"mostrar la pantalla de información"
+"oscilación del arma"
+"cambiar arma al recoger"
+"sonidos ambientales"
+
+"dificultad"
+"fácil"
+"normal"
+"difícil"
+"experto"
+
+"colisión de proyectiles"
+
+"ventana"
+"sincronización vertical"
+"resolución"
+
+"los cambios se aplicarán"
+"después de reiniciar el juego"
+
+"espacio vacío"
+"sobrescribir"
+"¿seguro?"
+"guardar"
+"error al guardar"
+"perdido o dañado"
+"cargar partida"
+"¿seguro?"
+"el archivo de guardado está obsoleto"
+"no se puede cargar"
+"el archivo de guardado podría estar obsoleto"
+"¿seguro?"
+"cargar partida"
+
+// === menu strings ===
+"iniciar partida"
+"entrenamiento"
+"opciones"
+"salir"
+"reanudar partida"
+"claves"
+"iconos de nivel"
+
+"sí"
+"no"
+"aceptar"
+"idioma"
+
+// === save prompt ===
+"¿quieres guardar"
+"tu partida?"
+
+// === player notifications ===
+"punto de control"
+"área secreta descubierta"
+
+//
+// end of built-in strings
+//
+
+// === hub titles ===
+"el núcleo"
+"la jungla"
+"la ciudad antigua"
+"las ruinas"
+"las catacumbas"
+"la aldea en los árboles"
+"la tierra perdida"
+"el enfrentamiento final"
+
+// === pickup messages ===
+"30 flechas"
+"5 flechas tek"
+"15 flechas tek"
+"cargador"
+"paquete de balas"
+"cartuchos de escopeta"
+"paquete de cartuchos de escopeta"
+"cartuchos explosivos"
+"paquete de cartuchos explosivos"
+"munición de ametralladora"
+"1 granada"
+"paquete de granadas"
+"célula de energía"
+"célula de energía grande"
+"4 cohetes"
+"carga de fusión"
+
+"2 de salud"
+"10 de salud"
+"25 de salud"
+"salud completa"
+"ultra salud"
+"herida mortal"
+
+"mochila"
+"invencibilidad espiritual"
+"armadura tek"
+"pieza del cronoceptor"
+
+"pistola"
+"rifle de asalto"
+"escopeta"
+"escopeta automática"
+"ametralladora"
+"lanzagranadas"
+"rifle de impulsos"
+"arma alienígena"
+"lanzacohetes"
+"arma de ondas de choque"
+"cañón de fusión"
+"cronoceptor"
+
+// === tutorial ===
+"nivel de entrenamiento\n\npara salir en cualquier momento,\npulsa la barra espaciadora."
+"saltar\npulsa la tecla de salto\npara saltar.\ncuanto más rato\nla mantengas pulsada,\nmás se moverá turok."
+"nadar\npara nadar, usa las\nteclas de movimiento.\nla tecla de salto\nhará que turok\nsalga a la superficie."
+"trepar\ntrepa por el acantilado\ncon las teclas de movimiento.\nprueba a observar alrededor\ncon las teclas de mirar y girar,\no trata de saltar."
+"caminar\ncamina con cuidado\npor el tronco.\n"
+"salto largo\nacuérdate de mantener pulsada\nla tecla de salto\npara saltar más."
+"muy bien, has completadoel nivel de entrenamiento\npara principiantes.\nponte en el teletransportador\npara ir\nal nivel intermedio."
+"nadar\npara nadar\npor las entradas, dirige\ncon las teclas de movimiento\ny usa las de girar\npara moverte a izquierda o derecha."
+"salto largo corriendo\nsujétate al acantilado\nsaltando\na través del hueco."
+"caminar\ncamina con cuidado\npor el tronco que hace de puente.\nmira hacia abajo\nmientras caminas\npara guiarte."
+"práctica de tiro\nusa las flechas\npara disparar a los francotiradores\ny así hacer que aparezcan\nlos pilares."
+"muy bien, has completadoel nivel de entrenamiento\nintermedio.\nponte en\nel teletransportador\npara ir al nivel avanzado."
+"bucear\nnada hacia el fondo\ndel agua para encontrar\nla salida\nal otro lado."
+"saltar\nsalta en\nla plataforma.\nmira hacia abajo\nmientras saltas\npara guiarte."
+"mapa\npulsa la tecla\ndel mapa para activarlo\ny encontrar\nuna ruta por\nlas cuevas."
+"salto en diagonal\npulsa la tecla de salto\nmientras mantienes pulsadas\nlas de adelantar y girar\npara realizar\nun salto en diagonal. usa\nlas teclas de girar\npara virar en el aire."
+"práctica de tiro\navanzada\nusa las flechas para\ndisparar a los francotiradores."
+"activar interruptores\nbusca el botón\npara abrir el pórtico\nde madera."
+"muy bien, es obvio\nque no se te da mal.\nbuena caza."
+
+"encuentra las ruinas del núcleo"
+"usa las llaves"
+"para abrir los portales de nivel"
+
+"acceder al nivel "
+
+"armadura dañada"
+"salud crítica"
+
+// === violence options ===
+"opciones de violencia"
+"sangre roja"
+"sangre verde"
+"sin sangre"
+
+// === extra life ===
+"vida extra"
+
+// === opacity ===
+"opacidad"
+
+"ECHADOR DE LLAMA"
+"COMBUSTIBLE"
+"REVISTA RIFLE"
+"CASO DE BALAS RIFLES"
+"REDONDOS DE PULSO"
+"PISTOLA FLECHETA"
+"FLECHETAS"
+"ARPÓN"
+"PAQUETE DE ARPÓN"
+"BALAS INCENDIARIAS"

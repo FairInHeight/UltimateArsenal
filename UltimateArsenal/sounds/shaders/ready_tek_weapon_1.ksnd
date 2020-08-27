@@ -1,0 +1,68 @@
+sounds[2] =
+{
+    {
+        wavefile = "sounds/waves/lsreadyp.wav"
+        bOneInstancePerSource = 0
+        bLoop = 0
+        bEnableVolumeEnvelope = 0
+        bEnablePitchEnvelope = 1
+        bFadeIfObstructed = 0
+        bUpdateNoEnvelope = 0
+        bLinkToEnvelope = 0
+        bFullVolume = 0
+        delay = 0
+        priority = 40
+        random = 1.000000
+        radioVolume = 1
+        volume_envelope =
+        {
+            max = 0.359375
+            start = 1.000000
+            end = 1.000000
+            duration = 60
+            envStartTime = 0
+        }
+
+        pitch_envelope =
+        {
+            max = 0.708000
+            start = 0.708000
+            end = 0.594000
+            duration = 60
+            envStartTime = 30
+        }
+    }
+    {
+        wavefile = "sounds/waves/lsreadyp.wav"
+        bOneInstancePerSource = 0
+        bLoop = 0
+        bEnableVolumeEnvelope = 1
+        bEnablePitchEnvelope = 0
+        bFadeIfObstructed = 0
+        bUpdateNoEnvelope = 0
+        bLinkToEnvelope = 0
+        bFullVolume = 0
+        delay = 53
+        priority = 50
+        random = 1.000000
+        radioVolume = 1
+        volume_envelope =
+        {
+            max = 0.343750
+            start = 1.000000
+            end = 0.000000
+            duration = 12
+            envStartTime = 12
+        }
+
+        pitch_envelope =
+        {
+            max = 1.464000
+            start = 2.000000
+            end = 2.000000
+            duration = 60
+            envStartTime = 0
+        }
+    }
+}
+

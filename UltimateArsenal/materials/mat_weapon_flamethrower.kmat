@@ -1,0 +1,83 @@
+
+material Back {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0226_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Body {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0328_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+
+material Chrome {
+    shader "progs/worldSphereMap"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0843_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+
+material Chrome2 {
+    shader "progs/worldSphereMap"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0249_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Foregrip {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0326_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Trigger {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0203_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+
+

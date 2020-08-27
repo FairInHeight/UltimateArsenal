@@ -1,0 +1,28 @@
+material Chrome {
+    shader "progs/worldSphereMap"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0843_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Trigger {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0203_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+
+

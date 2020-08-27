@@ -1,0 +1,415 @@
+//
+// Copyright(C) 2014-2015 Samuel Villarreal
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// DESCRIPTION:
+//      Common defines and constants
+//
+
+#include "scripts/animations.txt"
+
+enum turokVariants
+{
+    TV_NONE = 0,
+    TV_BOW,
+    TV_KNIFE,
+    TV_KEY,
+    TV_KEY_FINAL_OUTER,
+    TV_KEY_FINAL_CENTER,
+    
+    NUMTUROKVARIANTS
+}
+
+enum turokWeapons
+{
+    TW_WEAPON_KNIFE = 0,
+    TW_WEAPON_BOW,
+    TW_WEAPON_PISTOL,
+    TW_WEAPON_SHOTGUN,
+    TW_WEAPON_ASHOTGUN,
+    TW_WEAPON_RIFLE,
+    TW_WEAPON_PULSERIFLE,
+	TW_WEAPON_FLAMETHROWER,
+	TW_WEAPON_FLECHETTEGUN,
+    TW_WEAPON_MINIGUN,
+    TW_WEAPON_GRENADE,
+    TW_WEAPON_ALIENGUN,
+    TW_WEAPON_MISSILE,
+    TW_WEAPON_ACCELERATOR,
+    TW_WEAPON_CANNON,
+    TW_WEAPON_CHRONO,
+    
+    NUMTUROKWEAPONS
+}
+
+enum turokGruntVariants
+{
+    GV_GENERIC  = 0,
+    GV_GENERIC_AXE,
+    GV_GENERIC_CLUB,
+    GV_COMMANDER_SPEAR,
+    GV_COMMANDER_RIFLE1,
+    GV_COMMANDER_RIFLE2,
+    GV_COMMANDER_RIFLE3,
+    GV_GENERIC_RIFLE,
+    GV_COMMANDER_RIFLE4,
+    GV_POACHER_KNIFE,
+    GV_POACHER_PISTOL1,
+    GV_POACHER_PISTOL2,
+    GV_POACHER_RIFLE,
+    GV_POACHER_SHOTGUN,
+    GV_WARRIOR_BONE,
+    GV_WARRIOR_DART,
+    GV_WARRIOR_SPEAR,
+    GV_SHAMAN,
+    GV_CYBORG_PULSE_RIFLE,
+    GV_CYBORG_KNIFE,
+    GV_CYBORG_SPEAR,
+    GV_DEMON_AXE,
+    GV_DEMON_SPEAR,
+    GV_DEMON_HANDS,
+    GV_DEMON_LORD,
+    GV_GENERIC_HANGING,
+    
+    NUMGRUNTVARIANTS
+}
+
+enum turokMoverFlags
+{
+    TFF_ACTIVATED   = 0x40000,
+    TFF_WAITING     = 0x80000,
+    TFF_MOVING      = 0x100000
+}
+
+enum turokActorTypes
+{
+    AT_PLAYER = 0,
+
+    AT_RAPTOR = 1,
+    AT_GRUNT = 2,
+    AT_DINOSAUR1 = 4,
+    AT_RIDER = 5,
+    AT_SANDWORM = 8,
+    AT_STALKER = 9,
+    AT_ALIEN = 10,
+    AT_PURLIN = 11,
+    AT_MECH = 12,
+    AT_FISH = 14,
+    AT_SEWERCRAB = 15,
+    AT_KILLERPLANT = 16,
+    AT_UNKNOWN1 = 19,
+    AT_ANIMAL = 20,
+    AT_INSECT = 21,
+    AT_BOAR = 23,
+    AT_DRAGONFLY = 25,
+    AT_TURRET = 2001,
+
+    AT_AIBOSS_MANTIS = 1000,
+    AT_AIBOSS_TREX = 1001,
+    AT_AIBOSS_CAMPAINGER = 1002,
+    AT_AIBOSS_HUNTER = 1003,
+    AT_AIBOSS_HUMMER = 1004,
+    
+    AT_DYNAMIC_DOOR = 300,
+    AT_DYNAMIC_LIFT = 303,
+    AT_DYNAMIC_FLOOR_5X = 310,
+    AT_DYNAMIC_FLOOR_PERPETUAL = 311,
+    AT_DYNAMIC_LIFT_LOWER_WAIT_RAISE = 316,
+    AT_DYNAMIC_FLOOR_LOWER_AND_ROTATE = 324,
+    AT_DYNAMIC_SPIRIT_BRIDGE = 328,
+    AT_DYNAMIC_FLOOR_1X = 329,
+
+    AT_DYNAMIC_MANTISSTATUE = 302,
+    AT_DYNAMIC_MANTISWALL = 305,
+    AT_DYNAMIC_PORTAL = 317,
+    AT_DYNAMIC_GATEKEYPANEL = 318,
+    AT_DYNAMIC_WATER1 = 319,
+    AT_DYNAMIC_WATER2 = 320,
+    AT_DYNAMIC_PORTALGATE = 321,
+    AT_DYNAMIC_KEYPLAQUE = 325,
+
+    AT_UNKNOWN = 200,
+    
+    AT_GIB_ALIEN3 = 701,
+    AT_GIB_STALKER4 = 702,
+    AT_GIB_ALIEN2 = 703,
+    AT_GIB_ALIEN1 = 704,
+    AT_GIB_STALKER3 = 705,
+    AT_GIB_STALKER5 = 706,
+    AT_GIB_STALKER2 = 707,
+    AT_GIB_STALKER1 = 708,
+
+    AT_WEAPON_KNIFE = 100,
+    AT_WEAPON_BOW = 102,
+    AT_WEAPON_PISTOL = 103,
+    AT_WEAPON_RIFLE = 104,
+    AT_WEAPON_PULSERIFLE = 105,
+    AT_WEAPON_SHOTGUN = 106,
+    AT_WEAPON_ASHOTGUN = 107,
+    AT_WEAPON_MINIGUN = 108,
+    AT_WEAPON_GRENADE = 109,
+    AT_WEAPON_ALIENGUN = 110,
+    AT_WEAPON_CANNON = 111,
+    AT_WEAPON_MISSILE = 112,
+    AT_WEAPON_ACCELERATOR = 113,
+    AT_WEAPON_CHRONO = 114,
+	AT_WEAPON_FLAMETHROWER = 115,
+	AT_WEAPON_FLECHETTEGUN = 116,
+    
+    AT_PICKUP_SMALLHEALTH = 400,
+    AT_PICKUP_HEALTH = 402,
+    AT_PICKUP_FULLHEALTH = 403,
+    AT_PICKUP_ULTRAHEALTH = 404,
+    AT_PICKUP_MASK = 405,
+    AT_PICKUP_BACKPACK = 406,
+    AT_PICKUP_SPIRIT = 407,
+    AT_PICKUP_PISTOL = 409,
+    AT_PICKUP_ASSAULTRIFLE = 410,
+    AT_PICKUP_SHOTGUN = 411,
+    AT_PICKUP_ASHOTGUN = 412,
+    AT_PICKUP_MINIGUN = 413,
+    AT_PICKUP_GRENADELAUNCHER = 414,
+    AT_PICKUP_PULSERIFLE = 415,
+    AT_PICKUP_ALIENWEAPON = 416,
+    AT_PICKUP_ROCKETLAUNCHER = 417,
+    AT_PICKUP_ACCELERATOR = 418,
+    AT_PICKUP_CANNON = 419,
+    AT_PICKUP_QUIVER2 = 420,
+    AT_PICKUP_ARROWS = 421,
+    AT_PICKUP_QUIVER1 = 422,
+    AT_PICKUP_CLIP = 423,
+    AT_PICKUP_CLIPBOX = 424,
+    AT_PICKUP_SHELLS = 425,
+    AT_PICKUP_SHELLBOX = 426,
+    AT_PICKUP_EXPSHELLS = 427,
+    AT_PICKUP_EXPSHELLBOX = 428,
+    AT_PICKUP_MINIGUNAMMO = 429,
+    AT_PICKUP_GRENADE = 430,
+    AT_PICKUP_GRENADEBOX = 431,
+    AT_PICKUP_SMALLCELL = 432,
+    AT_PICKUP_CELL = 433,
+    AT_PICKUP_ROCKET = 434,
+    AT_PICKUP_FUSIONCELL = 436,
+    AT_PICKUP_ARMOR = 437,
+    AT_PICKUP_COIN1 = 438,
+    AT_PICKUP_COIN10 = 439,
+    AT_PICKUP_KEY1 = 440,
+    AT_PICKUP_KEY2 = 441,
+    AT_PICKUP_KEY3 = 442,
+    AT_PICKUP_KEY4 = 443,
+    AT_PICKUP_KEY5 = 444,
+    AT_PICKUP_KEY6 = 445,
+    AT_PICKUP_FINALKEY1 = 446,
+    AT_PICKUP_CHRONOPIECE1 = 447,
+    AT_PICKUP_FINALKEY2 = 449,
+    AT_PICKUP_CHRONOPIECE2 = 450,
+    AT_PICKUP_CHRONOPIECE3 = 451,
+    AT_PICKUP_CHRONOPIECE4 = 452,
+    AT_PICKUP_CHRONOPIECE5 = 453,
+    AT_PICKUP_CHRONOPIECE6 = 454,
+    AT_PICKUP_CHRONOPIECE7 = 455,
+    AT_PICKUP_CHRONOPIECE8 = 456,
+	AT_PICKUP_FUEL = 457,
+	AT_PICKUP_ARCLIP = 458,
+	AT_PICKUP_INCENDIARYROUNDS = 459,
+	AT_PICKUP_FLAMETHROWER = 460,
+	AT_PICKUP_FLECHETTEGUN = 461,
+	AT_PICKUP_FLECHETTES = 462,
+	AT_PICKUP_HARPOON = 463,
+	AT_PICKUP_HARPOONBUNDLE = 464,
+	AT_PICKUP_PULSEROUNDS = 465,
+	
+	
+	
+    AT_MINIPORTAL = 600,
+    AT_WATER = 800,
+
+    AT_WARPPOINT = 4000,
+
+    AT_REAL_TEKARROWS = 520,
+    AT_REAL_TEKARROWQUIVER,
+    AT_DUMMY_TEKARROWS,
+    AT_DUMMY_TEKARROWQUIVER,
+    AT_LOADER_TEKARROWS,
+    AT_LOADER_ARROWS,
+    AT_REAL_EXPSHELLS,
+    AT_REAL_EXPSHELLBOX,
+    AT_DUMMY_EXPSHELLS,
+    AT_DUMMY_EXPSHELLBOX,
+    AT_LOADER_EXPSHELLS,
+    AT_LOADER_SHELLS,
+    AT_REAL_ARBULLETS,
+    AT_DUMMY_ARBULLETS,
+    AT_LOADER_ARBULLETS,
+    AT_LOADER_BULLETS,
+	AT_REAL_RIFLE,
+	AT_DUMMY_RIFLE,
+	AT_REAL_HARPOONS,
+	AT_REAL_HARPOONBUNDLE,
+	AT_DUMMY_HARPOONS,
+	AT_DUMMY_HARPOONBUNDLE,
+	AT_LOADER_HARPOONS,
+	AT_LOADER_FLECHETTES,
+	AT_REAL_INCENDIARYROUNDS,
+	AT_DUMMY_INCENDIARYROUNDS,
+	AT_LOADER_INCENDIARYROUNDS,
+
+    NUMACTORTYPES
+}
+
+enum hummerGlobalState
+{
+    HGS_NEW             = 0,
+    HGS_ENTERED_ARENA,
+    HGS_DEAD
+}
+
+enum longHunterGlobalState
+{
+    LHGS_NEW             = 0,
+    LHGS_OBSERVING,
+    LHGS_INCOMBAT,
+    LHGS_DEAD
+}
+
+enum mantisState
+{
+    MS_GROUNDCHASE  = 0,
+    MS_BASHWALL,
+    MS_DEAD,
+    
+    NUM_MANTIS_STATES
+}
+
+//
+kStr NoAmmoStr = "Out of ";
+
+class AmmoType
+{
+	kStr GVK;      // GameVariables key for stored ammo
+	kStr Name;     // presentational
+	kStr BaseName; // name of corresponding standard ammo
+	kStr LoadStr;  // presentational: "Name + LoadStr" will be printed
+	int RealPickupSmall, RealPickupBig;
+	int DummyPickupSmall, DummyPickupBig;
+	int Loader, Unloader;
+	int Slot;  // slot of any of the weapons that uses this as its alt ammo type
+	int Max, BackpackMax;
+
+	AmmoType(){}
+	AmmoType( kStr k, kStr n, kStr b, kStr ls,
+		int rs, int rb, int ds, int db, int lr, int ulr,
+		int s, int m, int bm )
+	{
+		GVK=k;  Name=n;  BaseName=b;  LoadStr=ls;
+		RealPickupSmall=rs;  RealPickupBig=rb;
+		DummyPickupSmall=ds;  DummyPickupBig=db;
+		Loader=lr;  Unloader=ulr;
+		Slot=s;  Max=m;  BackpackMax=bm;
+	}
+};
+
+AmmoType ARBullets(
+    "ARBulletStorage",
+	"AR Bullets",
+	"9MM Bullets",
+	" Loaded",
+	AT_REAL_ARBULLETS,
+	AT_REAL_RIFLE,
+	AT_DUMMY_ARBULLETS,
+	AT_DUMMY_RIFLE,
+	AT_LOADER_ARBULLETS,
+	AT_LOADER_BULLETS,
+	TW_WEAPON_RIFLE,
+	MaxARBullets,
+	MaxARBulletsBackpack
+);
+
+AmmoType TekArrows(
+	"TekArrowStorage",
+	"Tek Arrows",
+	"Arrows",
+	" Equipped",
+	AT_REAL_TEKARROWS,
+	AT_REAL_TEKARROWQUIVER,
+	AT_DUMMY_TEKARROWS,
+	AT_DUMMY_TEKARROWQUIVER,
+	AT_LOADER_TEKARROWS,
+	AT_LOADER_ARROWS,
+	TW_WEAPON_BOW,
+	MaxTekArrows,
+	MaxTekArrowsBackpack
+);
+AmmoType ExpShells(
+	"ExpShellStorage",
+	"Explosive Shells",
+	"Shells",
+	" Loaded",
+	AT_REAL_EXPSHELLS,
+	AT_REAL_EXPSHELLBOX,
+	AT_DUMMY_EXPSHELLS,
+	AT_DUMMY_EXPSHELLBOX,
+	AT_LOADER_EXPSHELLS,
+	AT_LOADER_SHELLS,
+	TW_WEAPON_SHOTGUN,
+	MaxExpShells,
+	MaxExpShellsBackpack
+);
+AmmoType Harpoons(
+	"HarpoonStorage",
+	"Harpoons",
+	"Flechettes",
+	" Loaded",
+	AT_REAL_HARPOONS,
+	AT_REAL_HARPOONBUNDLE,
+	AT_DUMMY_HARPOONS,
+	AT_DUMMY_HARPOONBUNDLE,
+	AT_LOADER_HARPOONS,
+	AT_LOADER_FLECHETTES,
+	TW_WEAPON_FLECHETTEGUN,
+	MaxHarpoons,
+	MaxHarpoonsBackpack
+);
+AmmoType IncendiaryRounds(
+	"IncendiaryRoundStorage",
+	"Incendiary Rounds",
+	"9MM Bullets",
+	" Loaded",
+	AT_REAL_INCENDIARYROUNDS,
+	0,
+	AT_DUMMY_INCENDIARYROUNDS,
+	0,
+	AT_LOADER_INCENDIARYROUNDS,
+	AT_LOADER_BULLETS,
+	TW_WEAPON_PISTOL,
+	MaxIncendiaryRounds,
+	MaxIncendiaryRoundsBackpack
+);
+
+bool PlayerHasBackpack()
+{
+bool bHasBackpack;
+GameVariables.GetBool( "bHasBackpack", bHasBackpack );
+return bHasBackpack;
+}
+
+
+const int MaxTekArrows          = 15;
+const int MaxTekArrowsBackpack  = 25;
+const int MaxExpShells          = 10;
+const int MaxExpShellsBackpack  = 20;
+const int MaxARBullets          = 120;
+const int MaxARBulletsBackpack  = 300;
+const int MaxHarpoons		= 4;
+const int MaxHarpoonsBackpack 	= 5;
+const int MaxIncendiaryRounds   = 30;
+const int MaxIncendiaryRoundsBackpack = 50;

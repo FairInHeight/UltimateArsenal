@@ -1,0 +1,386 @@
+//
+// Copyright(C) 2014-2015 Samuel Villarreal
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// DESCRIPTION:
+//      Pickup Spawner Logic
+//
+
+/*
+==============================================================
+TurokPickupSpanwer
+==============================================================
+*/
+
+class TurokPickupSpanwer : ScriptObject
+{
+    kActor @self;
+    kSelectionListInt m_cAmmoList;
+    kSelectionListInt m_cHealthList;
+    float m_respawnTime;
+    
+    TurokPickupSpanwer(kActor @actor)
+    {
+        m_respawnTime = 0;
+        @self = actor;
+    }
+    
+    /*
+    ==============================================================
+    CanPickupItem
+    ==============================================================
+    */
+    
+    bool CanPickupItem(const turokActorTypes type)
+    {
+        switch(type)
+        {
+        case AT_PICKUP_SMALLHEALTH:
+        case AT_PICKUP_ULTRAHEALTH:
+            if(Player.Actor().Health() >= 250)
+            {
+                return false;
+            }
+            break;
+            
+        case AT_PICKUP_HEALTH:
+        case AT_PICKUP_FULLHEALTH:
+            if(Player.Actor().Health() >= 100)
+            {
+                return false;
+            }
+            break;
+            
+        case AT_PICKUP_ARROWS:
+        case AT_PICKUP_QUIVER1:
+            if(Player.GetAltAmmo(TW_WEAPON_BOW) >= 15)
+            {
+                return false;
+            }
+            break;
+            
+        case AT_PICKUP_CLIP:
+        case AT_PICKUP_CLIPBOX:
+            if(Player.GetAmmo(TW_WEAPON_PISTOL) >= 90)
+            {
+                return false;
+            }
+            break;
+            
+        case AT_PICKUP_SHELLS:
+        case AT_PICKUP_SHELLBOX:
+            if(Player.GetAmmo(TW_WEAPON_SHOTGUN) >= 20)
+            {
+                return false;
+            }
+            break;
+            
+        case AT_PICKUP_EXPSHELLS:
+        case AT_PICKUP_EXPSHELLBOX:
+            if(Player.GetAltAmmo(TW_WEAPON_SHOTGUN) >= 10)
+            {
+                return false;
+            }
+            break;
+            
+        case AT_PICKUP_MINIGUNAMMO:
+            if(Player.GetAmmo(TW_WEAPON_MINIGUN) >= 500)
+            {
+                return false;
+            }
+            break;
+            
+        case AT_PICKUP_GRENADE:
+        case AT_PICKUP_GRENADEBOX:
+            if(Player.GetAmmo(TW_WEAPON_GRENADE) >= 20)
+            {
+                return false;
+            }
+            break;
+            
+        case AT_PICKUP_SMALLCELL:
+        case AT_PICKUP_CELL:
+            if(Player.GetAmmo(TW_WEAPON_PULSERIFLE) >= 100)
+            {
+                return false;
+            }
+            break;
+        
+        case AT_PICKUP_ROCKET:
+            if(Player.GetAmmo(TW_WEAPON_MISSILE) >= 6)
+            {
+                return false;
+            }
+            break;
+			
+		case AT_PICKUP_ARCLIP:
+			if(Player.GetAltAmmo(TW_WEAPON_RIFLE) >= 120)
+			{
+                return false;
+            }
+            break;
+			
+		case AT_PICKUP_INCENDIARYROUNDS:
+			if(Player.GetAltAmmo(TW_WEAPON_PISTOL) >= 30)
+			{
+				return false;
+			}
+			break;
+			
+		case AT_PICKUP_FLECHETTES:
+			if(Player.GetAmmo(TW_WEAPON_FLECHETTEGUN) >= 50)
+			{
+				return false;
+			}
+			break;
+			
+		case AT_PICKUP_HARPOON:
+		case AT_PICKUP_HARPOONBUNDLE:
+			if(Player.GetAltAmmo(TW_WEAPON_FLECHETTEGUN) >= 4)
+			{
+				return false;
+			}
+			break;
+		
+		case AT_PICKUP_FUEL:
+			if(Player.GetAmmo(TW_WEAPON_FLAMETHROWER) >= 50)
+			{
+				return false;
+			}
+			break;
+		
+        }
+        
+        return true;
+    }
+    
+    /*
+    ==============================================================
+    AddAmmoItem
+    ==============================================================
+    */
+    
+    void AddAmmoItem(const turokActorTypes type, const float weight)
+    {
+        if(CanPickupItem(type))
+        {
+            m_cAmmoList.AddItem(int(type), int(weight));
+        }
+    }
+    
+    /*
+    ==============================================================
+    AddHealthItem
+    ==============================================================
+    */
+    
+    void AddHealthItem(const float weight)
+    {
+        if(Player.Actor().Health() > 60)
+        {
+            m_cHealthList.AddItem(AT_PICKUP_SMALLHEALTH, int(weight));
+        }
+        else
+        {
+            m_cHealthList.AddItem(AT_PICKUP_HEALTH, int(weight));
+        }
+    }
+    
+    /*
+    ==============================================================
+    AddAmmoItem
+    ==============================================================
+    */
+    
+    void AddAmmoItem(const float weight)
+    {
+        // don't consider spawning fusion ammo on campaginer and trex levels
+        if(Player.HasWeapon(TW_WEAPON_CANNON) &&
+            Game.GetCurrentMapID() != 0 && Game.GetCurrentMapID() != 3)
+        {
+            AddAmmoItem(AT_PICKUP_FUSIONCELL, weight * 0.6f);
+        }
+        
+        // don't consider spawning shockwave ammo on campaginer level
+        if(Game.GetCurrentMapID() != 0)
+        {
+            if(Player.HasWeapon(TW_WEAPON_ACCELERATOR))
+            {
+                AddAmmoItem(AT_PICKUP_SMALLCELL, weight * 0.6f);
+            }
+            if(Player.HasWeapon(TW_WEAPON_MISSILE))
+            {
+                AddAmmoItem(AT_PICKUP_ROCKET, weight);
+            }
+            if(Player.HasWeapon(TW_WEAPON_GRENADE))
+            {
+                AddAmmoItem(AT_PICKUP_GRENADE, weight * 0.6f);
+                AddAmmoItem(AT_PICKUP_GRENADEBOX, weight * 0.4f);
+            }
+            if(Player.HasWeapon(TW_WEAPON_PULSERIFLE))
+            {
+                AddAmmoItem(AT_PICKUP_SMALLCELL, weight * 0.6f);
+                AddAmmoItem(AT_PICKUP_CELL, weight * 0.4f);
+            }
+        }
+        
+        AddAmmoItem(AT_PICKUP_ARROWS, weight*0.33f);
+        
+        if(Player.HasWeapon(TW_WEAPON_PISTOL) || Player.HasWeapon(TW_WEAPON_RIFLE))
+        {
+            AddAmmoItem(AT_PICKUP_CLIP, weight*0.6f);
+            AddAmmoItem(AT_PICKUP_CLIPBOX, weight*0.4f);
+        }
+        
+        // exp ammo only
+        if(Player.HasWeapon(TW_WEAPON_SHOTGUN) || Player.HasWeapon(TW_WEAPON_ASHOTGUN))
+        {
+            AddAmmoItem(AT_PICKUP_EXPSHELLS, weight*0.3f);
+            AddAmmoItem(AT_PICKUP_EXPSHELLBOX, weight*0.2f);
+        }
+        
+        if(Player.HasWeapon(TW_WEAPON_MINIGUN))
+        {
+            AddAmmoItem(AT_PICKUP_MINIGUNAMMO, weight);
+        }
+    }
+    
+    /*
+    ==============================================================
+    SpawnItem
+    ==============================================================
+    */
+    
+    bool SpawnItem(void)
+    {
+        float x, y, z;
+        kSelectionListInt finalList;
+        int healthPercnt;
+        int healthWeight;
+        int chooseAmmo;
+        int chooseHealth;
+        int count = 0;
+        int rnd;
+        
+        x = self.Origin().x;
+        y = self.Origin().y;
+        z = self.FloorHeight();
+        
+        if(Game.GetCurrentMapID() == 47)
+        {
+            kActor @item = ActorFactory.Spawn("Ammo_TekArrows2_Pickup", x, y, z, 0, self.SectorIndex());
+            item.Scale() = kVec3(0.35f, 0.35f, 0.35f);
+        
+            self.SetTarget(item);
+            return true;
+        }
+        
+        m_cAmmoList.Reset();
+        m_cHealthList.Reset();
+        
+        AddAmmoItem(100);
+        chooseAmmo = m_cAmmoList.Select();
+        
+        AddHealthItem(100);
+        chooseHealth = m_cHealthList.Select();
+        
+        healthPercnt = Player.Actor().Health();
+        if(healthPercnt < 0) healthPercnt = 0;
+        if(healthPercnt > 100) healthPercnt = 100;
+        
+        healthWeight = 25 - ((healthPercnt * 25) / 100);
+        if(healthWeight <= 0) chooseHealth = 0;
+        
+        if(chooseAmmo > 0)
+        {
+            finalList.AddItem(chooseAmmo, 100-healthWeight);
+        }
+        
+        if(chooseHealth > 0)
+        {
+            finalList.AddItem(chooseHealth, healthWeight);
+        }
+        
+        if(finalList.GetNumEntries() > 0)
+        {
+            kActor @item = ActorFactory.Spawn(finalList.Select(), x, y, z, 0, self.SectorIndex());
+            item.Scale() = kVec3(0.35f, 0.35f, 0.35f);
+        
+            self.SetTarget(item);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /*
+    ==============================================================
+    OnTick
+    ==============================================================
+    */
+    
+    void OnTick(void)
+    {
+        if(!(self.GetTarget() is null))
+        {
+            if(!self.GetTarget().IsStale())
+            {
+                self.GetTarget().SpawnFx("fx/generic_230.kfx", kVec3(0, 0, GAME_SCALE));
+                return;
+            }
+            
+            self.SetTarget(null);
+            m_respawnTime = 0;
+            return;
+        }
+        
+        m_respawnTime += GAME_DELTA_TIME;
+        
+        if(m_respawnTime >= 8.0f)
+        {
+            m_respawnTime = 0;
+            
+            if(SpawnItem())
+            {
+                kVec3 org = self.Origin();
+                org.z = self.FloorHeight() + (3*GAME_SCALE);
+                
+                self.PlaySound("sounds/shaders/generic_3_energy_pickup.ksnd");
+                Game.SpawnFx("fx/generic_260.kfx", org, self.SectorIndex());
+            }
+        }
+    }
+    
+    /*
+    ==============================================================
+    OnSpawn
+    ==============================================================
+    */
+    
+    void OnBeginLevel(void)
+    {
+        if(Game.GetCurrentMapID() == 47)
+        {
+            self.Flags() |= AF_ALWAYSACTIVE;
+        }
+    }
+    
+    /*
+    ==============================================================
+    OnSpawn
+    ==============================================================
+    */
+    
+    void OnSpawn(void)
+    {
+    }
+};

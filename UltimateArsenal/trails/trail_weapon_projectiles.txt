@@ -1,0 +1,228 @@
+//
+// Trails for player weapon projectiles
+//
+
+Vertex_Projectile_Weapon_Null
+{
+    pos             "0.0 0.0 0.0"
+    color           "0.0 0.0 0.0"
+    alpha           0.0
+}
+
+//-----------------------------------------------------------------------------
+//
+// Tek Bow Trail
+//
+//-----------------------------------------------------------------------------
+
+Vertex_TekBowTrail_Start_1 { pos "-1.0  0.0  0.0" color "100.0 100.0 255.0" alpha 63.75 }
+Vertex_TekBowTrail_Start_2 { pos " 1.0  0.0  0.0" color "100.0 100.0 255.0" alpha 63.75 }
+Vertex_TekBowTrail_Start_3 { pos " 0.0  0.0 -1.0" color "100.0 100.0 255.0" alpha 63.75 }
+Vertex_TekBowTrail_Start_4 { pos " 0.0  0.0  1.0" color "100.0 100.0 255.0" alpha 63.75 }
+
+Edge_TekBow_Cross1_1 { vertex_start "Vertex_TekBowTrail_Start_1" vertex_end "Vertex_Projectile_Weapon_Null" }
+Edge_TekBow_Cross1_2 { vertex_start "Vertex_TekBowTrail_Start_2" vertex_end "Vertex_Projectile_Weapon_Null" }
+Edge_TekBow_Cross2_1 { vertex_start "Vertex_TekBowTrail_Start_3" vertex_end "Vertex_Projectile_Weapon_Null" }
+Edge_TekBow_Cross2_2 { vertex_start "Vertex_TekBowTrail_Start_4" vertex_end "Vertex_Projectile_Weapon_Null" }
+
+Trail_TekBow_Crossline_1
+{
+    lifeTime        4.0
+    fadeOutTime     3.0
+    edgeLifeTime    1.0
+    scale           0.2
+    
+    edge_1          "Edge_TekBow_Cross1_1"
+    edge_2          "Edge_TekBow_Cross1_2"
+}
+
+Trail_TekBow_Crossline_2
+{
+    lifeTime        4.0
+    fadeOutTime     3.0
+    edgeLifeTime    1.0
+    scale           0.2
+    
+    edge_1          "Edge_TekBow_Cross2_1"
+    edge_2          "Edge_TekBow_Cross2_2"
+}
+
+//-----------------------------------------------------------------------------
+//
+// Tek Shot Plasma Trail
+//
+//-----------------------------------------------------------------------------
+
+Vertex_TekShot_Null     { pos " 0.0         0.0   0.0"        color "200.0 255.0 200.0" alpha 0.0 }
+Vertex_TekShot_Start_1  { pos " 1.0         0.0   0.0"        color "255.0 255.0 255.0" alpha 63.75 }
+Vertex_TekShot_Start_2  { pos " 0.30901691  0.0   0.95105648" color "255.0 255.0 255.0" alpha 63.75 }
+Vertex_TekShot_Start_3  { pos "-0.80901688  0.0   0.58778518" color "255.0 255.0 255.0" alpha 63.75 }
+Vertex_TekShot_Start_4  { pos "-0.80901688  0.0  -0.58778518" color "255.0 255.0 255.0" alpha 63.75 }
+Vertex_TekShot_Start_5  { pos " 0.30901691  0.0  -0.95105648" color "255.0 255.0 255.0" alpha 63.75 }
+
+Edge_TekShot_1          { vertex_start "Vertex_TekShot_Start_1" vertex_end "Vertex_TekShot_Null" }
+Edge_TekShot_2          { vertex_start "Vertex_TekShot_Start_2" vertex_end "Vertex_TekShot_Null" }
+Edge_TekShot_3          { vertex_start "Vertex_TekShot_Start_3" vertex_end "Vertex_TekShot_Null" }
+Edge_TekShot_4          { vertex_start "Vertex_TekShot_Start_4" vertex_end "Vertex_TekShot_Null" }
+Edge_TekShot_5          { vertex_start "Vertex_TekShot_Start_5" vertex_end "Vertex_TekShot_Null" }
+
+Trail_TekShot
+{
+    lifeTime        0.4
+    fadeOutTime     0.2
+    edgeLifeTime    0.15
+    scale           0.4
+    bCloseEdges     1
+    
+    edge_1          "Edge_TekShot_1"
+    edge_2          "Edge_TekShot_2"
+    edge_3          "Edge_TekShot_3"
+    edge_4          "Edge_TekShot_4"
+    edge_5          "Edge_TekShot_5"
+}
+
+//-----------------------------------------------------------------------------
+//
+// Chrono Beam Trail
+//
+//-----------------------------------------------------------------------------
+
+Vertex_ChronoBeam_1_Null    { pos " 0.0 0.0 0.0" color "0.0 0.0 50.0" alpha 0.0 }
+Vertex_ChronoBeam_2_Null    { pos " 0.0 0.0 0.0" color "255.0 255.0 255.0" alpha 0.0 }
+
+// outer verts
+Vertex_ChronoBeam1_Start_1  { pos " 1.0         0.0  0.0"        color "100.0 100.0 255.0" alpha 63.75 }
+Vertex_ChronoBeam1_Start_2  { pos " 0.30901691  0.0  0.95105648" color "100.0 100.0 255.0" alpha 63.75 }
+Vertex_ChronoBeam1_Start_3  { pos "-0.80901688  0.0  0.58778518" color "100.0 100.0 255.0" alpha 63.75 }
+Vertex_ChronoBeam1_Start_4  { pos "-0.80901688  0.0 -0.58778518" color "100.0 100.0 255.0" alpha 63.75 }
+Vertex_ChronoBeam1_Start_5  { pos " 0.30901691  0.0 -0.95105648" color "100.0 100.0 255.0" alpha 63.75 }
+
+// inner verts
+Vertex_ChronoBeam2_Start_1  { pos " 1.0         0.0  0.0"        color "255.0 255.0 255.0" alpha 127.5 }
+Vertex_ChronoBeam2_Start_2  { pos " 0.30901691  0.0  0.95105648" color "255.0 255.0 255.0" alpha 127.5 }
+Vertex_ChronoBeam2_Start_3  { pos "-0.80901688  0.0  0.58778518" color "255.0 255.0 255.0" alpha 127.5 }
+Vertex_ChronoBeam2_Start_4  { pos "-0.80901688  0.0 -0.58778518" color "255.0 255.0 255.0" alpha 127.5 }
+Vertex_ChronoBeam2_Start_5  { pos " 0.30901691  0.0 -0.95105648" color "255.0 255.0 255.0" alpha 127.5 }
+
+// outer edges
+Edge_ChronoBeam1_1  { vertex_start "Vertex_ChronoBeam1_Start_1" vertex_end "Vertex_ChronoBeam_1_Null" }
+Edge_ChronoBeam1_2  { vertex_start "Vertex_ChronoBeam1_Start_2" vertex_end "Vertex_ChronoBeam_1_Null" }
+Edge_ChronoBeam1_3  { vertex_start "Vertex_ChronoBeam1_Start_3" vertex_end "Vertex_ChronoBeam_1_Null" }
+Edge_ChronoBeam1_4  { vertex_start "Vertex_ChronoBeam1_Start_4" vertex_end "Vertex_ChronoBeam_1_Null" }
+Edge_ChronoBeam1_5  { vertex_start "Vertex_ChronoBeam1_Start_5" vertex_end "Vertex_ChronoBeam_1_Null" }
+
+// inner edges
+Edge_ChronoBeam2_1  { vertex_start "Vertex_ChronoBeam2_Start_1" vertex_end "Vertex_ChronoBeam_2_Null" }
+Edge_ChronoBeam2_2  { vertex_start "Vertex_ChronoBeam2_Start_2" vertex_end "Vertex_ChronoBeam_2_Null" }
+Edge_ChronoBeam2_3  { vertex_start "Vertex_ChronoBeam2_Start_3" vertex_end "Vertex_ChronoBeam_2_Null" }
+Edge_ChronoBeam2_4  { vertex_start "Vertex_ChronoBeam2_Start_4" vertex_end "Vertex_ChronoBeam_2_Null" }
+Edge_ChronoBeam2_5  { vertex_start "Vertex_ChronoBeam2_Start_5" vertex_end "Vertex_ChronoBeam_2_Null" }
+
+Trail_ChronoBeam_1
+{
+    lifeTime        6.0
+    fadeOutTime     4.0
+    edgeLifeTime    1.0
+    scale           1.0
+    bCloseEdges     1
+    
+    edge_1          "Edge_ChronoBeam1_1"
+    edge_2          "Edge_ChronoBeam1_2"
+    edge_3          "Edge_ChronoBeam1_3"
+    edge_4          "Edge_ChronoBeam1_4"
+    edge_5          "Edge_ChronoBeam1_5"
+}
+
+Trail_ChronoBeam_2
+{
+    lifeTime        6.0
+    fadeOutTime     4.0
+    edgeLifeTime    1.0
+    scale           0.5
+    bCloseEdges     1
+    
+    edge_1          "Edge_ChronoBeam2_1"
+    edge_2          "Edge_ChronoBeam2_2"
+    edge_3          "Edge_ChronoBeam2_3"
+    edge_4          "Edge_ChronoBeam2_4"
+    edge_5          "Edge_ChronoBeam2_5"
+}
+
+//-----------------------------------------------------------------------------
+//
+// Chrono Discharge Trail
+//
+//-----------------------------------------------------------------------------
+
+Vertex_ChronoDischarge_1 { pos "-2.0  0.0  0.0" color "255.0 255.0 255.0" alpha 0.0 }
+Vertex_ChronoDischarge_2 { pos " 0.0  0.0  0.0" color "255.0 255.0 255.0" alpha 0.0 }
+Vertex_ChronoDischarge_3 { pos " 0.0  0.0  0.0" color "255.0 255.0 255.0" alpha 51.0 }
+Vertex_ChronoDischarge_4 { pos " 0.0  0.0  0.0" color "255.0 255.0 255.0" alpha 0.0 }
+Vertex_ChronoDischarge_5 { pos " 2.0  0.0  0.0" color "255.0 255.0 255.0" alpha 0.0 }
+Vertex_ChronoDischarge_6 { pos " 0.0  0.0  0.0" color "255.0 255.0 255.0" alpha 0.0 }
+
+Edge_ChronoDischarge_1 { vertex_start "Vertex_ChronoDischarge_1" vertex_end "Vertex_ChronoDischarge_2" }
+Edge_ChronoDischarge_2 { vertex_start "Vertex_ChronoDischarge_3" vertex_end "Vertex_ChronoDischarge_4" }
+Edge_ChronoDischarge_3 { vertex_start "Vertex_ChronoDischarge_5" vertex_end "Vertex_ChronoDischarge_6" }
+
+Trail_Chrono_Discharge
+{
+    lifeTime        2.0
+    fadeOutTime     1.0
+    edgeLifeTime    1.0
+    scale           4.0
+    
+    edge_1          "Edge_ChronoDischarge_1"
+    edge_2          "Edge_ChronoDischarge_2"
+    edge_3          "Edge_ChronoDischarge_3"
+}
+
+//-----------------------------------------------------------------------------
+//
+// Rocket Trail
+//
+//-----------------------------------------------------------------------------
+
+Vertex_Rocket_Start_1 { pos "-1.0  0.0  0.0" color "255.0 255.0 255.0" alpha 51.0 }
+Vertex_Rocket_Start_2 { pos " 1.0  0.0  0.0" color "255.0 255.0 255.0" alpha 51.0 }
+
+Edge_Rocket_1 { vertex_start "Vertex_Rocket_Start_1" vertex_end "Vertex_Projectile_Weapon_Null" }
+Edge_Rocket_2 { vertex_start "Vertex_Rocket_Start_2" vertex_end "Vertex_Projectile_Weapon_Null" }
+
+Trail_Rocket
+{
+    lifeTime        15.0
+    fadeOutTime     14.0
+    edgeLifeTime    2.0
+    scale           0.2
+    
+    edge_1          "Edge_Rocket_1"
+    edge_2          "Edge_Rocket_2"
+}
+
+//-----------------------------------------------------------------------------
+//
+// Incendiary Trail
+//
+//-----------------------------------------------------------------------------
+
+Vertex_IncendiaryTrail_Start_1 { pos " 2.0  0.0  0.0" color "255.0 100.0 100.0" alpha 63.75 }
+Vertex_IncendiaryTrail_Start_2 { pos " 2.5  0.0  0.0" color "255.0 50.0 70.0" alpha 63.75 }
+Vertex_IncendiaryTrail_Start_3 { pos " 3.0  0.0  0.0" color "255.0 100.0 100.0" alpha 63.75 }
+
+Edge_Incendiary_1 { vertex_start "Vertex_IncendiaryTrail_Start_1" vertex_end "Vertex_Projectile_Weapon_Null" }
+Edge_Incendiary_2 { vertex_start "Vertex_IncendiaryTrail_Start_2" vertex_end "Vertex_Projectile_Weapon_Null" }
+Edge_Incendiary_3 { vertex_start "Vertex_IncendiaryTrail_Start_3" vertex_end "Vertex_Projectile_Weapon_Null" }
+
+Trail_Incendiary
+{
+    lifeTime        4.0
+    fadeOutTime     3.0
+    edgeLifeTime    1.0
+    scale           0.2
+    
+    edge_1          "Edge_Incendiary_1"
+    edge_2          "Edge_Incendiary_2"
+	edge_3			"Edge_Incendiary_3"
+}
+

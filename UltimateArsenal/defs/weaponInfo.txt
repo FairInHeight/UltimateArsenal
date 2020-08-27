@@ -1,0 +1,237 @@
+Wpn_Knife 0
+{
+    offset                  "170.667 153.6 -9.216"
+    model                   "models/dyn_knife.bin"
+    anim                    "anims/dyn_knife_anim.bin"
+    icon                    "gfx/hud/h_w_knife.tga"
+    defaultWeapon           0 // No longer default 
+    owned                   1
+    allowUnderwater         1
+    actorType               100
+    scale                   "1 1 1"
+    scriptClass             "TurokKnife"
+}
+
+Wpn_Bow 1
+{
+    offset                  "133.12 150.2 -12.63"
+    model                   "models/dyn_tekbow.bin"
+    anim                    "anims/dyn_tekbow_anim.bin"
+    icon                    "gfx/hud/h_w_bow.tga"
+    defaultWeapon           1 // Made the bow the default weapon
+    owned                   1
+    actorType               102
+    scale                   "1 1 1"
+    ammo                    "Ammo_Arrow"
+    altAmmo                 "Ammo_TekArrow"
+    initialAmmoAmount       30
+    scriptClass             "TurokBow"
+}
+
+Wpn_Pistol 2
+{
+    offset                  "160.4267 184.32 -16.04267"
+    model                   "models/dyn_pistol.bin"
+    anim                    "anims/dyn_pistol_anim.bin"
+    icon                    "gfx/hud/h_w_pistol.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               103
+    scale                   "1 1 1"
+    readySound              "sounds/shaders/ready_pistol.ksnd"
+    ammo                    "Ammo_Bullet"
+    altAmmo		    "Ammo_IncendiaryRound"
+    scriptClass             "TurokPistol"
+}
+
+Wpn_Shotgun 3
+{
+    offset                  "170.667 170.667 -5.80266"
+    model                   "models/dyn_shotgun.bin"
+    anim                    "anims/dyn_shotgun_anim.bin"
+    icon                    "gfx/hud/h_w_shotgun.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               104
+    scale                   "1 1 1"
+    readySound              "sounds/shaders/ready_shotgun.ksnd"
+    ammo                    "Ammo_Shell"
+    altAmmo                 "Ammo_ExpShell"
+    scriptClass             "TurokShotgun"
+}
+
+Wpn_AutoShotgun 4
+{
+    offset                  "170.667 157.5 -5.80266"
+    model                   "models/dyn_autoshotgun.bin"
+    anim                    "anims/dyn_autoshotgun_anim.bin"
+    icon                    "gfx/hud/h_w_autoshot.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               105
+    scale                   "1 1 1"
+    ammo                    "Ammo_Shell"
+    altAmmo                 "Ammo_ExpShell"
+    scriptClass             "TurokAutoShotgun"
+}
+
+Wpn_Rifle 5
+{
+    offset                  "170.667 204.8 -19.456"
+    model                   "models/dyn_rifle.bin"
+    anim                    "anims/dyn_rifle_anim.bin"
+    icon                    "gfx/hud/h_w_rifle.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               106
+    scale                   "1 1 1"
+    ammo                    "Ammo_Bullet" // Used to use same ammo as pistol
+    altAmmo                 "Ammo_ARBullet"
+    scriptClass             "TurokRifle"
+}
+
+Wpn_PulseRifle 6
+{
+    offset                  "170.667 170.667 -5.80266"
+    model                   "models/dyn_pulse_rifle.bin"
+    anim                    "anims/dyn_pulse_rifle_anim.bin"
+    icon                    "gfx/hud/h_w_pulse.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               107
+    scale                   "1 1 1"
+    ammo                    "Ammo_Pulse"
+    scriptClass             "TurokPulseRifle"
+}
+
+Wpn_Flamethrower 7
+{
+	offset					"170.667 250.667 -25"
+	model					"models/dyn_flamethrower.bin"
+	anim					"anims/dyn_pulse_rifle_anim.bin"
+	icon					"gfx/hud/h_w_flamethrower.tga"
+	defaultWeapon           0
+	owned                   0
+	actorType               115
+	scale					"1 1 1"
+	ammo					"Ammo_Fuel"
+	scriptClass             "TurokFlamethrower"
+}
+
+Wpn_FlechetteGun 8
+{
+	offset					"170.667 250.667 -25"
+	model					"models/dyn_flechette.bin"
+	anim					"anims/dyn_minigun_anim.bin"
+	icon					"gfx/hud/h_w_flechettegun.tga"
+	defaultWeapon           0
+	owned                   0
+	allowUnderwater         1
+	actorType               116
+	scale					"1 1 1"
+	ammo					"Ammo_Flechette"
+	altAmmo					"Ammo_Harpoon"
+	scriptClass             "TurokFlechetteGun"
+}
+
+Wpn_MiniGun 9
+{
+    offset                  "163.84 163.84 -5.80266"
+    model                   "models/dyn_minigun.bin"
+    anim                    "anims/dyn_minigun_anim.bin"
+    icon                    "gfx/hud/h_w_minigun.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               108
+    scale                   "1 1 1"
+    ammo                    "Ammo_Mags"
+    scriptClass             "TurokMinigun"
+}
+
+Wpn_GrenadeLauncher 10
+{
+    offset                  "170.667 153.6 -9.216"
+    model                   "models/dyn_grenade_launcher.bin"
+    anim                    "anims/dyn_grenade_launcher_anim.bin"
+    icon                    "gfx/hud/h_w_glauncher.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               109
+    scale                   "1 0.75 1"
+    readySound              "sounds/shaders/ready_grenade_launcher.ksnd"
+    ammo                    "Ammo_Grenade"
+    scriptClass             "TurokGrenadeLauncher"
+}
+
+Wpn_AlienRifle 11
+{
+    offset                  "170.667 153.6 -9.216"
+    model                   "models/dyn_alien_rifle.bin"
+    anim                    "anims/dyn_alien_rifle_anim.bin"
+    icon                    "gfx/hud/h_w_alien.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               110
+    scale                   "1 1 1"
+    readySound              "sounds/shaders/ready_tek_weapon_1.ksnd"
+    ammo                    "Ammo_Cell"
+    scriptClass             "TurokAlienRifle"
+}
+
+Wpn_MissileLauncher 12
+{
+    offset                  "170.667 153.6 -9.216"
+    model                   "models/dyn_missile_launcher.bin"
+    anim                    "anims/dyn_missile_launcher_anim.bin"
+    icon                    "gfx/hud/h_w_mlauncher.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               111
+    scale                   "1 1 1"
+    readySound              "sounds/shaders/ready_missile_launcher.ksnd"
+    ammo                    "Ammo_Rocket"
+    scriptClass             "TurokRocketLauncher"
+}
+
+Wpn_ParticleAccelerator 13
+{
+    offset                  "170.667 153.6 -9.216"
+    model                   "models/dyn_shockwave.bin"
+    anim                    "anims/dyn_shockwave_anim.bin"
+    icon                    "gfx/hud/h_w_charge.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               112
+    scale                   "1 1 1"
+    ammo                    "Ammo_Cell"
+    scriptClass             "TurokAccelerator"
+}
+
+Wpn_FusionCannon 14
+{
+    offset                  "170.667 -239.0 -43.35"
+    model                   "models/dyn_fusion_cannon.bin"
+    anim                    "anims/dyn_fusion_cannon_anim.bin"
+    icon                    "gfx/hud/h_w_fusion.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               113
+    scale                   "1 1 1"
+    readySound              "sounds/shaders/ready_tek_weapon_2.ksnd"
+    ammo                    "Ammo_Fuse"
+    scriptClass             "TurokFusionCannon"
+}
+
+Wpn_ChronoScepter 15
+{
+    offset                  "204.8 58.026 14.677"
+    model                   "models/dyn_chronoscepter.bin"
+    anim                    "anims/dyn_chronoscepter_anim.bin"
+    icon                    "gfx/hud/h_w_scepter.tga"
+    defaultWeapon           0
+    owned                   0
+    actorType               114
+    scale                   "1 1 1"
+    ammo                    "Ammo_Chrono"
+    scriptClass             "TurokChrono"
+}

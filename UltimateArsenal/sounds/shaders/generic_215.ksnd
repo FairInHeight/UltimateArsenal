@@ -1,0 +1,68 @@
+sounds[2] =
+{
+    {
+        wavefile = "sounds/waves/explo9p.wav"
+        bOneInstancePerSource = 0
+        bLoop = 0
+        bEnableVolumeEnvelope = 1
+        bEnablePitchEnvelope = 1
+        bFadeIfObstructed = 0
+        bUpdateNoEnvelope = 1
+        bLinkToEnvelope = 0
+        bFullVolume = 0
+        delay = 0
+        priority = 30
+        random = 1.000000
+        radioVolume = 2
+        volume_envelope =
+        {
+            max = 2.367188
+            start = 1.000000
+            end = 0.000000
+            duration = 12
+            envStartTime = 41
+        }
+
+        pitch_envelope =
+        {
+            max = 1.464000
+            start = 1.464000
+            end = 0.708000
+            duration = 30
+            envStartTime = 0
+        }
+    }
+    {
+        wavefile = "sounds/waves/explo9p.wav"
+        bOneInstancePerSource = 0
+        bLoop = 0
+        bEnableVolumeEnvelope = 1
+        bEnablePitchEnvelope = 1
+        bFadeIfObstructed = 0
+        bUpdateNoEnvelope = 1
+        bLinkToEnvelope = 0
+        bFullVolume = 0
+        delay = 0
+        priority = 30
+        random = 1.000000
+        radioVolume = 2
+        volume_envelope =
+        {
+            max = 0.367188
+            start = 1.000000
+            end = 0.000000
+            duration = 12
+            envStartTime = 41
+        }
+
+        pitch_envelope =
+        {
+            max = 2.464000
+            start = 1.464000
+            end = 0.708000
+            duration = 30
+            envStartTime = 0
+        }
+    }
+}
+

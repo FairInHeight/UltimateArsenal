@@ -1,0 +1,255 @@
+// === native/built-in text ===
+
+"chiavi da trovare"
+"in questo livello"
+
+"1 chiave da trovare"
+"in questo livello"
+
+"tutte le chiavi di questo"
+"livello sono state trovate"
+
+"livello "
+" chiave"
+
+"Turok Son of Stone TM & @ 2015 Random House, Inc."
+"Su licenza di Classic Media, LLC Tutti i diritti riservati"
+
+// === menu strings ===
+"esci"
+"riavvia"
+
+"sei sicuro?"
+
+"codice"
+"non valido"
+
+"inserisci cheat"
+
+" attivato"
+
+"antialiasing fxaa"
+"bloom"
+"usa occlusione"
+"rifrazione acqua"
+"riflessi acqua"
+"ombre semplici"
+"forza sincronizzazione comandi gpu"
+"mostra campo visivo"
+"impostazioni saturazione"
+
+"indietro"
+
+"grafica"
+"saturazione"
+"potenza saturazione"
+"saturazione rosso"
+"saturazione verde"
+"saturazione blu"
+
+"mappatura"
+"mouse"
+"joystick"
+"azioni"
+"armi"
+"auto-mappa"
+"menu"
+
+"non assegnato"
+"set bind for "
+"attendi 5 secondi per annullare"
+"premendo un tasto assegnato lo si libera"
+
+"sensibilità orizzontale"
+"sensibilità verticale"
+"inversione"
+"soglia di arrotondamento"
+
+"sensibilità visiva asse x"
+"sensibilità visiva asse y"
+"sensibilità movimento"
+"soglia di accelerazione curva"
+
+"input"
+"gioco"
+"grafica"
+"audio"
+"video"
+"inserisci cheat"
+"menu cheat"
+"indietro"
+
+"volume suoni"
+"volume musica"
+"effetti di riverbero"
+
+"estendi distanza visuale"
+"mostra filmato iniziale"
+"mostra filmato intro"
+"mostra filmato morte"
+"mostra mirino"
+"mostra interfaccia"
+"oscillazione arma generica"
+"scambia arma raccolta"
+"suoni ambientali"
+
+"difficoltà"
+"facile"
+"normale"
+"difficile"
+"hardcore"
+
+"collisione proiettili"
+
+"in finestra"
+"sincronizzazione verticale"
+"risoluzione"
+
+"le modifiche avranno effetto"
+"al riavvio del gioco"
+
+"slot vuoto"
+"sovrascrivi salvataggio"
+"sei sicuro?"
+"salva partita"
+"errore: salvataggio"
+"mancante o danneggiato"
+"carica partita"
+"sei sicuro?"
+"file salvato non aggiornato"
+"impossibile caricare"
+"il salvataggio potrebbe essere non aggiornato"
+"sei sicuro?"
+"carica partita"
+
+// === menu strings ===
+"inizia"
+"addestramento"
+"opzioni"
+"esci"
+"riprendi"
+"tasti"
+"icone livello"
+
+"sì"
+"no"
+"ok"
+"lingua"
+
+// === save prompt ===
+"vuoi salvare"
+"la partita?"
+
+// === player notifications ===
+"checkpoint"
+"scoperta area segreta"
+
+//
+// end of built-in strings
+//
+
+// === hub titles ===
+"la centrale"
+"la giungla"
+"la città antica"
+"le rovine"
+"le catacombe"
+"il villaggio sugli alberi"
+"la terra dimenticata"
+"lo scontro finale"
+
+// === pickup messages ===
+"30 frecce"
+"5 frecce di tek"
+"15 frecce di tek"
+"caricatore"
+"scatola di proiettili"
+"cartucce per fucile"
+"scatola di cartucce per fucile"
+"cartucce esplosive"
+"scatola di cartucce esplosive"
+"munizioni per minigun"
+"1 granata"
+"scatola di granate"
+"cella di energia"
+"cella di energia grande"
+"4 razzi"
+"carica di fusione"
+
+"2 punti salute"
+"10 punti salute"
+"25 punti salute"
+"salute completa"
+"salute ultra"
+"ferita mortale"
+
+"zaino"
+"invincibilità spirituale"
+"armatura di tek"
+"parte di cronoscettro"
+
+"pistola"
+"fucile d'assalto"
+"fucile"
+"fucile automatico"
+"minigun"
+"lanciagranate"
+"fucile a impulsi"
+"arma aliena"
+"lanciarazzi quadruplo"
+"arma onda energetica"
+"cannone a fusione"
+"cronoscettro"
+
+// === tutorial ===
+"livello di addestramento\nper uscire in ogni momento,\npremi escape."
+"saltare\npremi il tasto\ndi salto per saltare.\npiù lo tieni premuto\npiù avanti si muoverà\nturok."
+"nuotare\nper nuotare, usa i\ntasti di movimento.\nil tasto di salto\nfa tornare turok\nin superficie."
+"arrampicarsi\narrampicati sulla parete\ncon i tasti di movimento.\nprova a guardarti intorno con\ni tasti per guardare e girarsi,\no prova a saltare via."
+"camminare\ncammina con prudenza\nlungo il tronco.\n"
+"salto lungo\ntieni premuto\nil tasto di salto\nper saltare più lungo."
+"molto bene,\nhai completato\nil livello di addestramento\ndi base.\nsali sul teletrasporto\nper provare il\nlivello intermedio."
+"nuotare\nper nuotare attraverso\nle porte, curva con\ni tasti di movimento e\nusa i tasti laterali per\nmuoverti a destra e sinistra."
+"salto lungo in corsa\naggrappati al bordo\nsaltando oltre\nil burrone."
+"camminare\ncammina con prudenza\nlungo il ponte di tronchi.\nguarda in basso\nmentre cammini\nper aiutarti."
+"addestramento al tiro\nusa le frecce per\nsparare ai cecchini,\ne far apparire\ni pilastri."
+"molto bene,\nhai completato\nil livello di addestramento\nintermedio.\nsali sul teletrasporto\nper provare\nil livello avanzato."
+"nuoto in profondità\nnuota fino al fondo\ndella piscina per trovare\nl'uscita dall'altro\nlato."
+"saltare\nsalta sulla\npiattaforma\nguarda in basso\nmentre salti\nper aiutarti."
+"modo mappa\npremi il tasto mappa\nper attivare il\nmodo mappa e trovare\nla strada lungo\nle caverne."
+"salto diagonale\npremi il tasto di salto\nmentre tieni premuto\ni tasti avanti e laterale\mper eseguire un\nsalto diagonale. usa\ni tasti di rotazione\nper girarti in volo."
+"addestramento al tiro\navanzato\nusa le frecce per\nsparare ai cecchini.\n"
+"attivare interruttori\ntrova il pulsante\nper aprire il\cancello di tronchi."
+"molto bene,\nsi vede che sei\nmolto in gamba,\nbuona caccia."
+
+"trova le rovine della centrale"
+"usa i tasti"
+"per aprire i portali del livello"
+
+"accesso al livello "
+
+"armatura bassa"
+"salute bassa"
+
+// === violence options ===
+"opzioni di violenza"
+"sangue rosso"
+"sangue verde"
+"niente sangue"
+
+// === extra life ===
+"vita extra"
+
+// === opacity ===
+"opacità"
+
+"LANCIAFIAMME"
+"CARBURANTE"
+"RIVLE MAGAZINE"
+"CASO DI MUNIZIONI"
+"GLI IMPULSI"
+"PISTOLA FLECHETTE"
+"FLECHETTES"
+"ARPIONE"
+"PACCHETTO DI ARPIONE"
+"BOLLETTINI INCENDIARI"

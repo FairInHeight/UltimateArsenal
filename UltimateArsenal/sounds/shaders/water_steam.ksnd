@@ -1,0 +1,26 @@
+sounds[1] =
+{
+    {
+        wavefile = "sounds/waves/wtrfallp.wav"
+        bOneInstancePerSource = 1
+        bLoop = 0
+        bEnableVolumeEnvelope = 0
+        bFadeIfObstructed = 0
+        bUpdateNoEnvelope = 0
+        bLinkToEnvelope = 0
+        bFullVolume = 0
+        delay = 0
+        priority = 100
+        random = 1.000000
+        radioVolume = 1
+        volume_envelope =
+        {
+            max = 0.453125
+            start = 1.000000
+            end = 1.000000
+            duration = 50
+            envStartTime = 0
+        }
+    }
+}
+

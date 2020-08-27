@@ -1,0 +1,211 @@
+// Ammo pickup system for ammo toggle.
+
+
+RealTekArrowPickup 520
+{
+    classname                   "kexAmmoPickup"
+    pickup.ammo.amount          5
+    pickup.ammo.definition      "Ammo_TekArrow"
+    pickup.pickupSound          "sounds/shaders/generic_6_arrow_pickup_.ksnd"
+    pickup.pickupMessage        "$str_120"
+}
+RealTekArrowPickupQuiver 521
+{
+    classname                   "kexAmmoPickup"
+    pickup.ammo.amount          15
+    pickup.ammo.definition      "Ammo_TekArrow"
+    pickup.pickupSound          "sounds/shaders/generic_6_arrow_pickup_.ksnd"
+    pickup.pickupMessage        "$str_121"
+}
+
+// say we picked up ammo, but don't give any (handled by script)
+DummyTekArrowPickup 522
+{
+    classname                   "kexPickup"
+    pickup.pickupSound          "sounds/shaders/generic_6_arrow_pickup_.ksnd"
+    pickup.pickupMessage        "$str_120"
+}
+DummyTekArrowPickupQuiver 523
+{
+    classname                   "kexPickup"
+    pickup.pickupSound          "sounds/shaders/generic_6_arrow_pickup_.ksnd"
+    pickup.pickupMessage        "$str_121"
+}
+
+// arrow loaders
+TekArrowLoader 524
+{
+    classname                   "kexAmmoPickup"
+    pickup.ammo.amount          1
+    pickup.ammo.definition      "Ammo_TekArrow"
+    pickup.pickupSound          "sounds/shaders/generic_6_arrow_pickup_.ksnd"
+}
+TekArrowUnloader 525
+{
+    classname                   "kexPickup"
+    pickup.pickupSound          "sounds/shaders/generic_6_arrow_pickup_.ksnd"
+}
+
+//-----------------------------------------------------------------------------
+
+RealExpShellPickup 526
+{
+    classname                   "kexAmmoPickup"
+    pickup.ammo.amount          4
+    pickup.ammo.definition      "Ammo_ExpShell"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+    pickup.pickupMessage        "$str_126"
+}
+RealExpShellPickupBox 527
+{
+    classname                   "kexAmmoPickup"
+    pickup.ammo.amount          10
+    pickup.ammo.definition      "Ammo_ExpShell"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+    pickup.pickupMessage        "$str_127"
+}
+
+// say we picked up ammo, but don't give any (handled by script)
+DummyExpShellPickup 528
+{
+    classname                   "kexPickup"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+    pickup.pickupMessage        "$str_126"
+}
+DummyExpShellPickupBox 529
+{
+    classname                   "kexPickup"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+    pickup.pickupMessage        "$str_127"
+}
+
+// shell loaders
+ExpShellLoader 530
+{
+    classname                   "kexAmmoPickup"
+    pickup.ammo.amount          1
+    pickup.ammo.definition      "Ammo_ExpShell"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+
+}
+ExpShellUnloader 531
+{
+    classname                   "kexPickup"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+}
+
+//=========================================================================================
+
+RealARBulletPickup 532
+{ 
+    classname                    "kexAmmoPickup"
+    pickup.ammo.amount           60
+    pickup.ammo.definition       "Ammo_ARBullet"
+    pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage         "$str_190"
+}
+DummyARBulletPickup 533
+{
+    classname                    "kexPickup"
+    pickup.pickupSound	         "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMesage          "$str_190"
+}
+
+ARBulletLoader 534
+{
+    classname                    "kexAmmoPickup"
+    pickup.ammo.amount           1
+	pickup.ammo.definition       "Ammo_ARBullet"
+    pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+}
+ARBulletUnloader 535
+{
+    classname                    "kexPickup"
+    pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+}
+RealRiflePickup 535
+{
+    classname					 "kexAmmoPickup"
+	pickup.ammo.amount           60
+	pickup.ammo.definition       "Ammo_ARBullet"
+	pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+	pickup.pickupMessage         "$str_146"
+}
+DummyRiflePickup 537
+{
+	classname                    "kexPickup"
+	pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+	pickup.pickupMessage         "$str_146"
+}
+
+//------------------------------------------------------------------
+
+RealHarpoonPickup 538
+{
+	classname					 "kexAmmoPickup"
+	ickup.ammo.amount            1
+    pickup.ammo.definition       "Ammo_Harpoon"
+    pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage         "$str_195"
+}
+RealHarpoonPickupBundle 539
+{
+	classname					"kexPickup"
+	pickup.ammo.amount          4
+    pickup.ammo.definition      "Ammo_Harpoon"
+    pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage        "$str_196"
+}
+DummyHarpoonPickup 540
+{
+    classname                    "kexPickup"
+    pickup.pickupSound	         "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMesage          "$str_195"
+}
+DummyHarpoonPickupBundle 541
+{
+    classname                    "kexPickup"
+    pickup.pickupSound	         "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMesage          "$str_196"
+}
+HarpoonLoader 542
+{
+    classname                    "kexAmmoPickup"
+    pickup.ammo.amount           1
+	pickup.ammo.definition       "Ammo_Harpoon"
+    pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+}
+HarpoonUnloader 543
+{
+    classname                    "kexPickup"
+    pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+}
+
+//---------------------------------------------------------------
+
+RealIncendiaryRoundPickup 544
+{
+	classname					"kexPickup"
+	pickup.ammo.amount          15
+    pickup.ammo.definition      "Ammo_IncindiaryRound"
+    pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage        "$str_197"
+}
+DummyIncendiaryRoundPickup 545
+{
+    classname                    "kexPickup"
+    pickup.pickupSound	         "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMesage          "$str_197"
+}
+IncendiaryRoundLoader 546
+{
+    classname                    "kexAmmoPickup"
+    pickup.ammo.amount           1
+    pickup.ammo.definition       "Ammo_IncendiaryRound"
+    pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+}
+IncendiaryRoundUnloader 535
+{
+    classname                    "kexPickup"
+    pickup.pickupSound           "sounds/shaders/generic_1_bullet_pickup.ksnd"
+}

@@ -1,0 +1,874 @@
+//
+// Copyright(C) 2014-2015 Samuel Villarreal
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// DESCRIPTION:
+//      Player Script Object Class
+//
+
+#include "scripts/common.txt"
+
+/*
+==============================================================
+Global vars for Knife
+==============================================================
+*/
+
+const array<int> g_KnifeRaptorHits          = { 3, 3, 3 };
+const array<int> g_KnifeHumanHits           = { 15, 15, 15 };
+const array<int> g_knifeDimetrondonHits     = { 1, 1, 1 };
+const array<int> g_KnifeTriceratopsHits     = { 1, 1, 1 };
+const array<int> g_KnifeSubterraneanHits    = { 1, 1, 1 };
+const array<int> g_KnifeStalkerHits         = { 7, 7, 7 };
+const array<int> g_KnifeAlienHits           = { 1, 1, 1 };
+const array<int> g_KnifePurlinHits          = { 3, 3, 3 };
+const array<int> g_KnifeRobotHits           = { -1, -1, -1 };
+const array<int> g_KnifeSewerCrabHits       = { 1, 1, 1 };
+const array<int> g_KnifePlantHits           = { 1, 1, 1 };
+
+const int g_KnifeMortalWoundHits    = 30;
+const int g_KnifeMortalDeathHits    = 999;
+const int g_KnifeTrexHits           = 25;
+const int g_KnifeCampaignerHits     = 20;
+const int g_KnifeLonghunterHits     = 15;
+const int g_KnifeMantisHits         = 25;
+
+/*
+==============================================================
+TurokPlayer
+==============================================================
+*/
+
+class TurokPlayer : ScriptObjectPlayer
+{
+
+    void GotBackpack()
+    {
+    GameVariables.SetValue( "bHasBackpack", "1" );
+    }
+	
+    void LostBackpack()
+    {
+    GameVariables.SetValue( "bHasBackpack", "0" );
+    }
+
+
+    kPuppet @self;
+    kActor @m_pWarpBuzzActor;
+    kVec3 m_vBloodVector;
+    kVec3 m_vStabVector;
+    kVec3 m_vShoveVector;
+    float m_damageFloorTime;
+    float m_initialFriction;
+    float m_nBubbles;
+    float m_bubblesSfxTimer;
+    float m_shoveTime;
+    
+    TurokPlayer(kPuppet @actor)
+    {
+        @self = actor;
+        @m_pWarpBuzzActor = null;
+        m_damageFloorTime = 0;
+        m_initialFriction = 0;
+        m_nBubbles = 0;
+        m_bubblesSfxTimer = 0;
+        m_shoveTime = 0;
+    }
+    
+    /*
+    ==============================================================
+    InSpiritWorld
+    ==============================================================
+    */
+    
+    bool InSpiritWorld(void)
+    {
+        if(Game.GetCurrentMapID() < 26 || Game.GetCurrentMapID() > 41)
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /*
+    ==============================================================
+    DoSplashBubbles
+    ==============================================================
+    */
+    
+    void DoSplashBubbles(void)
+    {
+        float cnt;
+        
+        if(m_nBubbles <= 0)
+        {
+            return;
+        }
+        
+        m_nBubbles -= GAME_FRAME_TIME;
+        
+        if(m_nBubbles < 0)
+        {
+            m_nBubbles = 0;
+        }
+        
+        if(m_nBubbles < m_bubblesSfxTimer)
+        {
+            self.PlaySound("sounds/shaders/underwater_swim_1.ksnd");
+            m_bubblesSfxTimer = 0;
+        }
+        
+        cnt = m_nBubbles / 6;
+        if(cnt < 1)
+        {
+            cnt = 1;
+        }
+        
+        for(int i = 0; i < int(cnt); ++i)
+        {
+            self.SpawnFx("fx/water_bubble.kfx", Math::vecZero);
+        }
+    }
+    
+    /*
+    ==============================================================
+    DoWarpSounds
+    ==============================================================
+    */
+    
+    void DoWarpSounds(void)
+    {
+        if(m_pWarpBuzzActor is null)
+        {
+            return;
+        }
+        
+        float time = float(PlayLoop.Ticks());
+        
+        m_pWarpBuzzActor.Origin() = self.Origin();
+        
+        m_pWarpBuzzActor.Origin().x += (GAME_SCALE*15) * Math::Sin(Math::Deg2Rad(time * 6.0f)) + self.Yaw();
+        m_pWarpBuzzActor.Origin().y += (GAME_SCALE*15) * Math::Cos(Math::Deg2Rad(time * 7.0f)) + self.Yaw();
+        
+        m_pWarpBuzzActor.PlaySound("sounds/shaders/generic_185.ksnd");
+    }
+    
+    /*
+    ==============================================================
+    IntroCinematicEvent
+    ==============================================================
+    */
+    
+    void IntroCinematicEvent(kActor @instigator, const float w, const float x, const float y, const float z)
+    {
+        if(Game.GetCurrentMapID() != 43)
+        {
+            return;
+        }
+        
+        Game.CallDelayedMapScript(3, instigator, 0);
+    }
+    
+    /*
+    ==============================================================
+    OnTick
+    ==============================================================
+    */
+	
+	void FallingToDeath()
+	{
+		LostBackpack();
+	}
+	
+    void OnTick(void)
+    {
+       if ( self.AnimState().IsPlaying(36) )
+			FallingToDeath();
+        Game.SpawnFx( "fx/PlayerShadowProjector.kfx", self, self.Origin(), kVec3(0,0,-1).ToQuat() );
+
+		const int area = self.AreaID();
+        float damageDelay =  float(World.GetAreaArg(area, 5)) / 1024.0f;
+        
+        if(self.AnimState().PlayingID() == anim_campaingerRage)
+        {
+            return;
+        }
+        
+        if(InSpiritWorld())
+        {
+            DoWarpSounds();
+        }
+        
+        if(self.GetWaterLevel() == WLT_UNDER)
+        {
+            DoSplashBubbles();
+        }
+        
+        if((World.GetAreaFlags(area) & AAF_DAMAGE) != 0 && self.OnGround())
+        {
+            m_damageFloorTime += GAME_DELTA_TIME;
+            
+            if(m_damageFloorTime >= damageDelay)
+            {
+                m_damageFloorTime = 0;
+                self.InflictGenericDamage(self.CastToActor(), World.GetAreaArg(area, 4));
+            }
+            
+            if((World.GetAreaFlags(area) & AAF_LAVA) != 0)
+            {
+                self.Friction() = m_initialFriction * 0.5f;
+            }
+        }
+        else
+        {
+            m_damageFloorTime = damageDelay;
+            self.Friction() = m_initialFriction;
+        }
+        
+        if(m_shoveTime > 0)
+        {
+            kVec3 vDir = m_vShoveVector - self.Origin();
+            float anYaw = vDir.ToYaw();
+            
+            self.Yaw() = self.Yaw().Interpolate(anYaw, 0.2f);
+            m_shoveTime -= GAME_DELTA_TIME;
+        }
+    }
+    
+    /*
+    ==============================================================
+    OnBeginLevel
+    ==============================================================
+    */
+    
+    void OnBeginLevel(void)
+    {
+        if(!InSpiritWorld())
+        {
+            return;
+        }
+        
+        @m_pWarpBuzzActor = ActorFactory.Spawn("DummyActor", 0, 0, 0, 0, self.SectorIndex());
+    }
+    
+    /*
+    ==============================================================
+    OnSpawn
+    ==============================================================
+    */
+    
+    void OnSpawn(void)
+    {
+        m_initialFriction = self.Friction();
+    }
+    
+    /*
+    ==============================================================
+    OnEnterWater
+    ==============================================================
+    */
+    
+    void OnEnterWater(void)
+    {
+        // what speed is the player entering the water?
+        if(self.Velocity().z < 0)
+        {
+            m_nBubbles = -self.Velocity().z * 2;
+            
+            if(m_nBubbles < 0)
+            {
+                m_nBubbles = 0;
+                m_bubblesSfxTimer = m_nBubbles / 2;
+            }
+        }
+    }
+    
+    /*
+    ==============================================================
+    OnArmorDamage
+    ==============================================================
+    */
+    
+    void OnArmorDamage(kActor @instigator, kDictMem @damageDef, const int damage)
+    {
+        // note: threshold is actually 5 but actual armor is divided by 3
+        if(Player.Armor() > 15 && Player.Armor() - damage <= 15)
+        {
+            Game.PrintLine("$str_180", 0);
+        }
+    }
+    
+    /*
+    ==============================================================
+    DoViewShake
+    ==============================================================
+    */
+    
+    void DoViewShake(float velocity, float angle, float duration)
+    {
+        kActor @actor = ActorFactory.Spawn("QuakeSource", 0, 0 ,0 ,0, self.SectorIndex());
+        TurokQuakeSource @quake;
+        
+        if(actor is null)
+        {
+            return;
+        }
+        
+        @quake = cast<TurokQuakeSource@>(actor.ScriptObject().obj);
+        
+        if(quake is null)
+        {
+            return;
+        }
+        
+        quake.SetupShake(self.Origin(), velocity, angle, duration);
+    }
+    
+    /*
+    ==============================================================
+    DoShoveWithCamera
+    ==============================================================
+    */
+    
+    void DoShoveWithCamera(kActor @instigator)
+    {
+        if(instigator is null)
+        {
+            return;
+        }
+        
+        kVec3 org;
+        kVec3 pos;
+        
+        org.x = instigator.Origin().x;
+        org.y = instigator.Origin().y;
+        org.z = instigator.Origin().z + instigator.Height() * 0.5f;
+        
+        kVec3 dir = self.Origin() - org;
+        
+        if(dir.x*dir.x+dir.y*dir.y <= 0.0f)
+        {
+            dir.x = Math::RandCFloat();
+            dir.y = Math::RandCFloat();
+        }
+        
+        dir.Normalize();
+        
+        dir *= (1.75f*GAME_SCALE);
+        dir.z = (0.875f*GAME_SCALE);
+        
+        self.Velocity() += dir;
+        
+        self.Origin().z += GAME_SCALE;
+        self.PlayerFlags() |= PF_NOAIRFRICTION;
+        
+        m_shoveTime = 0.5f;
+        m_vShoveVector = org;
+    }
+    
+    /*
+    ==============================================================
+    OnDamage
+    ==============================================================
+    */
+    
+    void OnDamage(kActor @instigator, kDictMem @damageDef, const int damage)
+    {
+        // check for quake effect
+        if(!(damageDef is null))
+        {
+            bool bQuake = false;
+            bool bShove = false;
+            
+            if(damageDef.GetBool("bQuake", bQuake) && bQuake)
+            {
+                float velocity, angle, duration;
+                
+                damageDef.GetFloat("quakeVelocity", velocity, 0.5625 * GAME_SCALE);
+                damageDef.GetFloat("quakeAngle",    angle,    -0.03f);
+                damageDef.GetFloat("quakeDuration", duration, 2.75f);
+                
+                DoViewShake(velocity, angle, duration);
+            }
+            
+            if(damageDef.GetBool("bShove", bShove) && bShove)
+            {
+                DoShoveWithCamera(instigator);
+            }
+        }
+        
+        if(damage <= 0)
+        {
+            return;
+        }
+        
+        if(self.Health() > 15 && self.Health() - damage <= 15)
+        {
+            Game.PrintLine("$str_181", 0);
+        }
+        
+        if(self.Health() > 0 && self.Health() - damage <= 0)
+        {
+            return;
+        }
+        
+        if(self.GetWaterLevel() == WLT_UNDER)
+        {
+            switch(Math::RandMax(2))
+            {
+            case 0:
+                self.PlaySound("sounds/shaders/generic_14_turok_water_injury_1.ksnd");
+                break;
+            case 1:
+                self.PlaySound("sounds/shaders/generic_15_turok_water_injury_2.ksnd");
+                break;
+            }
+        }
+        else
+        {
+            switch((Math::RandMax(5)) & 3)
+            {
+            case 0:
+                self.PlaySound("sounds/shaders/generic_10_turok_injury_1.ksnd");
+                break;
+            case 1:
+                self.PlaySound("sounds/shaders/generic_11_turok_injury_2.ksnd");
+                break;
+            case 2:
+                self.PlaySound("sounds/shaders/generic_12_turok_injury_3.ksnd");
+                break;
+            case 3:
+                self.PlaySound("sounds/shaders/generic_13_turok_injury_4.ksnd");
+                break;
+            }
+        }
+    }
+    
+    /*
+    ==============================================================
+    OnDeath
+    ==============================================================
+    */
+    
+    void OnDeath(kActor @killer, kDictMem @damageDef)
+    {
+		LostBackpack();
+	
+        self.PlaySound("sounds/shaders/generic_18_turok_normal_death.ksnd");
+        
+        //
+        // we're going to be doing our own custom death cinematic for these specific maps
+        //
+        
+        int currentMap = Game.GetCurrentMapID();
+        
+        switch(currentMap)
+        {
+        case 0: // campaigner boss map?
+            self.PlayerFlags() |= PF_PREVENTDEATHCAM;
+            Game.CallDelayedMapScript(2, self.CastToActor(), 0);
+            break;
+        case 3: // trex boss map?
+            self.PlayerFlags() |= PF_PREVENTDEATHCAM;
+            Game.CallDelayedMapScript(2, self.CastToActor(), 0);
+            break;
+        case 49: // mantis boss map?
+            self.PlayerFlags() |= PF_PREVENTDEATHCAM;
+            Game.CallDelayedMapScript(5, self.CastToActor(), 0);
+            break;
+        default:
+            break;
+        }
+    }
+    
+    /*
+    ==============================================================
+    OnPickup
+    ==============================================================
+    */
+
+     void LoadAmmo( const kStr&in ammoType )
+    {
+	int ammo;
+	GameVariables.GetInt( ammoType, ammo );
+	Player.ConsumeAmmo( 1-ammo );
+	GameVariables.SetValue( ammoType, "0" );
+    }
+
+    
+    void OnPickup(kActor @pickup)
+    {
+        int giveBits = 0;
+        int chronoBits;
+        
+        switch(pickup.Type())
+        {
+		case AT_PICKUP_BACKPACK:
+			GotBackpack();
+			break;
+			
+            case AT_LOADER_TEKARROWS:
+	        LoadAmmo( TekArrows.GVK );
+    	        break;
+	    case AT_LOADER_EXPSHELLS:
+	        LoadAmmo( ExpShells.GVK );
+	        break;
+	    case AT_LOADER_ARBULLETS:
+	        LoadAmmo( ARBullets.GVK );
+	        break; 
+		case AT_LOADER_HARPOONS:
+	        LoadAmmo( Harpoons.GVK );
+    	    break;
+		case AT_LOADER_INCENDIARYROUNDS:
+			LoadAmmo( IncendiaryRounds.GVK );
+			break;
+			
+        case AT_PICKUP_CHRONOPIECE1:
+            giveBits = 0;
+            break;
+        case AT_PICKUP_CHRONOPIECE2:
+            giveBits = 1;
+            break;
+        case AT_PICKUP_CHRONOPIECE3:
+            giveBits = 2;
+            break;
+        case AT_PICKUP_CHRONOPIECE4:
+            giveBits = 3;
+            break;
+        case AT_PICKUP_CHRONOPIECE5:
+            giveBits = 4;
+            break;
+        case AT_PICKUP_CHRONOPIECE6:
+            giveBits = 5;
+            break;
+        case AT_PICKUP_CHRONOPIECE7:
+            giveBits = 6;
+            break;
+        case AT_PICKUP_CHRONOPIECE8:
+            giveBits = 7;
+            break;
+        case AT_PICKUP_KEY1:
+        case AT_PICKUP_KEY2:
+        case AT_PICKUP_KEY3:
+        case AT_PICKUP_KEY5:
+        case AT_PICKUP_KEY6:
+            self.RenderModel().SetTexture(21, pickup.SpawnParams(5));
+            return;
+        case AT_PICKUP_KEY4:
+            self.RenderModel().SetTexture(21, pickup.SpawnParams(5));
+            if(Game.GetCurrentMapID() == 48)
+            {
+                GameVariables.SetValue("bGotLonghunterKey", "1");
+            }
+            // fall through
+        case AT_PICKUP_FINALKEY2:
+            if(Game.GetCurrentMapID() == 49)
+            {
+                GameVariables.SetValue("bGotMantisKey", "1");
+            }
+            // fall through
+        default:
+            return;
+        }
+        
+        GameVariables.GetInt("chronoPieceFlags", chronoBits);
+        chronoBits |= (1 << giveBits);
+        
+        if(chronoBits == 0xFF)
+        {
+            // give chronosceptor weapon
+            Player.GiveWeapon(TW_WEAPON_CHRONO, 3);
+            Game.PrintLine("$str_156", 0);
+        }
+        
+        GameVariables.SetValue("chronoPieceFlags", "" + chronoBits);
+    }
+	
+	
+    /*
+    ==============================================================
+    KnifeAttack
+    ==============================================================
+    */
+    
+    void KnifeAttack(kActor @actor, const float arg1, const float arg2, const float arg3, const float arg4)
+    {
+        float radius;
+        float dist;
+        int damage = 0;
+        int angle1, angle2;
+        int angDiff;
+        int nKnife = int(arg1);
+        int health;
+        TurokEnemy @enemyObj;
+        
+        if(actor is null)
+        {
+            return;
+        }
+        
+        if(actor.IsStale() || (actor.ScriptObject() is null))
+        {
+            // actor must be alive and has a script object
+            return;
+        }
+        
+        if(actor.ScriptObject().obj is null)
+        {
+            // ref handle to script object must exist
+            return;
+        }
+        
+        if((actor.Flags() & AF_HOLDTRIGGERANIM) != 0)
+        {
+            return;
+        }
+        
+        // did actor get hit?
+        radius = (arg2 * GAME_SCALE);
+        
+        dist = Math::Sqrt(actor.DistanceToPoint(m_vStabVector));
+        
+        angle1 = int(Math::Rad2Deg(actor.Yaw())) % 360;
+        angle2 = int(Math::Rad2Deg( self.Yaw())) % 360;
+        
+        if(angle1 < 0) angle1 += 360;
+        if(angle2 < 0) angle2 += 360;
+        
+        angDiff = (angle1 - angle2);
+        
+        // check for backstabs
+        if(dist <= ((radius * 0.5f) + actor.Radius()) && Math::Abs(angDiff) <= 40)
+        {
+            switch(actor.Type())
+            {
+            case AT_GRUNT:
+            case AT_ANIMAL:
+            case AT_BOAR:
+                // grunts and animals take super damage
+                damage = g_KnifeMortalDeathHits;
+                break;
+
+            case AT_RAPTOR:
+            case AT_DINOSAUR1:
+            case AT_RIDER:
+            case AT_SANDWORM:
+            case AT_STALKER:
+            case AT_ALIEN:
+            case AT_PURLIN:
+            case AT_MECH:
+                damage = g_KnifeMortalWoundHits;
+                break;
+                
+            case AT_AIBOSS_TREX:
+                damage = g_KnifeTrexHits;
+                break;
+                
+            case AT_AIBOSS_CAMPAINGER:
+                damage = g_KnifeCampaignerHits;
+                break;
+                
+            case AT_AIBOSS_HUNTER:
+                damage = g_KnifeLonghunterHits;
+                break;
+                
+            case AT_AIBOSS_MANTIS:
+                damage = g_KnifeMantisHits;
+                break;
+
+            default:
+                // other actor types should not be hit by backstabs
+                damage = 0;
+                break;
+            }
+        }
+        // do regular direct damage
+        else if(dist <= (radius + actor.Radius()))
+        {
+            switch(actor.Type())
+            {
+            case AT_RAPTOR:
+                damage = g_KnifeRaptorHits[nKnife];
+                break;
+                
+            case AT_DINOSAUR1:
+                damage = g_knifeDimetrondonHits[nKnife];
+                break;
+                
+            case AT_RIDER:
+                damage = g_KnifeTriceratopsHits[nKnife];
+                break;
+                
+            case AT_SANDWORM:
+                damage = g_KnifeSubterraneanHits[nKnife];
+                break;
+                
+            case AT_STALKER:
+                damage = g_KnifeStalkerHits[nKnife];
+                break;
+                
+            case AT_ALIEN:
+                damage = g_KnifeAlienHits[nKnife];
+                break;
+                
+            case AT_PURLIN:
+                damage = g_KnifePurlinHits[nKnife];
+                break;
+                
+            case AT_MECH:
+                damage = g_KnifeRobotHits[nKnife];
+                break;
+                
+            case AT_SEWERCRAB:
+                damage = g_KnifeSewerCrabHits[nKnife];
+                break;
+                
+            case AT_KILLERPLANT:
+                damage = g_KnifePlantHits[nKnife];
+                break;
+                
+            case AT_GRUNT:
+            case AT_INSECT:
+            case AT_DRAGONFLY:
+            case AT_ANIMAL:
+            case AT_BOAR:
+                damage = g_KnifeHumanHits[nKnife];
+                break;
+            
+            case AT_AIBOSS_TREX:
+                damage = g_KnifeTrexHits;
+                break;
+                
+            case AT_AIBOSS_CAMPAINGER:
+                damage = g_KnifeCampaignerHits;
+                break;
+                
+            case AT_AIBOSS_HUNTER:
+                damage = g_KnifeLonghunterHits;
+                break;
+                
+            case AT_AIBOSS_MANTIS:
+                damage = g_KnifeMantisHits;
+                break;
+
+            default:
+                damage = 0;
+                break;
+            }
+        }
+        
+        if(damage <= 0)
+        {
+            return;
+        }
+        
+        health = actor.Health();
+        actor.InflictGenericDamage(self.CastToActor(), damage);
+            
+        // very important that we know that all actors that we attack contains a pointer
+        // to the TurokEnemy script object class
+        if(!(actor.ScriptObject() is null) && !(actor.ScriptObject().obj is null))
+        {
+            @enemyObj = cast<TurokEnemy@>(actor.ScriptObject().obj);
+                
+            if(health > 0 && actor.Health() <= 0 && !(enemyObj is null))
+            {
+                enemyObj.m_bMortallyWounded = true;
+            }
+        }
+            
+        actor.PlaySound("sounds/shaders/tomahawk_impact_flesh.ksnd");
+        KnifeParticles(actor, nKnife, damage);
+    }
+    
+    /*
+    ==============================================================
+    KnifeParticles
+    ==============================================================
+    */
+    
+    void KnifeParticles(kActor @actor, const int nKnife, const int damage)
+    {
+        kStr redBlood, greenBlood, spark;
+        kStr particle;
+        
+        // The original code references 3 left/right/forward spark fx, but those don't
+        // exist in the game's data and get ignored. Use a generic spark instead of nothing.
+        spark = "fx/spark.kfx";
+        
+        switch(nKnife)
+        {
+        case 0:
+            redBlood    = "fx/knifeleft_blood.kfx";
+            greenBlood  = "fx/knifeleft_gblood.kfx";
+            break;
+            
+        case 1:
+            redBlood    = "fx/kniferight_blood.kfx";
+            greenBlood  = "fx/kniferight_gblood.kfx";
+            break;
+            
+        case 2:
+            redBlood    = "fx/knifeforward_blood.kfx";
+            greenBlood  = "fx/knifeforward_gblood.kfx";
+            break;
+        }
+        
+        switch(actor.Type())
+        {
+        case AT_GRUNT:
+            // fix an original game bug: robotic grunts would bleed red if stabbed.
+            if(actor.ImpactType() == IT_METAL)
+            {
+                particle = spark;
+            }
+            else
+            {
+                particle = redBlood;
+            }
+            break;
+            
+        case AT_ANIMAL:
+        case AT_BOAR:
+        case AT_RAPTOR:
+        case AT_DINOSAUR1:
+        case AT_RIDER:
+        case AT_SANDWORM:
+        case AT_STALKER:
+        case AT_PURLIN:
+        case AT_AIBOSS_TREX:
+        case AT_AIBOSS_CAMPAINGER:
+        case AT_AIBOSS_HUNTER:
+            particle = redBlood;
+            break;
+            
+        case AT_INSECT:
+        case AT_DRAGONFLY:
+        case AT_ALIEN:
+        case AT_KILLERPLANT:
+        case AT_SEWERCRAB:
+        case AT_AIBOSS_MANTIS:
+            particle = greenBlood;
+            break;
+            
+        case AT_MECH:
+            particle = spark;
+            break;
+            
+        default:
+            return;
+        }
+        
+        actor.SpawnProjectile(particle, m_vBloodVector, self.Origin(), Math::Deg2Rad(360));
+    }
+};

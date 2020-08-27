@@ -1,0 +1,116 @@
+fx[2] =
+{
+    {
+        bDepthBuffer = 1
+        bNoHitSource = 1
+        translation = { 0.000000 1.000000 0.000000 }
+        waterFriction = 0.099609
+        scale = 20.375000
+        scaleDest = 1.000000
+        forwardSpeed = 4608.000000
+        shader = "progs/worldfx"
+        sprite = "sprites/fx001"
+        instances = 1
+        lifeTime = 10
+        animSpeed = 20
+        whiteColor = { 0.874510 1.000000 0.996078 }
+        blackColor = { 0.470588 0.972549 0.972549 }
+        hueRandom = 0.000000
+        saturationRandom = 0.000000
+        brightnessRandom = 0.000000
+        onCollideActor = 1
+        onCollideWall = 1
+        onCollideFloor = 1
+        visibilityType = 3
+        animType = 2
+        priority = 50
+        onImpact
+        {
+        [0]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/explosion_1.ksnd"
+            damageClass = "M_Shotgun_Explosion_10"
+        }
+        [2]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/explosion_1.ksnd"
+            damageClass = "S_Damage_Target_damage_50"
+        }
+        [3]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/explosion_1.ksnd"
+            damageClass = "M_Shotgun_Explosion_10"
+        }
+        [4]
+        {
+            fx = "fx/generic_40.kfx"
+            sound = "sounds/shaders/explosion_1.ksnd"
+            damageClass = "S_Damage_Target_damage_50"
+        }
+        [5]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/explosion_1.ksnd"
+            damageClass = "S_Damage_Target_damage_50"
+        }
+        [6]
+        {
+            fx = "fx/generic_149.kfx"
+            damageClass = "S_Damage_Target_damage_10"
+        }
+        [7]
+        {
+            fx = "fx/generic_62.kfx"
+            sound = "sounds/shaders/explosion_1.ksnd"
+            damageClass = "M_Shotgun_Explosion_10"
+        }
+        [8]
+        {
+            fx = "fx/generic_64.kfx"
+            sound = "sounds/shaders/explosion_1.ksnd"
+            damageClass = "M_Shotgun_Explosion_10"
+        }
+        [9]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/explosion_2.ksnd"
+            damageClass = "M_Shotgun_Explosion_10"
+        }
+        }
+        onWaterImpact
+        {
+            fx = "fx/watersplash.kfx"
+            sound = "sounds/shaders/water_splash_4.ksnd"
+        }
+    }
+    {
+        bDepthBuffer = 1
+        translation = { 0.000000 1.000000 0.000000 }
+        waterFriction = 0.099609
+        scale = 2.046875
+        scaleDest = 1.000000
+        offset = { 512.000000 511.999969 512.000000 }
+        shader = "progs/worldfx"
+        sprite = "sprites/fx001"
+        instances = 1
+        lifeTime = 1
+        animSpeed = 20
+        whiteColor = { 0.674510 0.674510 0.000000 }
+        blackColor = { 0.470588 0.972549 0.972549 }
+        hueRandom = 0.000000
+        saturationRandom = 0.000000
+        brightnessRandom = 0.000000
+        onCollideActor = 1
+        onCollideWall = 3
+        onCollideFloor = 1
+        visibilityType = 3
+        animType = 2
+        priority = 50
+        onImpact
+        {
+        }
+    }
+}

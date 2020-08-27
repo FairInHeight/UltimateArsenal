@@ -1,0 +1,302 @@
+//
+// Copyright(C) 2014-2015 Samuel Villarreal
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// DESCRIPTION:
+//      Main Script Module
+//
+
+#include "scripts/pickups.txt"
+
+#include "scripts/common.txt"
+#include "scripts/animal.txt"
+
+#include "scripts/misc/traps.txt"
+#include "scripts/misc/portalHub.txt"
+#include "scripts/misc/mantisObjects.txt"
+#include "scripts/misc/destructibles.txt"
+#include "scripts/misc/catacombWater.txt"
+#include "scripts/misc/giblet.txt"
+#include "scripts/misc/quakeSource.txt"
+#include "scripts/misc/warpPortal.txt"
+#include "scripts/misc/levelPortal.txt"
+#include "scripts/misc/iggy.txt"
+
+#include "scripts/movers/door.txt"
+#include "scripts/movers/seqEvent.txt"
+#include "scripts/movers/floor.txt"
+
+#include "scripts/enemy/enemy.txt"
+#include "scripts/enemy/grunt.txt"
+#include "scripts/enemy/alien.txt"
+#include "scripts/enemy/insect.txt"
+#include "scripts/enemy/purlin.txt"
+#include "scripts/enemy/raptor.txt"
+#include "scripts/enemy/rider.txt"
+#include "scripts/enemy/sandworm.txt"
+#include "scripts/enemy/turret.txt"
+#include "scripts/enemy/sentry.txt"
+#include "scripts/enemy/sewerCrab.txt"
+
+#include "scripts/player.txt"
+#include "scripts/weapons.txt"
+#include "scripts/pickupSpawner.txt"
+
+#include "scripts/bosses/hummer.txt"
+#include "scripts/bosses/longhunter.txt"
+#include "scripts/bosses/mantis.txt"
+#include "scripts/bosses/trex.txt"
+#include "scripts/bosses/campainger.txt"
+
+/*
+==============================================================
+VarFunctor
+==============================================================
+*/
+
+funcdef void VARFUNC(const kStr &in, const kStr &in);
+
+class VarFunctor
+{
+    void Add(const kStr &in gameVar, const kStr &in value)
+    {
+        GameVariables.Add(gameVar, value);
+    }
+    
+    void SetValue(const kStr &in gameVar, const kStr &in value)
+    {
+        GameVariables.SetValue(gameVar, value);
+    }
+};
+
+/*
+==============================================================
+InitHummer1StateVars
+==============================================================
+*/
+
+void InitHummer1StateVars(VARFUNC @setFunc)
+{
+    setFunc("hummer1State", "0");
+    setFunc("hummer1Health", "0");
+    setFunc("hummer1Sector", "-1");
+    setFunc("hummer1Origin", "0.0 0.0 0.0");
+    setFunc("hummer1Yaw", "0.0");
+}
+
+/*
+==============================================================
+InitHummer2StateVars
+==============================================================
+*/
+
+void InitHummer2StateVars(VARFUNC @setFunc)
+{
+    setFunc("hummer2State", "0");
+    setFunc("hummer2Health", "0");
+    setFunc("hummer2Sector", "-1");
+    setFunc("hummer2Origin", "0.0 0.0 0.0");
+    setFunc("hummer2Yaw", "0.0");
+}
+
+/*
+==============================================================
+InitLongHunterStateVars
+==============================================================
+*/
+
+void InitLongHunterStateVars(VARFUNC @setFunc)
+{
+    setFunc("longHunterState", "0");
+    setFunc("longHunterHealth", "0");
+    setFunc("longHunterSector", "-1");
+    setFunc("longHunterOrigin", "0.0 0.0 0.0");
+    setFunc("longHunterYaw", "0.0");
+    setFunc("longHunterObservationPoint", "0");
+}
+
+/*
+==============================================================
+InitMantisStateVars
+==============================================================
+*/
+
+void InitMantisStateVars(VARFUNC @setFunc)
+{
+    setFunc("mantisState", "0");
+    setFunc("mantisHealth", "0");
+    setFunc("mantisSector", "-1");
+    setFunc("mantisOrigin", "0.0 0.0 0.0");
+    setFunc("mantisYaw", "0.0");
+    setFunc("mantisWallBits", "0");
+    setFunc("mantisActive", "0");
+}
+
+/*
+==============================================================
+InitTRexStateVars
+==============================================================
+*/
+
+void InitTRexStateVars(VARFUNC @setFunc)
+{
+    setFunc("trexState",  "0");
+    setFunc("trexHealth", "0");
+}
+
+/*
+==============================================================
+InitCampaignerStateVars
+==============================================================
+*/
+
+void InitCampaignerStateVars(VARFUNC @setFunc)
+{
+    setFunc("campaignerState",  "0");
+    setFunc("campaignerHealth", "0");
+}
+
+/*
+==============================================================
+InitCustomStateVars
+==============================================================
+*/
+
+void InitCustomStateVars(VARFUNC @setFunc)
+{
+    // add custom game variables here
+    setFunc("bStartedHubIntro", "0");
+    setFunc("lastPortalWarpChoice", "0");
+    setFunc("chronoPieceFlags", "0");
+    setFunc("hubPanelPieces1", "0");
+    setFunc("hubPanelPieces2", "0");
+    setFunc("hubPanelPieces3", "0");
+    setFunc("hubPanelPieces4", "0");
+    setFunc("hubPanelPieces5", "0");
+    setFunc("hubPanelPieces6", "0");
+    setFunc("hubPanelPieces7", "0");
+    setFunc("bGotLonghunterKey", "0");
+    setFunc("bGotMantisKey", "0");
+// Overhaul custom functions.
+	setFunc("multiPump", "0");
+	setFunc("pump", "0");
+	setFunc("epump", "0");
+	setFunc("bAutoPump", "1");
+	
+// Smoke39's custom functions for ammo toggle.
+    setFunc("bHasBackpack", "0");
+    setFunc("ExpShellStorage", "0");
+    setFunc("TekArrowStorage", "0");
+    setFunc("ARBulletStorage", "0");
+    setFunc("HarpoonStorage", "0");
+    setFunc("IncendiaryRoundStorage", "0");
+    
+}
+
+/*
+==============================================================
+SetStateVars
+==============================================================
+*/
+
+void SetStateVars(VARFUNC @setFunc)
+{
+    // Add any function doing game variable init here.
+    InitCustomStateVars(setFunc);
+    InitHummer1StateVars(setFunc);
+    InitHummer2StateVars(setFunc);
+    InitLongHunterStateVars(setFunc);
+    InitMantisStateVars(setFunc);
+    InitTRexStateVars(setFunc);
+    InitCampaignerStateVars(setFunc);
+}
+
+/*
+==============================================================
+newgame
+==============================================================
+*/
+
+void newgame(void)
+{
+    // set all variables back to their default values
+    VarFunctor functor;
+    SetStateVars(VARFUNC(functor.SetValue));
+}
+
+/*
+==============================================================
+main
+==============================================================
+*/
+
+void main(void)
+{
+    kStr szShowIntros;
+
+    //
+    // add game variables at startup
+    //
+    
+    // variables which are once-only should be added here
+    GameVariables.Add("bStartedIntro", "0");
+    
+    // everything else, including anything that ought to be
+    // reinitialized when a new game starts, should be added
+    // in here.
+    VarFunctor functor;
+    SetStateVars(VARFUNC(functor.Add));
+    
+    // config startmap and trainingmap variables
+    // note: these are created by the engine during initialization
+    GameVariables.SetValue("g_startmap", "levels/level05.map");
+    GameVariables.SetValue("g_restartmap", "levels/level42.map");
+    GameVariables.SetValue("g_trainingmap", "levels/level47.map");
+    GameVariables.SetValue("g_creditsmap", "levels/level02.map");
+    GameVariables.SetValue("g_hubmapid", "5");
+    GameVariables.SetValue("g_hubwarptid", "10666");
+    
+    // show intro cinematics?
+    if(Sys.GetCvarValue("g_showgameintros", szShowIntros))
+    {
+        if(szShowIntros.Atoi() == 0)
+        {
+            // skip directly to title
+            Game.ChangeMap("levels/level42.map");
+            return;
+        }
+    }
+    
+    Game.ChangeMap("levels/level45.map");
+}
+
+/*
+====================================================
+Auto-pump Toggle
+====================================================
+*/
+	
+void SetAutoPump(void)
+{
+	bool bSetAutoPump;
+
+	GameVariables.GetBool("bAutoPump", bSetAutoPump);
+
+	if(bSetAutoPump)
+	{
+		GameVariables.SetValue("bAutoPump", "0");
+	}
+	else
+	{
+		GameVariables.SetValue("bAutoPump", "0");
+	}
+}

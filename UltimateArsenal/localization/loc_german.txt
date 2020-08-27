@@ -1,0 +1,255 @@
+// === native/built-in text ===
+
+"schlüssel in diesem"
+"level zu finden"
+
+"1 schlüssel in diesem"
+"level zu finden"
+
+"alle schlüssel in diesem"
+"level gefunden"
+
+"level "
+" schlüssel"
+
+"Turok Son of Stone TM & @ 2015 von Random House, Inc."
+"Unter Lizenz bei Classic Media, LLC. Alle Rechte vorbehalten."
+
+// === menu strings ===
+"spiel beenden"
+"spiel neu starten"
+
+"bist du sicher?"
+
+"ungültiger"
+"code"
+
+"cheatcode eingeben"
+
+" aktiviert"
+
+"fxaa-antialiasing"
+"blooming"
+"okklusionsabfragen verwenden"
+"wasser-lichtbrechung"
+"wasserspiegelung"
+"einfache schatten"
+"gpu-befehlssynchr. erzwingen"
+"sichtfeld anzeigen"
+"sättigungseinstellungen"
+
+"zurück"
+
+"grafik"
+"sättigung"
+"sättigungsstärke"
+"sättigung roter farbton"
+"sättigung grüner farbton"
+"sättigung blauer farbton"
+
+"tastenbelegung"
+"maus"
+"joystick"
+"aktionen"
+"waffen"
+"autom. karte"
+"menüs"
+
+"nicht belegt"
+"set bind for "
+"zum abbrechen 5 sekunden warten"
+"belegte taste drücken, um belegung aufzuheben"
+
+"horizontale empfindlichkeit"
+"vertikale empfindlichkeit"
+"umkehren"
+"gleichmässiger übergang"
+
+"blickempfindlichkeit x-achse"
+"blickempfindlichkeit y-achse"
+"bewegungsempfindlichkeit"
+"drehungsbeschleunig.-schwelle"
+
+"eingabe"
+"spielmechanik"
+"grafik"
+"ton"
+"video"
+"cheat eingeben"
+"cheatmenü"
+"zurück"
+
+"effektlautstärke"
+"musiklautstärke"
+"halleffekte"
+
+"darstellungsdistanz vergrössern"
+"startvideo anzeigen"
+"intro-sequenz anzeigen"
+"todessequenz anzeigen"
+"fadenkreuz anzeigen"
+"hud anzeigen"
+"generisches waffenschaukeln"
+"waffe beim aufheben wechseln"
+"umgebungsgeräusche"
+
+"schwierigkeitsgrad"
+"einfach"
+"normal"
+"schwer"
+"sehr schwer"
+
+"geschosskollision"
+
+"fenstermodus"
+"vertikale synchronisierung"
+"auflösung"
+
+"änderungen werden nach dem"
+"neustart des spiels wirksam"
+
+"leerer platz"
+"spielstand überschreiben"
+"bist du sicher?"
+"spiel speichern"
+"fehler: spielstand"
+"fehlt oder ist beschädigt"
+"spiel laden"
+"bist du sicher?"
+"spielstand ist veraltet"
+"laden nicht möglich"
+"spielstand ist eventuell veraltet"
+"bist du sicher?"
+"spiel laden"
+
+// === menu strings ===
+"spiel starten"
+"training"
+"optionen"
+"beenden"
+"spiel fortsetzen"
+"schlüssel"
+"level-symbole"
+
+"ja"
+"nein"
+"ok"
+"sprache"
+
+// === save prompt ===
+"möchtest du dein"
+"spiel speichern?"
+
+// === player notifications ===
+"kontrollpunkt"
+"geheimer bereich gefunden"
+
+//
+// end of built-in strings
+//
+
+// === hub titles ===
+"zentrum"
+"der dschungel"
+"die alte stadt"
+"die ruinen"
+"die katakomben"
+"das dorf in den baumwipfeln"
+"das verlorene land"
+"die letzte konfrontation"
+
+// === pickup messages ===
+"30 pfeile"
+"5 tek-pfeile"
+"15 tek-pfeile"
+"magazin"
+"schachtel patronen"
+"schrotflintenmunition"
+"schachtel schrotflintenmunition"
+"explosivmunition"
+"schachtel explosivmunition"
+"minigun-munition"
+"1 granate"
+"schachtel granaten"
+"energiezelle"
+"grosse energiezelle"
+"4 raketen"
+"fusionsladung"
+
+"2 lebenspunkte"
+"10 lebenspunkte"
+"25 lebenspunkte"
+"volles leben"
+"ultraleben"
+"tödliche wunde"
+
+"rucksack"
+"geistige unbesiegbarkeit"
+"tek-rüstung"
+"chronozepter-teil"
+
+"pistole"
+"sturmgewehr"
+"schrotflinte"
+"auto-schrotflinte"
+"minigun"
+"granatwerfer"
+"impulsgewehr"
+"alien-waffe"
+"vierfach-raketenwerfer"
+"schockwellen-waffe"
+"fusionskanone"
+"chronozepter"
+
+// === tutorial ===
+"trainingslevel\n\ndu kannst zum beenden\njederzeit escape drücken."
+"springen\ndrücke zum springen\ndie sprungtaste.\nje länger du diese taste\ngedrückt hältst, desto weiter\nbewegt sich turok."
+"schwimmen\nverwende zum schwimmen\ndie bewegungstasten.\nmit der sprungtaste\nkann turok wieder\nauftauchen."
+"klettern\nmit den bewegungstasten\nkletterst du auf die klippe.\nsieh dich mit den blick-\nund drehtasten um, oder\nspringe runter."
+"gehen\ngehe vorsichtig über\nden baumstamm.\n"
+"weiter sprung\nhalte die sprungtaste\nlänger gedrückt, um\nweiter zu springen."
+"gut gemacht,\ndu hast den\ntrainingslevel für\anfänger abgeschlossen.\nstell dich auf den teleporter\nund probiere den level für\nfortgeschrittene anfänger aus."
+"schwimmen\nsteuere mit den bewegungs-\ntasten und den seitwärts-\ntasten, um dich nach links\nund rechts zu bewegen und\ndie tore zu durchschwimmen."
+"weiter sprung mit anlauf\nhänge dich an die klippe,\nindem du über\nden abgrund springst."
+"gehen\ngehe vorsichtig über\ndie baumstammbrücke.\ndu kannst beim\ngehen auch nach\nunten blicken."
+"schiessübung\nschiesse mit den pfeilen\ndie scharfschützen ab,\ndamit die säulen\nerscheinen."
+"gut gemacht,\ndu hast den level\nfür fortgeschrittene\nanfänger abgeschlossen.\nstell dich auf den\nteleporter, um den level für\nfortgeschrittene auszuprobieren."
+"tiefes tauchen\nschwimme zum boden\ndes beckens, um zur\nanderen seite\nzu gelangen."
+"springen\nspringe auf die\nplattform.\ndu kannst beim\nspringen als hilfe auch\nnach unten blicken."
+"kartenmodus\ndrücke die kartentaste,\num den kartenmodus\nzu aktivieren und\ndeinen weg durch\ndie höhlen zu finden."
+"diagonaler sprung\ndrücke die sprungtaste,\nwährend du die vorwärts-\nund seitwärtstasten gedrückt\nhältst, um einen diagonalen\nsprung auszuführen. mit den\ndrehungstasten kannst du\ndich in der luft drehen."
+"fortgeschrittene\nschiessübung\nschiesse mit den pfeilen\ndie scharfschützen ab."
+"schalter aktivieren\nfinde die taste,\num das holztor\nzu öffnen."
+"gut gemacht,\ndu bist offenbar\nein naturtalent.\ngute jagd."
+
+"finde die zentralruinen"
+"öffne level-portale"
+"mit den schlüsseln"
+
+"zugang zu level "
+
+"wenig rüstung"
+"wenig leben"
+
+// === violence options ===
+"gewalt optionen"
+"rotes blut"
+"grünes blut"
+"kein blut"
+
+// === extra life ===
+"extraleben"
+
+// === opacity ===
+"opazität"
+
+"FLAMMENWERFER"
+"TREIBSTOFF"
+"GEWEHRMAGAZIN"
+"FALL VON GEWEHRKUGELN"
+"PULSRUNDEN"
+"FLECHETTE GUN"
+"FLECHETTES"
+"HARPUNE"
+"HARPUNE BÜNDELN"
+"BRANDBULLEN"

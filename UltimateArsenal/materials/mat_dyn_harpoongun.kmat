@@ -1,0 +1,94 @@
+
+material Body {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0230_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Body_NONE {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0230_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Chrome {
+    shader "progs/worldSphereMap"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/texff252525.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Chromeblue {
+    shader "progs/worldSphereMap"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/texffcfae9c.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Chrome_NONE {
+    shader "progs/worldSphereMap"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/texff252525.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Chrome2 {
+    shader "progs/worldSphereMap"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0843_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+material Red {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0203_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+
+

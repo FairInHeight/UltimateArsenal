@@ -1,0 +1,255 @@
+// === native/built-in text ===
+
+"clés à trouver"
+"dans ce niveau"
+
+"1 clé à trouver"
+"dans ce niveau"
+
+"toutes les clés"
+"trouvées dans ce niveau"
+
+"niveau "
+" clé"
+
+"Turok Son of Stone TM & @ 2015 par Random House, Inc."
+"Sous licence de Classic Media, LLC tous droits réservés"
+
+// === menu strings ===
+"quitter le jeu"
+"redémarrer le jeu"
+
+"êtes-vous sûr"
+
+"invalid"
+"code"
+
+"saisir code de triche"
+
+" activé"
+
+"anticrenélage fxaa"
+"bloom"
+"utiliser les requêtes d'occlusion"
+"réfraction de l'eau"
+"reflets de l'eau"
+"ombres simples"
+"forcer la synchro gpu"
+"champ de vision"
+"réglages de la saturation"
+
+"retour"
+
+"graphismes"
+"saturation"
+"puissance de la saturation"
+"saturation teinte rouge"
+"saturation teinte verte"
+"saturation teinte bleue"
+
+"raccourcis"
+"souris"
+"joystick"
+"actions"
+"armes"
+"carte auto"
+"menus"
+
+"unbound"
+"set bind for "
+"attendre 5 secondes pour annuler"
+"appuyer sur la touche pour réinitialiser le raccourci"
+
+"sensibilité horizontale"
+"sensibilité verticale"
+"inverser"
+"smooth threshold"
+
+"sensibilité vue plan horizontal"
+"sensibilité vue plan vertical"
+"sensibilité des déplacements"
+"turn accel threshold"
+
+"entrée"
+"gameplay"
+"graphismes"
+"audio"
+"vidéo"
+"saisir triche"
+"menu triche"
+"retour"
+
+"volume effets"
+"volume musique"
+"effets réverbération"
+
+"augmenter distance d'affichage"
+"show splash movie"
+"montrer les cinématiques d'intro"
+"montrer les cinématiques de mort"
+"montrer le réticule"
+"montrer l'ath"
+"mouvements de l'arme classiques"
+"changer d'arme au ramassage"
+"sons de l'environnement ambiant"
+
+"difficulté du jeu"
+"facile"
+"normal"
+"difficile"
+"extrême"
+
+"collision des projectiles"
+
+"fenêtré"
+"synchronisation verticale"
+"résolution"
+
+"les modifications seront appliquées"
+"au redémarrage du jeu"
+
+"emplacement vide"
+"écraser la sauvegarde"
+"êtes-vous sûr"
+"sauvegarder partie"
+"erreur fichier de sauvegarde"
+"manquant ou corrompu"
+"charger partie"
+"êtes-vous sûr"
+"le fichier de sauvegarde est expiré"
+"impossible de charger"
+"le fichier de sauvegarde peut être expiré"
+"êtes-vous sûr"
+"charger partie"
+
+// === menu strings ===
+"lancer partie"
+"entraînement"
+"options"
+"quitter"
+"reprendre partie"
+"clés"
+"icônes de niveau"
+
+"oui"
+"non"
+"ok"
+"langue"
+
+// === save prompt ===
+"souhaitez-vous"
+"sauvegarder votre partie ?"
+
+// === player notifications ===
+"point de passage"
+"zone secrète découverte"
+
+//
+// end of built-in strings
+//
+
+// === hub titles ===
+"les ruines centrales"
+"la jungle"
+"l'ancienne cité"
+"les ruines"
+"les catacombes"
+"le village dans les arbres"
+"les terres oubliées"
+"la confrontration finale"
+
+// === pickup messages ===
+"30 flèches"
+"5 flèches tek"
+"15 flèches tek"
+"chargeur"
+"caisse de munitions"
+"cartouches de fusil"
+"caisse de cartouches de fusil"
+"cartouches explosives"
+"caisse de cartouches explosives"
+"munitions de minigun"
+"1 grenade"
+"caisse de grenades"
+"cellule d'énergie"
+"grande cellule d'énergie"
+"4 roquettes"
+"charge de fusion"
+
+"2 points de vie"
+"10 points de vie"
+"25 points de vie"
+"santé max"
+"santé ultra"
+"blessure mortelle"
+
+"sac à dos"
+"invincibilité spirituelle"
+"armure tek"
+"pièce de chronosceptre"
+
+"pistolet"
+"mitraillette"
+"fusil à pompe"
+"fusil à pompe automatique"
+"minigun"
+"lance-grenades"
+"fusil à pulsations"
+"arme extraterrestre"
+"quadruple lance-roquettes"
+"arme à ondes de choc"
+"canon à fusion"
+"chronosceptre"
+
+// === tutorial ===
+"niveau d'entraînement\n\npour quitter le niveau,\nappuyez sur échap."
+"sauter\nappuyez sur la touche\nde saut pour sauter.\nappuyez plus longuement\npour faire sauter turok\nplus loin."
+"nager\npour nager, utilisez les\ntouches de déplacement.\nla touche de saut\nfait remonter turok\nà la surface."
+"grimpergrimpez la paroi\navec les touches de déplacement.\nregardez autour de vous avec\nles touches de rotation et de déplacement,\nou sautez en bas."
+"marcher\nmarchez doucement\nsur le tronc.\n"
+"saut long\npensez à maintenir\nla touche de saut\npour sauter plus loin."
+"bravo,\nvous avez terminé\nle niveau d'entraînement\npour débutant.\nmarchez sur le téléporteur\npour essayer le\nniveau intermédiaire."
+"nager\npour passer la porte\nen nageant, dirigez-vous avec\nles touches de déplacement\nutilisez les touches d'esquive\npour vous déplacer sur la gauche et la droite."
+"saut long avec élan\naccrochez-vous à la\nparoi en sautant\npar-dessus le précipice."
+"marcher\nmarchez doucement\nsur le pont de bois.\nregardez vers le bas\nen marchant\npour vous aider."
+"entraînement au tirtirez des flèches\nsur les tireurs embusqués,\npour faire apparaître\nles piliers."
+"bravo,\nvous avez terminé\nle niveau d'entraînement\nintermédiaire.\nmarchez sur le\ntéléporteur pour essayer\nle niveau avancé."
+"nagez juqu'au\nfond du bassin\npour trouver\nle passage vers\nl'autre côté."
+"sauter\nsautez sur\nla plateforme.\nregardez vers le bas\nen sautant\npour vous guider."
+"carte\nappuyez sur la touche\nde la carte pour\nafficher la carte et\nvous repérer\ndans les grottes."
+"saut diagonal\nappuyez sur la touche de saut\nen maintenant les touches\navant et esquive\npour faire un\nsaut diagonal. utilisez\nles touches de rotation\npour tourner en l'air."
+"entraînement au tir\navancé\ntirez des flèches\nsur les tireurs embusqués."
+"activer des mécanismes\ntrouvez le bouton\npour ouvrir\nla porte en bois."
+"bravo,\nvous êtes visiblement\ntrès doué,\nbonne chasse !"
+
+"localiser les ruines centrales"
+"utiliser lez clés"
+"pour ouvrir les portails des niveaux"
+
+"accès au niveau "
+
+"armure faible"
+"santé faible"
+
+// === violence options ===
+"options de violence"
+"sang rouge"
+"sang vert"
+"pas de sang"
+
+// === extra life ===
+"vie supplémentaire"
+
+// === opacity ===
+"opacité"
+
+"LANCE-FLAMMES"
+"RÉSERVOIR D'ESSENCE"
+"CHARGEUR DE FUSIL"
+"CAISSE DE MUNITIONS DE FUSIL"
+"PULSE ROUNDS"
+"FLECHETTE GUN"
+"FLECHETTES"
+"HARPON"
+"HARPON BUNDLE"
+"BULLETS INCENDIAIRES"

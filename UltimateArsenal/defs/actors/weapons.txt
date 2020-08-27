@@ -1,0 +1,183 @@
+Wpn_Pistol  409
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_pistol01.bin"
+    pickup.pickupMessage        "$str_145"
+    pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_Pistol"
+    pickup.weapon.giveAmmo      20 // 10
+}
+
+Wpn_AssaultRifle  410
+{
+    classname                   "kexActor"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_rifle01.bin"
+    scriptClass                 "AmmoPickupRifle"
+    flags.canBeTouched          1
+    //pickup.pickupMessage        "$str_146"
+    //pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    //pickup.weapon.definition    "Wpn_Rifle"
+    //pickup.weapon.giveAmmo   60 // 30
+}
+
+Wpn_Shotgun  411
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_shotgun01.bin"
+    pickup.pickupMessage        "$str_147"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_Shotgun"
+    pickup.weapon.giveAmmo      15 // 10
+}
+
+Wpn_AutoShotgun  412
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_autoshotgun01.bin"
+    pickup.pickupMessage        "$str_148"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_AutoShotgun"
+    pickup.weapon.giveAmmo      18 // 12
+}
+
+Wpn_Minigun  413
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_minigun01.bin"
+    pickup.pickupMessage        "$str_149"
+    pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_MiniGun"
+    pickup.weapon.giveAmmo      250 // 125
+}
+
+Wpn_GrenadeLauncher  414
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_grenade_launcher01.bin"
+    pickup.pickupMessage        "$str_150"
+    pickup.pickupSound          "sounds/shaders/generic_5_grenade_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_GrenadeLauncher"
+    pickup.weapon.giveAmmo      8 // 5
+}
+
+Wpn_PulseRifle  415
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_pulse01.bin"
+    pickup.pickupMessage        "$str_151"
+    pickup.pickupSound          "sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_PulseRifle"
+    pickup.weapon.giveAmmo      100
+}
+
+Wpn_AlienRifle  416
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_alien01.bin"
+    pickup.pickupMessage        "$str_152"
+    pickup.pickupSound          "sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_AlienRifle"
+    pickup.weapon.giveAmmo      100 // 50
+}
+
+Wpn_RocketLauncher  417
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_rocketlauncher01.bin"
+    pickup.pickupMessage        "$str_153"
+    pickup.pickupSound          "sounds/shaders/generic_7_rocket_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_MissileLauncher"
+    pickup.weapon.giveAmmo      6
+}
+
+Wpn_Shockwave  418
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_shockwave01.bin"
+    pickup.pickupMessage        "$str_154"
+    pickup.pickupSound          "sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_ParticleAccelerator"
+    pickup.weapon.giveAmmo      100
+}
+
+Wpn_FusionCannon  419
+{
+    classname                   "kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/weapon_fusion01.bin"
+    pickup.pickupMessage        "$str_155"
+    pickup.pickupSound          "sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.weapon.definition    "Wpn_FusionCannon"
+    pickup.weapon.giveAmmo      4 // 2
+}
+
+Wpn_Flamethrower  460		
+{
+    classname			"kexWeaponPickup"
+    radius              	71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel		"models/weapon_flamethrower.bin"
+    pickup.pickupMessage	"$str_188"
+    pickup.pickupSound		"sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.weapon.definition	"Wpn_Flamethrower"
+    pickup.weapon.giveAmmo	100
+}
+
+Wpn_FlechetteGun  461	
+{
+    classname			"kexWeaponPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel		"models/weapon_flechettegun.bin"
+    pickup.pickupMessage	"$str_189"
+    pickup.pickupSound		"sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.weapon.definition	"Wpn_FlchetteGun"
+    pickup.weapon.giveAmmo	30
+}

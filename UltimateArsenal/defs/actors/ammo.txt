@@ -1,0 +1,332 @@
+//-----------------------------------------------------------------------------
+//
+// ammo
+//
+//-----------------------------------------------------------------------------
+
+Ammo_Arrows_Pickup 420
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_arrows04.bin"
+    pickup.ammo.amount          30
+    pickup.ammo.definition      "Ammo_Arrow"
+    pickup.pickupSound          "sounds/shaders/generic_6_arrow_pickup_.ksnd"
+    pickup.pickupMessage        "$str_119"
+}
+
+Ammo_TekArrows1_Pickup 421
+{
+    classname                   "kexActor"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_arrows02.bin"
+    scriptClass                 "AmmoPickupTek"
+    flags.canBeTouched          1
+//    pickup.ammo.amount          5
+//    pickup.ammo.definition      "Ammo_TekArrow"
+//    pickup.pickupSound          "sounds/shaders/generic_6_arrow_pickup_.ksnd"
+//    pickup.pickupMessage        "$str_120"
+}
+
+Ammo_TekArrows2_Pickup 422
+{
+    classname                   "kexActor"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_arrows03.bin"
+    scriptClass                 "AmmoPickupTekQuiver"
+    flags.canBeTouched          1
+//    pickup.ammo.amount          15
+//    pickup.ammo.definition      "Ammo_TekArrow"
+//    pickup.pickupSound          "sounds/shaders/generic_6_arrow_pickup_.ksnd"
+//    pickup.pickupMessage        "$str_121"
+}
+
+Ammo_Clip_Pickup 423
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    pickup.ammo.amount          12 // 10
+    pickup.ammo.definition      "Ammo_Bullet"
+    initialModel                "models/ammo_clip01.bin"
+    pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage        "$str_122"
+}
+
+Ammo_Box_Bullets_Pickup 424
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    pickup.ammo.amount          50
+    pickup.ammo.definition      "Ammo_Bullet"
+    initialModel                "models/ammo_bullet_box01.bin"
+    pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage        "$str_123"
+}
+
+Ammo_Shells_Pickup 425
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    pickup.ammo.amount          6 // 5
+    pickup.ammo.definition      "Ammo_Shell"
+    initialModel                "models/ammo_shells01.bin"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+    pickup.pickupMessage        "$str_124"
+}
+
+Ammo_Box_Shells_Pickup 426
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    pickup.ammo.amount          40 // 20
+    pickup.ammo.definition      "Ammo_Shell"
+    initialModel                "models/ammo_shellbox01.bin"
+    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+    pickup.pickupMessage        "$str_125"
+}
+
+Ammo_ExpShells_Pickup 427
+{
+    classname                   "kexActor"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    scriptClass                 "AmmoPickupExpShells"
+	flags.canBeTouched      1
+//    pickup.ammo.amount          4
+//    pickup.ammo.definition      "Ammo_ExpShell"
+    initialModel                "models/ammo_shells_exp01.bin"
+//    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+//    pickup.pickupMessage        "$str_126"
+}
+
+Ammo_BoxExpShells_Pickup 428
+{
+   classname                   "kexActor" // "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    scriptClass                 "AmmoPickupExpShellBox"
+    flags.canBeTouched          1
+//    pickup.ammo.amount          10
+//    pickup.ammo.definition      "Ammo_ExpShell"
+    initialModel                "models/ammo_shells_exp02.bin"
+//    pickup.pickupSound          "sounds/shaders/generic_2_shell_pickup.ksnd"
+//    pickup.pickupMessage        "$str_127"
+}
+
+Ammo_MiniGunAmmo_Pickup 429
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_minigun01.bin"
+    pickup.ammo.amount          500
+    pickup.ammo.definition      "Ammo_Mags"
+    pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage        "$str_128"
+}
+
+Ammo_Grenade_Pickup 430
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_grenade01.bin"
+    pickup.ammo.amount          1
+    pickup.ammo.definition      "Ammo_Grenade"
+    pickup.pickupSound          "sounds/shaders/generic_5_grenade_pickup.ksnd"
+    pickup.pickupMessage        "$str_129"
+}
+
+Ammo_GrenadeBox_Pickup 431
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_grenade02.bin"
+    pickup.ammo.amount          10
+    pickup.ammo.definition      "Ammo_Grenade"
+    pickup.pickupSound          "sounds/shaders/generic_5_grenade_pickup.ksnd"
+    pickup.pickupMessage        "$str_130"
+}
+
+Ammo_Cell_Pickup 432
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_cell_small01.bin"
+    pickup.ammo.amount          25
+    pickup.ammo.definition      "Ammo_Pulse"
+    pickup.pickupSound          "sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.pickupMessage        "$str_131"
+}
+
+Ammo_LargeCell_Pickup 433
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_cell01.bin"
+    pickup.ammo.amount          50
+    pickup.ammo.definition      "Ammo_Cell"
+    pickup.pickupSound          "sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.pickupMessage        "$str_132"
+}
+
+Ammo_Rockets_Pickup 434
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_rocket01.bin"
+    pickup.ammo.amount          4
+    pickup.ammo.definition      "Ammo_Rocket"
+    pickup.pickupSound          "sounds/shaders/generic_7_rocket_pickup.ksnd"
+    pickup.pickupMessage        "$str_133"
+}
+
+Ammo_FuseCharge_Pickup 435
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_fusion01.bin"
+    pickup.ammo.amount          1
+    pickup.ammo.definition      "Ammo_Fuse"
+    pickup.pickupSound          "sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.pickupMessage        "$str_134"
+}
+
+Ammo_FuseCharge_Pickup2 436
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_fusion01.bin"
+    pickup.ammo.amount          1
+    pickup.ammo.definition      "Ammo_Fuse"
+    pickup.pickupSound          "sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.pickupMessage        "$str_134"
+}
+
+Ammo_Fuel_Pickup 457
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_fuel01.bin"
+    pickup.ammo.amount          50
+    pickup.ammo.definition      "Ammo_Fuel"
+    pickup.pickupSound          "sounds/shaders/generic_3_energy_pickup.ksnd"
+    pickup.pickupMessage        "$str_189"
+}
+Ammo_ARClip_Pickup 458
+{
+    classname                   "kexActor"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_ar01.bin"
+    scriptClass                 "AmmoPickupARBullets"
+    flags.canBeTouched          1
+//    pickup.ammo.amount          30
+//    pickup.ammo.definition      "Ammo_ARBullets"
+//    pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+//    pickup.pickupMessage        "$str_190"
+}
+Ammo_IncendiaryRounds_Pickup 459
+{
+    classname					"kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel		"models/incendiary01.bin"
+//pickup.ammo.amount		  4
+//pickup.ammo.definition	  "Ammo_Incendiary"
+//pickup.pickupSound		  "sounds/shaders/generic_1_bullet_pickup.ksnd"
+//pickup.pickupMessage		  "$str_197"
+}
+Ammo_Flechettes_Pickup 462
+{
+    classname                   "kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel                "models/ammo_flechette01.bin"
+    pickup.ammo.amount          20
+    pickup.ammo.definition      "Ammo_Flechette"
+    pickup.pickupSound          "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage        "$str_194"
+}
+Ammo_Harpoons_Pickup 463
+{
+    classname					"kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel		"models/ammo_harpoon_small01.bin"
+//    pickup.ammo.amount	  1
+//    pickup.ammo.definition	  "Ammo_Harpoon"
+//    pickup.pickupSound	  "sounds/shaders/generic_1_bullet_pickup.ksnd"
+//    pickup.pickupMessage	  "$str_195"
+}
+Ammo_HarpoonBundle_Pickup 464
+{
+    classname					"kexAmmoPickup"
+    radius                      71.68
+    height                      71.68
+    center                      30.72
+    stepHeight                  25.72
+    initialModel	  	  "models/ammo_harpoon_big01.bin"
+//    pickup.ammo.amount	  4
+//    pickup.ammo.definition	  "Ammo_Harpoon"
+//    pickup.pickupSound	  "sounds/shaders/generic_1_bullet_pickup.ksnd"
+//    pickup.pickupMessage	  "$str_196"
+}

@@ -1,0 +1,112 @@
+// slanted boomerang
+// based on generic_247.kfx
+fx[2] =
+{
+    {
+        bDepthBuffer = 1
+        translation = { 0.000000 1.000000 0.000000 }
+        scale = 35.750000
+        scaleDest = 1.000000
+        forwardSpeed = 768.000000
+        rotationOffset = 0.3476565 // 0.695313
+        shader = "progs/worldcolorfx"
+        sprite = "sprites/fx104"
+        instances = 1
+        lifeTime = 30
+        animSpeed = 30
+        whiteColor = { 1.000000 1.000000 1.000000 }
+        blackColor = { 0.980392 0.454902 0.019608 }
+        hueRandom = 0.000000
+        saturationRandom = 0.000000
+        brightnessRandom = 0.000000
+        fadeOutTime=5
+        onCollideActor = 1
+        onCollideWall = 1
+        onCollideFloor = 1
+        animType = 2 // without this, it dies after anim finishes once
+        visibilityType = 2
+        priority = 100
+        onImpact
+        {
+//        damageClass = "S_Damage_Target_damage_5"
+//        sound = "sounds/shaders/generic_195.ksnd"
+//        sound = "sounds/shaders/riot_shotgun_shot.ksnd"
+        [0]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/auto_shotgun_shot.ksnd"
+        }
+        [2]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/auto_shotgun_shot.ksnd"
+            damageClass = "S_Damage_Target_damage_20"
+        }
+        [3]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/auto_shotgun_shot.ksnd"
+        }
+        [4]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/auto_shotgun_shot.ksnd"
+            damageClass = "S_Damage_Target_damage_20"
+        }
+        [5]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/auto_shotgun_shot.ksnd"
+            damageClass = "S_Damage_Target_damage_20"
+        }
+        [6]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/auto_shotgun_shot.ksnd"
+            damageClass = "S_Damage_Target_damage_20"
+        }
+        [7]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/auto_shotgun_shot.ksnd"
+        }
+        [8]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/auto_shotgun_shot.ksnd"
+        }
+        [9]
+        {
+            fx = "fx/generic_108.kfx"
+            sound = "sounds/shaders/auto_shotgun_shot.ksnd"
+        }
+        }
+    }
+    // trail
+    // different proj, because it needs a different rotationOffset
+    {
+        bDepthBuffer = 1
+        translation = { 0.000000 1.000000 0.000000 }
+        scale = 35.750000
+        scaleDest = 1.000000
+        forwardSpeed = 768.000000
+        rotationOffset = -0.3476565 // -0.695313
+        shader = "progs/worldcolorfx"
+        sprite = "sprites/fx104"
+        trailDefinition_1 = "Trail_Generic247"
+        instances = 1
+        lifeTime = 30
+        animSpeed = 30
+        whiteColor = { 1.000000 1.000000 1.000000 }
+        blackColor = { 0.980392 0.454902 0.019608 }
+        hueRandom = 0.000000
+        saturationRandom = 0.000000
+        brightnessRandom = 0.000000
+        onCollideActor = 1
+        onCollideWall = 1
+        onCollideFloor = 1
+        animType = 2 // without this, it dies after anim finishes once
+        visibilityType = 3 // hidden
+        priority = 100
+    }
+}

@@ -1,0 +1,72 @@
+
+material AmmoFront {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0210_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+
+material AmmoFront_NONE {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0210_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+
+material AmmoSide {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0216_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+
+material Bullet {
+    shader "progs/world"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0322_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}
+
+
+
+
+
+material Chrome {
+    shader "progs/worldSphereMap"
+    sort default
+    cull back
+    depthtest
+    color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+    sampler "diffuse" 0 "textures/tex0249_00.png" {
+        filter      linear
+        wrap        repeat
+    }
+}

@@ -756,11 +756,11 @@ final class TurokShotgun : TurokWeapon
 	
 	/*
     ==============================================================
-    OnSpawn
+    OnRaise
     ==============================================================
     */
 	
-	void OnSpawn(void)
+	void OnRaise(void)
 	{
 		GameVariables.GetInt("multiPump", multiPump);
 		GameVariables.GetInt("pump", pump);

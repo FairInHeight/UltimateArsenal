@@ -15,7 +15,7 @@ fx[1] =
         offset = { 0.000000 -51.000000 -0.000002 }
         shader = "progs/worldfx"
         sprite = "sprites/fx001"
-		trailDefinition_1 = "Trail_Incendiary"
+	trailDefinition_1 = "Trail_Incendiary"
         instances = 1
         lifeTime = 56
         animSpeed = 30
@@ -25,7 +25,7 @@ fx[1] =
         saturationRandom = 0.000000
         brightnessRandom = 0.000000
         onCollideActor = 1
-        onCollideWall = 3
+        onCollideWall = 1
         onCollideFloor = 1
         visibilityType = 3
         animType = 2
@@ -34,29 +34,29 @@ fx[1] =
         {
         [0]
         {
-            fx = "fx/flame.kfx"
+            fx = "fx/generic_108.kfx"
             sound = "sounds/shaders/bullet_impact_3.ksnd"
         }
         [2]
         {
-            fx = "fx/flame.kfx"
+            fx = "fx/generic_108.kfx"
             sound = "sounds/shaders/bullet_impact_5.ksnd"
             damageClass = "S_Damage_Target_damage_20"
         }
         [3]
         {
-            fx = "fx/flame.kfx"
+            fx = "fx/generic_108.kfx"
             sound = "sounds/shaders/bullet_impact_1.ksnd"
         }
         [4]
         {
-			fx = "fx/flame.kfx"
+	    fx = "fx/generic_108.kfx"
             sound = "sounds/shaders/bullet_impact_13.ksnd"
             damageClass = "S_Damage_Target_damage_15"
         }
         [5]
         {
-			fx = "fx/flame.kfx"
+	    fx = "fx/generic_108.kfx"
             sound = "sounds/shaders/bullet_impact_14.ksnd"
             damageClass = "S_Damage_Target_damage_15"
         }
@@ -77,13 +77,12 @@ fx[1] =
         }
         [9]
         {
-            fx = "fx/flame.kfx"
+            fx = "fx/generic_108.kfx"
             sound = "sounds/shaders/generic_219.ksnd"
         }
         }
         onWaterImpact
         {
-			fx = "fx/water_steam.kfx"
             sound = "sounds/shaders/water_splash_4.ksnd"
         }
     }

@@ -718,6 +718,7 @@ final class TurokShotgun : TurokWeapon
 		GameVariables.GetInt("multiPump", multiPump);
 		GameVariables.GetInt("pump", pump);
 		GameVariables.GetInt("epump", epump);
+		GameVariables.GetBool("bAutoPump", bAutoPump);
 		
 		if(bLastPump)
 			multiPump = 4;

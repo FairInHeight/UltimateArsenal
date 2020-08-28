@@ -1,0 +1,30 @@
+fx[1] =
+{
+    {
+        bDepthBuffer = 1
+        bScaleLerp = 1
+        translationRandomGlobal = 1.000000
+        translation = { 0.000000 1.000000 0.000000 }
+        gravity = 23.000000
+        scale = 1.000000
+        scaleRandom = 0.050000
+        scaleDest = 0.150000
+        forwardSpeed = -15.312500
+        forwardSpeedRandom = 30.625000
+        rotationOffsetRandom = 6.281250
+        shader = "progs/worldcolorfx"
+        sprite = "sprites/fx004"
+        instances = 1
+        lifeTime = 8
+        restart = 0
+        animSpeed = 30
+        whiteColor = { 0.905882 0.835294 0.552941 }
+        blackColor = { 0.647059 0.419608 0.047059 }
+        hueRandom = 0.000000
+        saturationRandom = 0.000000
+        brightnessRandom = 0.000000
+        fadeOutTime = 4
+        animType = 1
+        priority = 75
+    }
+}

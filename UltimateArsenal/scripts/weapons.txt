@@ -990,14 +990,17 @@ final class TurokRifle : TurokWeapon
 		else
 		{
 			self.PlaySound("sounds/shaders/ready_pistol.ksnd");
-			bSemiAuto = !bSemiAuto;
 			self.AnimState().Set(5000, 4.0f, ANF_NOINTERRUPT); //Make a new anim
 			if(bSemiAuto)
+			{
 				Game.PrintLine("Semi-Auto Enabled", 0);
 				GameVariables.SetValue("bSemiAuto", "1");
+			}
 			else
+			{
 				Game.PrintLine("Burst Enabled", 0);
 				GameVariables.SetValue("bSemiAuto", "0");
+			}
 		}
     }
 

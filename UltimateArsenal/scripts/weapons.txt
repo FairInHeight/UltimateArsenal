@@ -631,8 +631,6 @@ final class TurokShotgun : TurokWeapon
 
     void OnBeginFire(void)
     {
-		GameVariables.GetBool("bAutoPump", bAutoPump);
-
         if(multiPump > 0)
 		{
 			bFiredExpslosiveShells = Player.HasAltAmmo();
@@ -716,6 +714,8 @@ final class TurokShotgun : TurokWeapon
 	void OnTick(void)
 	{
 		TurokWeapon::OnTick();
+		
+		GameVariables.GetBool("bAutoPump", bAutoPump);
 		
 		if(bLastPump)
 			multiPump = 4;

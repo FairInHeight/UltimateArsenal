@@ -556,19 +556,34 @@ final class TurokShotgun : TurokWeapon
     bool bFiredExpslosiveShells;
     bool bAutoPump;
     bool bLastPump;
+<<<<<<< Updated upstream
     bool bIsPumping;
+=======
+	bool bIsPumping;
+	bool bPlayPumpSound;
+>>>>>>> Stashed changes
     int multiPump;
     int pump;
     int epump;
 
     TurokShotgun(kWeapon @actor)
     {
+<<<<<<< Updated upstream
    	 bShotgunReload = false;
    	 bEjectShotgunShell = false;
    	 bFiredExpslosiveShells = false;
    	 bAutoPump = true;
  	 bLastPump = false;
  	 bIsPumping = false;
+=======
+    bShotgunReload = false;
+    bEjectShotgunShell = false;
+    bFiredExpslosiveShells = false;
+	bAutoPump = true;
+	bLastPump = false;
+	bIsPumping = false;
+	bPlayPumpSound = true;
+>>>>>>> Stashed changes
 
   	 epump = 0;
    	 pump = 0;
@@ -610,9 +625,10 @@ final class TurokShotgun : TurokWeapon
 			GameVariables.SetValue("multiPump", ""+(multiPump+1));
 
 			multiPump++;
-			self.AnimState().Set(anim_weaponFire, 4.0f, ANF_NOINTERRUPT);
+			self.AnimState().Set(5000, 4.0f, ANF_NOINTERRUPT);
 			bIsPumping = true;
 			bShotgunReload = true;
+			bPlayPumpSound = true;
 			
 			if(multiPump == 0)
 			{
@@ -631,6 +647,11 @@ final class TurokShotgun : TurokWeapon
 
     void OnBeginFire(void)
     {
+<<<<<<< Updated upstream
+=======
+		GameVariables.GetBool("bAutoPump", bAutoPump);
+		
+>>>>>>> Stashed changes
         if(multiPump > 0)
 		{
 			bFiredExpslosiveShells = Player.HasAltAmmo();
@@ -649,11 +670,21 @@ final class TurokShotgun : TurokWeapon
 
 			if(bAutoPump)
 				bShotgunReload = true;
+				bPlayPumpSound = true;
 			
-			self.PlaySound("sounds/shaders/riot_shotgun_shot.ksnd");
+			self.PlaySound("sounds/shaders/riot_shotgun_shot.ksnd"); //add new sound.
 			self.RunFxEvent("GunFire");
-			self.AnimState().Set( anim_weaponFire, 4.0f, 0 );
-
+			
+			switch(multiPump)
+			{
+				case 0: self.AnimState().Set( anim_weaponFire, 4.0f, 0 ); bShotgunReload = true; break; // This should never happen because OnRaise() sets it to 1, but whatever.
+				case 1: self.AnimState().Set( anim_weaponFire, 4.0f, 0 ); bShotgunReload = true; break;
+				case 2: self.AnimState().Set( 5001, 4.0f, 0 ); bShotgunReload = true; break;
+				case 3: self.AnimState().Set( 5002, 4.0f, 0 ); bShotgunReload = true; break;
+				case 4: self.AnimState().Set( 5002, 4.0f, 0 ); bShotgunReload = true; break;
+				default: self.AnimState().Set( anim_weaponFire, 4.0f, 0 ); bShotgunReload = true; break;
+				
+			}
 			GameVariables.SetValue("multiPump", "0");
 			GameVariables.SetValue("pump", "0");
 			GameVariables.SetValue("epump", "0");
@@ -712,8 +743,10 @@ final class TurokShotgun : TurokWeapon
     */
 
 	void OnTick(void)
-	{
+	{ //DM23 check if we're doing a quick pump or shooting.   //0.1 and 0.3 for multipump	
 		TurokWeapon::OnTick();
+		int animID = self.AnimState().PlayingID();
+		GameVariables.GetInt("multiPump", multiPump);
 		
 		GameVariables.GetInt("multiPump", multiPump);
 		GameVariables.GetInt("pump", pump);
@@ -721,41 +754,86 @@ final class TurokShotgun : TurokWeapon
 		GameVariables.GetBool("bAutoPump", bAutoPump);
 		
 		if(bLastPump)
-			multiPump = 4;
-
-		if(bShotgunReload && self.AnimState().PlayTime() >= 0.5f)
-        {
-			if(bAutoPump && multiPump == 0)
-			{
-				if(self.Owner().HasAltAmmo())
-				{
-					epump++;
-					GameVariables.SetValue("epump", ""+(epump+1));
-				}
-				else
-				{
-					pump++;
-					GameVariables.SetValue("pump", ""+(pump+1));
-				}
-				
-				GameVariables.SetValue("multiPump", ""+(multiPump+1));
-				multiPump++;
+			multiPump = 4;	
+		
+		if(bShotgunReload)
+    {
+		if(bPlayPumpSound)
+		{
+			switch(animID)
+			{ //if(self.AnimState().TrackTime() >= 0.5f)
+				case 45: if(self.AnimState().TrackTime() >= 0.5f) {self.PlaySound("sounds/shaders/ready_shotgun.ksnd"); bPlayPumpSound = false;} break;
+				case 5000: if(self.AnimState().TrackTime() >= 0.2f) {self.PlaySound("sounds/shaders/ready_shotgun.ksnd"); bPlayPumpSound = false;} break;
+				case 5001: if(self.AnimState().TrackTime() >= 0.5f) {self.PlaySound("sounds/shaders/ready_shotgun.ksnd"); bPlayPumpSound = false;} break;
+				default: break;
 			}
+		}
 			
-            self.PlaySound("sounds/shaders/ready_shotgun.ksnd");
-			bEjectShotgunShell = true;
-            bShotgunReload = false;
-			
-			if(self.AnimState().PlayTime() >= 0.4)
+			if(animID != 5002 && self.AnimState().PlayTime() >= 0.5f)
 			{
-				bIsPumping = false;
-			}
+					if(bAutoPump && multiPump == 0)
+					{
+						if(self.Owner().HasAltAmmo())
+						{
+							epump++;
+							GameVariables.SetValue("epump", ""+(epump+1));
+						}
+						else
+						{
+							pump++;
+							GameVariables.SetValue("pump", ""+(pump+1));
+						}
+						
+						GameVariables.SetValue("multiPump", ""+(multiPump+1));
+						multiPump++;
+					}
+					bEjectShotgunShell = true;
+					bShotgunReload = false;
+					
+					if(self.AnimState().PlayTime() >= 0.4) // Adjust this later for quick pump
+					{
+						bIsPumping = false;
+					}
 
-			if ( Player.GetAmmo(TW_WEAPON_SHOTGUN) + Player.GetAltAmmo(TW_WEAPON_SHOTGUN) > 1 )
-				UseAmmo(1);
-			else
-				bLastPump = true;
-        }
+					if ( Player.GetAmmo(TW_WEAPON_SHOTGUN) + Player.GetAltAmmo(TW_WEAPON_SHOTGUN) > 1 )
+						UseAmmo(1);
+					else
+						bLastPump = true;
+			}
+			else if (animID == 5002 && self.AnimState().PlayTime() >= 0.7f)
+			{
+					if(bAutoPump && multiPump == 0)
+					{
+						if(self.Owner().HasAltAmmo())
+						{
+							epump++;
+							GameVariables.SetValue("epump", ""+(epump+1));
+						}
+						else
+						{
+							pump++;
+							GameVariables.SetValue("pump", ""+(pump+1));
+						}
+						
+						GameVariables.SetValue("multiPump", ""+(multiPump+1));
+						multiPump++;
+					}
+					bEjectShotgunShell = true;
+					bShotgunReload = false;
+					
+					if(self.AnimState().PlayTime() >= 0.6) // Adjust this later for quick pump
+					{
+						self.PlaySound("sounds/shaders/ready_shotgun.ksnd"); bPlayPumpSound = false;					
+						bIsPumping = false;
+					}
+
+					if ( Player.GetAmmo(TW_WEAPON_SHOTGUN) + Player.GetAltAmmo(TW_WEAPON_SHOTGUN) > 1 )
+						UseAmmo(1);
+					else
+						bLastPump = true;
+			}
+		}
+		
 	}
 	
 	/*
@@ -769,7 +847,7 @@ final class TurokShotgun : TurokWeapon
 	
 		if(multiPump == 0)
 		{
-			self.AnimState().Set(anim_weaponFire, 4.0f, ANF_NOINTERRUPT);
+			self.AnimState().Set(5000, 4.0f, ANF_NOINTERRUPT);
 			bIsPumping = true;
 			bShotgunReload = true;
 		}
@@ -907,6 +985,7 @@ TurokRifle
 final class TurokRifle : TurokWeapon
 {
     int rifleShotsFired;
+	bool bisFiring = false;
     bool bSemiAuto = false;
 
     AmmoType@ AltAmmoType()
@@ -917,17 +996,25 @@ final class TurokRifle : TurokWeapon
     TurokRifle(kWeapon @actor)
     {
         rifleShotsFired = 0;
+		bisFiring = false;
         super(actor);
+
     }
 
-    void OnSpAtk()
+   void OnSpAtk()
     {
-	self.PlaySound("sounds/shaders/ready_pistol.ksnd");
-	bSemiAuto = !bSemiAuto;
-	if(bSemiAuto)
-		Game.PrintLine("Semi-Auto Enabled", 0);
-	else
-		Game.PrintLine("Burst Enabled", 0);
+		if(bisFiring)
+			{return;}
+		else
+		{
+			self.PlaySound("sounds/shaders/ready_pistol.ksnd");
+			bSemiAuto = !bSemiAuto;
+			self.AnimState().Set(5000, 4.0f, ANF_NOINTERRUPT); //Make a new anim
+			if(bSemiAuto)
+				Game.PrintLine("Semi-Auto Enabled", 0);
+			else
+				Game.PrintLine("Burst Enabled", 0);
+		}
     }
 
     /*
@@ -938,7 +1025,7 @@ final class TurokRifle : TurokWeapon
 
     void OnBeginFire(void) // DM23 We have to use OnBeginFire for semi shot, and OnFire for burst fire. 5005 is anim_weaponAltFire ID for animation
     {
-
+		bisFiring = true;
 		if(bSemiAuto)
 			{
 				self.AnimState().Set(5005, 4.0f, 0);
@@ -964,7 +1051,7 @@ final class TurokRifle : TurokWeapon
 
     void OnFire(void)
     {
-		if(bSemiAuto)
+		if(bSemiAuto || self.AnimState().PlayingID() != anim_weaponFire)
 		{return;}
 		else
 		{
@@ -1017,11 +1104,21 @@ final class TurokRifle : TurokWeapon
 			}
 		}
 	}
+<<<<<<< Updated upstream
 	void OnTick(void)
 	{
 	GameVariables.GetBool("bSemiAuto", bSemiAuto);
 	}
 	
+=======
+	
+	void OnTick(void)
+	{
+		TurokWeapon::OnTick();
+		bisFiring = false;
+		GameVariables.GetBool("bSemiAuto", bSemiAuto);
+	}
+>>>>>>> Stashed changes
 }
 
 //-----------------------------------------------------------------------------

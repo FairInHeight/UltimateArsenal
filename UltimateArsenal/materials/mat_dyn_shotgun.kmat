@@ -1,0 +1,65 @@
+material surf_669_0000A {
+	shader "progs/world"
+	sort default
+	cull back
+	depthtest
+	color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+	sampler "diffuse" 0 "textures/tex0327_00.png" {
+		filter		linear
+		wrap		repeat
+	}
+}
+
+material surf_669_0100A {
+	shader "progs/worldSphereMap"
+	sort default
+	cull back
+	depthtest
+	color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+	sampler "diffuse" 0 "textures/tex1013_00.png" {
+		filter		linear
+		wrap		repeat
+	}
+}
+
+material surf_669_0200A {
+	shader "progs/worldSphereMap"
+	sort default
+	cull back
+	depthtest
+	color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+	sampler "diffuse" 0 "textures/tex1013_00.png" {
+		filter		linear
+		wrap		repeat
+	}
+}
+
+material surf_669_0001A {
+	shader "progs/world"
+	sort default
+	cull back
+	depthtest
+	color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+	sampler "diffuse" 0 "textures/tex0722_00.png" {
+		filter		linear
+		wrap		repeat
+	}
+}
+
+material surf_669_0002A {
+	shader "progs/world"
+	sort default
+	cull back
+	depthtest
+	color_diffuse "1.000000 1.000000 1.000000 1.000000"
+
+	sampler "diffuse" 0 "textures/tex0111_00.png" {
+		filter		linear
+		wrap		repeat
+	}
+}
+

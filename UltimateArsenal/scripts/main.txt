@@ -191,6 +191,7 @@ void InitCustomStateVars(VARFUNC @setFunc)
 	setFunc("pump", "0");
 	setFunc("epump", "0");
 	setFunc("bAutoPump", "1");
+	setFunc("bSemiAuto", "0");
 	
 // Smoke39's custom functions for ammo toggle.
     setFunc("bHasBackpack", "0");

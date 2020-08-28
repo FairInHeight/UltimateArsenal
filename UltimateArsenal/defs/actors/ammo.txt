@@ -285,7 +285,7 @@ Ammo_IncendiaryRounds_Pickup 459
     height                      71.68
     center                      30.72
     stepHeight                  25.72
-    initialModel		"models/incendiary01.bin"
+    initialModel				"models/ammo_incendiary01.bin"
 //pickup.ammo.amount		  4
 //pickup.ammo.definition	  "Ammo_Incendiary"
 //pickup.pickupSound		  "sounds/shaders/generic_1_bullet_pickup.ksnd"
@@ -311,7 +311,7 @@ Ammo_Harpoons_Pickup 463
     height                      71.68
     center                      30.72
     stepHeight                  25.72
-    initialModel		"models/ammo_harpoon_small01.bin"
+    initialModel				"models/ammo_harpoon_small01.bin"
 //    pickup.ammo.amount	  1
 //    pickup.ammo.definition	  "Ammo_Harpoon"
 //    pickup.pickupSound	  "sounds/shaders/generic_1_bullet_pickup.ksnd"
@@ -324,7 +324,7 @@ Ammo_HarpoonBundle_Pickup 464
     height                      71.68
     center                      30.72
     stepHeight                  25.72
-    initialModel	  	  "models/ammo_harpoon_big01.bin"
+    initialModel	  	  		"models/ammo_harpoon_big01.bin"
 //    pickup.ammo.amount	  4
 //    pickup.ammo.definition	  "Ammo_Harpoon"
 //    pickup.pickupSound	  "sounds/shaders/generic_1_bullet_pickup.ksnd"

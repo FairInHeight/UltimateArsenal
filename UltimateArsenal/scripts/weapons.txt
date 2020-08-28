@@ -1018,7 +1018,7 @@ final class TurokRifle : TurokWeapon
 	}
 	void OnTick(void)
 	{
-	GameVariables.GetBool("SemiAuto", bSemiAuto);
+	GameVariables.GetBool("bSemiAuto", bSemiAuto);
 	}
 	
 }

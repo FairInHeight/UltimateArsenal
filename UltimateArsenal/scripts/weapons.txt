@@ -223,14 +223,21 @@ final class TurokKnife : TurokWeapon
     {
         super(actor);
     }
+    
+    bool bHasBoom = false;
 
     void OnSpAtk()
     {
-		// can't throw boomerangs underwater
+    
+    		// Only use boomerang if we have the upgrade - FIH
+		if (!bHasBoom)
+			return;
+		
+		// can't throw boomerangs underwater - smoke39
 		if ( self.Owner().Actor().InWater() )
 			return;
 
-		// only throw boomerangs when not already attacking/swapping weapons
+		// only throw boomerangs when not already attacking/swapping weapons - smoke39
 		switch ( self.AnimState().PlayingID() )
 		{
 			case anim_weaponIdle:
@@ -494,11 +501,11 @@ final class TurokPistol : TurokWeapon
         return IncendiaryRounds;
     }
 
-	bool bIncendiary;
+    bool bIncendiary;
 
     TurokPistol(kWeapon @actor)
     {
-		bIncendiary = false;
+	bIncendiary = false;
 
         super(actor);
     }

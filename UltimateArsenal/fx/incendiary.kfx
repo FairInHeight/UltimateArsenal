@@ -34,29 +34,29 @@ fx[1] =
         {
         [0]
         {
-            fx = "fx/generic_108.kfx"
+            fx = "fx/flame.kfx"
             sound = "sounds/shaders/bullet_impact_3.ksnd"
         }
         [2]
         {
-            fx = "fx/generic_108.kfx"
+            fx = "fx/flame.kfx"
             sound = "sounds/shaders/bullet_impact_5.ksnd"
             damageClass = "S_Damage_Target_damage_20"
         }
         [3]
         {
-            fx = "fx/generic_108.kfx"
+            fx = "fx/flame.kfx"
             sound = "sounds/shaders/bullet_impact_1.ksnd"
         }
         [4]
         {
-	    fx = "fx/generic_108.kfx"
+	    fx = "fx/flame.kfx"
             sound = "sounds/shaders/bullet_impact_13.ksnd"
             damageClass = "S_Damage_Target_damage_15"
         }
         [5]
         {
-	    fx = "fx/generic_108.kfx"
+	    fx = "fx/flame.kfx"
             sound = "sounds/shaders/bullet_impact_14.ksnd"
             damageClass = "S_Damage_Target_damage_15"
         }
@@ -77,7 +77,7 @@ fx[1] =
         }
         [9]
         {
-            fx = "fx/generic_108.kfx"
+            fx = "fx/flame.kfx"
             sound = "sounds/shaders/generic_219.ksnd"
         }
         }

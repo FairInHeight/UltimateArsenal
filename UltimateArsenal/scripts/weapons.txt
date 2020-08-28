@@ -556,25 +556,25 @@ final class TurokShotgun : TurokWeapon
     bool bFiredExpslosiveShells;
     bool bAutoPump;
     bool bLastPump;
-	bool bIsPumping;
+    bool bIsPumping;
     int multiPump;
     int pump;
     int epump;
 
     TurokShotgun(kWeapon @actor)
     {
-    bShotgunReload = false;
-    bEjectShotgunShell = false;
-    bFiredExpslosiveShells = false;
-	bAutoPump = true;
-	bLastPump = false;
-	bIsPumping = false;
+   	 bShotgunReload = false;
+   	 bEjectShotgunShell = false;
+   	 bFiredExpslosiveShells = false;
+   	 bAutoPump = true;
+ 	 bLastPump = false;
+ 	 bIsPumping = false;
 
-	epump = 0;
-	pump = 0;
-	multiPump = 0;
+  	 epump = 0;
+   	 pump = 0;
+    	 multiPump = 0;
 
-        super(actor);
+    	super(actor);
     }
 
     AmmoType@ AltAmmoType()
@@ -715,7 +715,9 @@ final class TurokShotgun : TurokWeapon
 	{
 		TurokWeapon::OnTick();
 		
-		GameVariables.GetBool("bAutoPump", bAutoPump);
+		GameVariables.GetInt("multiPump", multiPump);
+		GameVariables.GetInt("pump", pump);
+		GameVariables.GetInt("epump", epump);
 		
 		if(bLastPump)
 			multiPump = 4;
@@ -763,9 +765,6 @@ final class TurokShotgun : TurokWeapon
 	
 	void OnRaise(void)
 	{
-		GameVariables.GetInt("multiPump", multiPump);
-		GameVariables.GetInt("pump", pump);
-		GameVariables.GetInt("epump", epump);
 	
 		if(multiPump == 0)
 		{
@@ -1017,6 +1016,11 @@ final class TurokRifle : TurokWeapon
 			}
 		}
 	}
+	void OnTick(void)
+	{
+	GameVariables.GetInt("SemiAuto", bSemiAuto);
+	}
+	
 }
 
 //-----------------------------------------------------------------------------

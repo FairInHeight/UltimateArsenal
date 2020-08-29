@@ -156,28 +156,28 @@ Wpn_FusionCannon  419
 
 Wpn_Flamethrower  460		
 {
-    classname			"kexWeaponPickup"
-    radius              	71.68
+    classname					"kexWeaponPickup"
+    radius              		71.68
     height                      71.68
     center                      30.72
     stepHeight                  25.72
-    initialModel		"models/weapon_flamethrower.bin"
-    pickup.pickupMessage	"$str_188"
-    pickup.pickupSound		"sounds/shaders/generic_3_energy_pickup.ksnd"
+    initialModel				"models/weapon_flamethrower.bin"
+    pickup.pickupMessage		"$str_188"
+    pickup.pickupSound			"sounds/shaders/generic_3_energy_pickup.ksnd"
     pickup.weapon.definition	"Wpn_Flamethrower"
-    pickup.weapon.giveAmmo	100
+    pickup.weapon.giveAmmo		100
 }
 
 Wpn_FlechetteGun  461	
 {
-    classname			"kexWeaponPickup"
+    classname					"kexWeaponPickup"
     radius                      71.68
     height                      71.68
     center                      30.72
-    stepHeight                  25.72
-    initialModel		"models/weapon_flechettegun.bin"
-    pickup.pickupMessage	"$str_189"
-    pickup.pickupSound		"sounds/shaders/generic_1_bullet_pickup.ksnd"
-    pickup.weapon.definition	"Wpn_FlchetteGun"
-    pickup.weapon.giveAmmo	30
+    stepHeight          		25.72
+    initialModel				"models/weapon_flechettegun.bin"
+    pickup.pickupMessage		"$str_189"
+    pickup.pickupSound			"sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.weapon.definition	"Wpn_FlechetteGun"
+    pickup.weapon.giveAmmo		30
 }

@@ -286,10 +286,10 @@ Ammo_IncendiaryRounds_Pickup 459
     center                      30.72
     stepHeight                  25.72
     initialModel				"models/ammo_incendiary01.bin"
-//pickup.ammo.amount		  4
-//pickup.ammo.definition	  "Ammo_Incendiary"
-//pickup.pickupSound		  "sounds/shaders/generic_1_bullet_pickup.ksnd"
-//pickup.pickupMessage		  "$str_197"
+	pickup.ammo.amount		  4
+	pickup.ammo.definition	  "Ammo_IncendiaryRound"
+	pickup.pickupSound		  "sounds/shaders/generic_1_bullet_pickup.ksnd"
+	pickup.pickupMessage		  "$str_197"
 }
 Ammo_Flechettes_Pickup 462
 {
@@ -312,10 +312,10 @@ Ammo_Harpoons_Pickup 463
     center                      30.72
     stepHeight                  25.72
     initialModel				"models/ammo_harpoon_small01.bin"
-//    pickup.ammo.amount	  1
-//    pickup.ammo.definition	  "Ammo_Harpoon"
-//    pickup.pickupSound	  "sounds/shaders/generic_1_bullet_pickup.ksnd"
-//    pickup.pickupMessage	  "$str_195"
+    pickup.ammo.amount	  1
+    pickup.ammo.definition	  "Ammo_Harpoon"
+    pickup.pickupSound	  "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage	  "$str_195"
 }
 Ammo_HarpoonBundle_Pickup 464
 {
@@ -325,8 +325,8 @@ Ammo_HarpoonBundle_Pickup 464
     center                      30.72
     stepHeight                  25.72
     initialModel	  	  		"models/ammo_harpoon_big01.bin"
-//    pickup.ammo.amount	  4
-//    pickup.ammo.definition	  "Ammo_Harpoon"
-//    pickup.pickupSound	  "sounds/shaders/generic_1_bullet_pickup.ksnd"
-//    pickup.pickupMessage	  "$str_196"
+    pickup.ammo.amount	  4
+    pickup.ammo.definition	  "Ammo_Harpoon"
+    pickup.pickupSound	  "sounds/shaders/generic_1_bullet_pickup.ksnd"
+    pickup.pickupMessage	  "$str_196"
 }
